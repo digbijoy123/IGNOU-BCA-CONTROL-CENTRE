@@ -96,6 +96,26 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 @media(max-width:900px){.academic-summary{grid-template-columns:1fr 1fr}.roadmap{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.academic-summary{grid-template-columns:1fr}.roadmap{grid-template-columns:1fr 1fr}}
 
+
+/* PHASE 2B — CROSS-SYSTEM COURSE CONTROL */
+.cross-control{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cross-card{border:3px solid #111;background:#fff;padding:13px;min-width:0}
+.cross-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.cross-code{font-size:20px;font-weight:1000}
+.cross-stage{border:2px solid #111;padding:4px 7px;font-size:10px;font-weight:1000;white-space:nowrap}
+.cross-list{margin-top:10px}
+.cross-line{display:flex;justify-content:space-between;gap:10px;border-top:2px solid #111;padding:8px 0;font-weight:900}
+.cross-line small{font-weight:700;color:#555}
+.cross-ok{background:var(--green)}
+.cross-warn{background:var(--yellow)}
+.cross-missing{background:var(--red)}
+.consistency-box{border:3px solid #111;padding:13px;background:#fff;margin-top:14px}
+.consistency-box.good{background:var(--green)}
+.consistency-box.warn{background:#fffbe6}
+.cross-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.cross-actions button{border:3px solid #111;background:var(--yellow);padding:9px 12px;font-weight:1000;cursor:pointer}
+@media(max-width:800px){.cross-control{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -106,7 +126,7 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <h1>IGNOU BCA<br>FULL CONTROL CENTRE</h1>
 <p>BCA_NEW · July 2026 · RC Guwahati · LSC 0400</p>
 <nav class="nav">
-<a href="#official-monitor">📡 SOURCE MONITOR</a><a href="#notifications">🔔 NOTIFICATIONS</a><a href="#action-centre">⚡ ACTION CENTRE</a><a href="#details">MY DETAILS</a><a href="#academic">ACADEMIC</a><a href="#semester">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">SOURCES</a>
+<a href="#official-monitor">📡 SOURCE MONITOR</a><a href="#notifications">🔔 NOTIFICATIONS</a><a href="#action-centre">⚡ ACTION CENTRE</a><a href="#details">MY DETAILS</a><a href="#academic">ACADEMIC</a><a href="#course-control">COURSE CONTROL</a><a href="#semester">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">SOURCES</a>
 
 </nav>
 </div>
@@ -277,6 +297,21 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
     Result Pending → exam attempted but result has not been entered.<br>
     Completed → you have verified the result and marked the course complete.<br>
     Re-attempt → use only after an official result indicates another attempt is required.
+  </div>
+</section>
+
+
+<div class="section-title" id="course-control">🔗 COURSE CONTROL — EVERYTHING CONNECTED</div>
+<section class="panel">
+  <div class="note info">
+    <b>ONE RECORD PER COURSE:</b> Assignment, TEE, practical/result and academic status are now displayed together.
+    This section reads your existing locally saved tracker data; it does not create a second copy of your progress.
+  </div>
+  <div class="cross-control" id="crossControl"></div>
+  <div id="consistencyBox" class="consistency-box"></div>
+  <div class="cross-actions">
+    <button onclick="renderCrossControl()">↻ REFRESH CONTROL</button>
+    <button onclick="runConsistencyCheck()">✓ RUN CONSISTENCY CHECK</button>
   </div>
 </section>
 
@@ -704,8 +739,94 @@ function saveAcademic(){
   alert("Semester 1 academic record saved locally.");
 }
 
+
+/* PHASE 2B — CROSS-SYSTEM COURSE CONTROL */
+function assignmentStage(code){
+  const vals=["downloaded","started","completed","submitted"].map(x=>state(code+"_"+x).checked);
+  if(vals[3])return "SUBMITTED";
+  if(vals[2])return "COMPLETED";
+  if(vals[1])return "STARTED";
+  if(vals[0])return "DOWNLOADED";
+  return "NOT STARTED";
+}
+function teeStage(){
+  return state("check_tee_form").checked ? "FORM CHECKED" : "NOT CHECKED";
+}
+function practicalStage(code){
+  if(code!=="BCSL13")return "N/A";
+  return state("check_practical").checked ? "RC CHECKED" : "NOT CHECKED";
+}
+function crossStage(code){
+  const a=assignmentStage(code);
+  const r=academicRecord(code);
+  if(r.status==="COMPLETED" && r.result==="PASS / COMPLETED")return "COMPLETED";
+  if(r.result==="RE-ATTEMPT REQUIRED" || r.status==="RE-ATTEMPT")return "RE-ATTEMPT";
+  if(r.result==="RESULT PENDING" || r.status==="RESULT PENDING")return "RESULT PENDING";
+  if(code==="BCSL13" && practicalStage(code)==="RC CHECKED" && a==="SUBMITTED")return "PRACTICAL WATCH";
+  if(a==="SUBMITTED")return "ASSIGNMENT SUBMITTED";
+  if(a==="COMPLETED")return "ASSIGNMENT COMPLETED";
+  if(a==="STARTED")return "IN PROGRESS";
+  if(a==="DOWNLOADED")return "ASSIGNMENT DOWNLOADED";
+  return "NOT STARTED";
+}
+function stageClass(stage){
+  if(stage==="COMPLETED")return "cross-ok";
+  if(stage==="RE-ATTEMPT"||stage==="RESULT PENDING")return "cross-missing";
+  if(stage==="ASSIGNMENT SUBMITTED"||stage==="PRACTICAL WATCH"||stage==="ASSIGNMENT COMPLETED")return "cross-warn";
+  return "";
+}
+function renderCrossControl(){
+  const el=document.getElementById("crossControl");
+  if(!el)return;
+  el.innerHTML=academicCourses.map(([code,name,credits])=>{
+    const a=assignmentStage(code), r=academicRecord(code), t=teeStage(), p=practicalStage(code);
+    const stage=crossStage(code);
+    const submitted=state(code+"_submitted").checked;
+    const proof=state(code+"_proof").checked;
+    const resultRecorded=r.result!=="NOT RECORDED";
+    return `<div class="cross-card">
+      <div class="cross-head">
+        <div><div class="cross-code">${esc(code)}</div><div class="muted">${esc(name)} · ${credits} credits</div></div>
+        <span class="cross-stage ${stageClass(stage)}">${esc(stage)}</span>
+      </div>
+      <div class="cross-list">
+        <div class="cross-line"><span>Assignment</span><span>${esc(a)}</span></div>
+        <div class="cross-line"><span>Submission proof</span><span>${proof?"✓ SAVED":"— NOT SAVED"}</span></div>
+        <div class="cross-line"><span>TEE form check</span><span>${esc(t)}</span></div>
+        <div class="cross-line"><span>Practical / RC check</span><span>${esc(p)}</span></div>
+        <div class="cross-line"><span>Academic result</span><span>${esc(r.result)}</span></div>
+        <div class="cross-line"><span>Grade / mark</span><span>${esc(r.grade||"NOT RECORDED")}</span></div>
+      </div>
+    </div>`;
+  }).join("");
+  runConsistencyCheck();
+}
+function runConsistencyCheck(){
+  const box=document.getElementById("consistencyBox");
+  if(!box)return;
+  const issues=[];
+  academicCourses.forEach(([code,name])=>{
+    const r=academicRecord(code), a=assignmentStage(code);
+    if(r.status==="COMPLETED" && r.result==="PASS / COMPLETED"){
+      if(a!=="SUBMITTED")issues.push(`${code}: academic status is COMPLETED but assignment is not marked SUBMITTED.`);
+      if(r.grade.trim()==="")issues.push(`${code}: completed result has no personal grade/mark recorded.`);
+    }
+    if(r.result==="PASS / COMPLETED" && r.status!=="COMPLETED"){
+      issues.push(`${code}: result says PASS / COMPLETED but academic status is not COMPLETED.`);
+    }
+  });
+  if(issues.length){
+    box.className="consistency-box warn";
+    box.innerHTML="<b>⚠ RECORD CONSISTENCY CHECK</b><br><br>"+issues.map(x=>"• "+esc(x)).join("<br>");
+  }else{
+    box.className="consistency-box good";
+    box.innerHTML="<b>🟢 RECORDS CONSISTENT</b><br>No conflicting course status was found in your locally saved records.";
+  }
+}
+
 function init(){
   renderAcademic();
+  renderCrossControl();
   updateToday();
   const ld=document.getElementById("logDate"); if(ld)ld.value=todayKey();
   renderMonitor();
