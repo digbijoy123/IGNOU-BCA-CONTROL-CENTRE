@@ -35,6 +35,9 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 @media(max-width:1000px){#courseGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){#courseGrid{grid-template-columns:1fr}.semester-table{font-size:13px}.semester-table th,.semester-table td{padding:7px}.pdf-btn{padding:6px 8px}}
 
+
+/* CONTROL CENTRE V2 */
+.action-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}.action-card{border:3px solid #111;padding:13px;background:#fff;min-width:0}.action-card h3{margin:0 0 7px;font-size:16px}.action-card .action-big{font-size:24px;font-weight:1000}.notice-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.notice-filter{border:2px solid #111;background:#fff;padding:7px 10px;font-weight:1000;cursor:pointer}.notice-filter.active{background:var(--yellow);box-shadow:3px 3px #111}.notice-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}.quick-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.quick-row a{border:2px solid #111;background:#fff;padding:10px;text-decoration:none;color:#111;font-weight:1000}.quick-row a:hover{background:var(--yellow)}@media(max-width:900px){.action-grid{grid-template-columns:1fr 1fr}.quick-row{grid-template-columns:1fr 1fr}}@media(max-width:600px){.action-grid,.quick-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -45,8 +48,8 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <h1>IGNOU BCA<br>FULL CONTROL CENTRE</h1>
 <p>BCA_NEW · July 2026 · RC Guwahati · LSC 0400</p>
 <nav class="nav">
-<a href="#notifications">🔔 NOTIFICATIONS</a><a href="#details">MY DETAILS</a><a href="#semester">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">SOURCES</a>
-<button onclick="logout()">CLOUD LOG OUT</button>
+<a href="#notifications">🔔 NOTIFICATIONS</a><a href="#action-centre">⚡ ACTION CENTRE</a><a href="#details">MY DETAILS</a><a href="#semester">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">SOURCES</a>
+
 </nav>
 </div>
 </div>
@@ -56,8 +59,10 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <section id="notifications" class="panel">
 <h2>🔔 DAILY IGNOU NOTIFICATIONS</h2>
 <p class="muted">Relevant BCA_NEW / RC Guwahati control-centre notices are shown here. Verify important information on the original official source.</p>
-<div class="muted">Control-centre notice snapshot. Last checked: <span id="noticeChecked">—</span></div><div id="noticeList"></div>
+<div class="muted">Control-centre notice snapshot. Last checked: <span id="noticeChecked">—</span></div><div class="notice-toolbar"><button class="notice-filter active" data-filter="ALL">ALL</button><button class="notice-filter" data-filter="DEADLINE">DEADLINES</button><button class="notice-filter" data-filter="INFO">INFO</button><button class="btn" onclick="openOfficialChecks()">↻ CHECK OFFICIAL SOURCES</button></div><div class="notice-meta"><span class="muted">Official pages open in new tabs for live verification.</span><span class="muted">Snapshot verified 25 Sep 2026</span></div><div id="noticeList"></div>
 </section>
+
+<section class="panel" id="action-centre"><div class="section-title">⚡ PERSONAL ACTION CENTRE</div><div class="action-grid"><div class="action-card warning"><h3>🔴 TEE CHECK</h3><div class="action-big" id="teeDays">—</div><div class="muted">Until 30 September 2026</div><a class="item" target="_blank" href="https://exam.ignou.ac.in/">Check official exam portal ↗</a></div><div class="action-card"><h3>📝 ASSIGNMENTS</h3><div class="action-big" id="assignmentProgress">0/5</div><div class="muted">courses marked submitted</div><a class="item" href="#assignments">Open assignment control ↓</a></div><div class="action-card success"><h3>📚 SEMESTER PROGRESS</h3><div class="action-big" id="semesterProgress">0%</div><div class="muted">20-credit Semester 1 tracker</div><a class="item" href="#semester">Open Semester 1 ↓</a></div></div><div class="note info"><b>NOW:</b> <span id="nextAction">Loading your highest-priority action…</span></div></section><section class="panel"><h2>🚀 ONE-TAP CONTROL LINKS</h2><div class="quick-row"><a target="_blank" href="https://www.ignou.ac.in/announcements/0">IGNOU ANNOUNCEMENTS ↗</a><a target="_blank" href="https://www.ignou.ac.in/schools/programme/BCA_NEW">BCA_NEW ↗</a><a target="_blank" href="https://rcguwahati.ignou.ac.in/">RC GUWAHATI ↗</a><a target="_blank" href="https://www.ignou.ac.in/pages/43">CURRENT ASSIGNMENTS ↗</a></div></section>
 
 <section class="panel">
 <div class="note warning"><b>🚨 WHAT DO I NEED TO DO NOW?</b><br><span id="urgent">Loading your priorities…</span></div>
@@ -90,7 +95,7 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 
 <div class="section-title">🪪 MY ID CARD</div>
 <section class="panel id-card">
-<img src="ignou-student-id-card.png" alt="IGNOU Student ID Card">
+<img src="https://raw.githubusercontent.com/digbijoy123/IGNOU-BCA-CONTROL-CENTRE/main/ignou-student-id-card.png" alt="IGNOU Student ID Card">
 <p class="muted">You requested the ID card to remain visible on the public deployment.</p>
 </section>
 
@@ -151,6 +156,7 @@ function saveState(key,checked,value){
   rows[key]={checked:!!checked,value:value??"",updated_at:new Date().toISOString()};
   localStorage.setItem(STORAGE_KEY,JSON.stringify(rows));
   updateUrgent();
+  updateActionCentre();
   renderCourses();
   bindPersonal();
 }
@@ -263,26 +269,10 @@ const notices=[
   }
 ];
 
-function renderNotifications(){
-  const el=document.getElementById("noticeList");
-  if(!el)return;
-  const read=state("notice_reads").value ? JSON.parse(state("notice_reads").value) : {};
-  el.innerHTML=notices.map((n,i)=>{
-    const isRead=!!read[i];
-    const cls=n.type==="DEADLINE"?"warning":n.type==="IMPORTANT"?"warning":n.type==="NEW"?"info":"success";
-    return `<div class="notification ${isRead?"":"unread"}">
-      <span class="status ${cls}">${n.type}</span>
-      <b>${esc(n.title)}</b>
-      <div class="muted">${esc(n.source)} · ${esc(n.date)}</div>
-      ${n.courses.map(c=>`<span class="notice-course">${esc(c)}</span>`).join("")}
-      <p>${esc(n.text)}</p>
-      <a target="_blank" href="${n.url}">Open official source ↗</a>
-      ${isRead?"<span class='muted'> · Read</span>":`<button class="btn" onclick="markRead(${i})">MARK READ</button>`}
-    </div>`;
-  }).join("");
-  const checked=document.getElementById("noticeChecked");
-  if(checked)checked.textContent=new Date().toLocaleString("en-IN");
-}
+
+function updateActionCentre(){const submitted=courses.filter(([c])=>state(c+"_submitted").checked).length;const completed=courses.filter(([c])=>state(c+"_completed").checked).length;const pct=Math.round(completed/courses.length*100);const now=new Date(),due=new Date("2026-09-30T23:59:59+05:30");const d=Math.max(0,Math.ceil((due-now)/86400000));const t=document.getElementById("teeDays");if(t)t.textContent=d+" days";const a=document.getElementById("assignmentProgress");if(a)a.textContent=submitted+"/5";const s=document.getElementById("semesterProgress");if(s)s.textContent=pct+"%";const n=document.getElementById("nextAction");if(n)n.textContent=now<=due?"Check your December 2026 TEE status/eligibility on the official exam portal. Do not assume eligibility from the dashboard.":submitted<5?"Continue Semester 1 assignments and keep submission proof.":"All assignments are marked submitted. Keep checking BCA_NEW and RC Guwahati for practical/counselling notices."}
+let noticeFilter="ALL";function openOfficialChecks(){["https://www.ignou.ac.in/announcements/0","https://www.ignou.ac.in/schools/programme/BCA_NEW","https://www.ignou.ac.in/pages/43","https://rcguwahati.ignou.ac.in/","https://exam.ignou.ac.in/"].forEach(u=>window.open(u,"_blank"))}
+function renderNotifications(){const el=document.getElementById("noticeList");if(!el)return;const read=state("notice_reads").value?JSON.parse(state("notice_reads").value):{};const list=notices.filter(n=>noticeFilter==="ALL"||n.type===noticeFilter);el.innerHTML=list.map(n=>{const i=notices.indexOf(n),isRead=!!read[i];const cls=n.type==="DEADLINE"?"warning":n.type==="NEW"?"info":"success";return `<div class="notification ${isRead?"":"unread"}"><div class="notice-meta"><span class="status ${cls}">${n.type}</span><b>${esc(n.title)}</b></div><div class="muted">${esc(n.source)} · ${esc(n.date)}</div>${n.courses.map(c=>`<span class="notice-course">${esc(c)}</span>`).join("")}<p>${esc(n.text)}</p><a target="_blank" href="${n.url}">Open official source ↗</a>${isRead?"<span class='muted'> · Read</span>":`<button class="btn" onclick="markRead(${i})">MARK READ</button>`}</div>`}).join("")||'<div class="note">No notices match this filter.</div>';const checked=document.getElementById("noticeChecked");if(checked)checked.textContent=new Date().toLocaleString("en-IN");document.querySelectorAll(".notice-filter").forEach(b=>b.classList.toggle("active",b.dataset.filter===noticeFilter))}
 
 function markRead(i){
   const read=state("notice_reads").value ? JSON.parse(state("notice_reads").value) : {};
@@ -305,6 +295,7 @@ function init(){
   updateUrgent();
   updateDeadline();
   renderNotifications();
+  updateActionCentre();document.querySelectorAll(".notice-filter").forEach(b=>b.addEventListener("click",()=>{noticeFilter=b.dataset.filter;renderNotifications()}));
 }
 init();
 </script>
