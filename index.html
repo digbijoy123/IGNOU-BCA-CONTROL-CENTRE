@@ -74,6 +74,7 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 .monitor-help{background:#fffbe6;border:2px solid #111;padding:11px;margin-top:10px;font-size:12px;font-weight:800}
 @media(max-width:800px){.source-monitor{grid-template-columns:1fr}.monitor-summary{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.daily-check-list,.log-form,.monitor-summary{grid-template-columns:1fr}.log-form .full{grid-column:auto}}
+.cloud-panel{border:3px solid #111;background:#fff;padding:14px;margin-top:14px}.cloud-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.cloud-grid input{width:100%;padding:9px;border:2px solid #111;font:inherit}.cloud-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.cloud-actions button{border:3px solid #111;background:var(--yellow);padding:9px 12px;font-weight:1000;cursor:pointer}.cloud-status{margin-top:9px;font-size:12px;font-weight:900}.auto-feed{border:3px solid #111;background:#fff;padding:14px;margin-top:14px}.auto-feed-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.auto-badge{border:2px solid #111;padding:4px 7px;background:var(--green);font-size:10px;font-weight:1000;white-space:nowrap}.auto-badge.offline{background:var(--yellow)}.notice-new{background:var(--green)}.notice-updated{background:var(--blue)}@media(max-width:700px){.cloud-grid{grid-template-columns:1fr}}
 
 
 /* PHASE 2A — SEMESTER 1 ACADEMIC CONTROL */
@@ -268,14 +269,28 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <button onclick="document.getElementById('importData').click()">⬆ IMPORT BACKUP</button>
 <input accept=".json" id="importData" onchange="importControlData(event)" style="display:none" type="file"/>
 </div>
+<div class="cloud-panel">
+<h2>☁️ CLOUD SAVE — NO LOGIN</h2>
+<p class="muted">Use one private sync code on your devices. Your dashboard data is encrypted in the browser before upload.</p>
+<div class="cloud-grid">
+<div><b>Sync code</b><input id="syncCode" type="text" autocomplete="off" placeholder="Paste your sync code here"></div>
+<div><b>Firebase database URL</b><input id="syncDbUrl" type="url" autocomplete="off" placeholder="https://your-project-default-rtdb.firebaseio.com"></div>
+</div>
+<div class="cloud-actions">
+<button onclick="generateSyncCode()">⚿ GENERATE NEW CODE</button>
+<button onclick="saveCloudNow()">☁ SAVE TO CLOUD</button>
+<button onclick="loadCloudNow()">↙ LOAD FROM CLOUD</button>
+<button onclick="copySyncCode()">COPY CODE</button>
+</div>
+<div class="cloud-status" id="cloudStatus">Cloud sync is not configured yet.</div>
+</div>
 <div class="monitor-help">
-<b>RULE:</b> A source being marked “checked” only means you personally opened and reviewed it.
-    The dashboard never pretends that a live official page was automatically monitored.
+<b>MANUAL CHECK:</b> The five source cards are your personal verification checklist. The automatic feed below is separate and is updated by the monitor engine.
   </div>
 </section><section class="panel" id="notifications">
 <h2>🔔 DAILY IGNOU NOTIFICATIONS</h2>
 <p class="muted">Relevant BCA_NEW / RC Guwahati control-centre notices are shown here. Verify important information on the original official source.</p>
-<div class="muted">Control-centre notice snapshot. Last checked: <span id="noticeChecked">—</span></div><div class="notice-toolbar"><button class="notice-filter active" data-filter="ALL">ALL</button><button class="notice-filter" data-filter="DEADLINE">DEADLINES</button><button class="notice-filter" data-filter="INFO">INFO</button><button class="btn" onclick="openOfficialChecks()">↻ CHECK OFFICIAL SOURCES</button></div><div class="notice-meta"><span class="muted">Official pages open in new tabs for live verification.</span><span class="muted">Snapshot verified 25 Sep 2026</span></div><div id="noticeList"></div>
+<div class="muted">Automatic notice feed. Last engine update: <span id="noticeChecked">—</span></div><div class="notice-toolbar"><button class="notice-filter active" data-filter="ALL">ALL</button><button class="notice-filter" data-filter="DEADLINE">DEADLINES</button><button class="notice-filter" data-filter="INFO">INFO</button><button class="btn" onclick="openOfficialChecks()">↻ CHECK OFFICIAL SOURCES</button></div><div class="notice-meta"><span class="muted">New/updated items come from the separate GitHub Actions monitor.</span><span id="noticeFeedStatus" class="auto-badge offline">CONNECTING…</span></div><div id="noticeList"></div>
 </section><section class="panel" id="action-centre"><div class="section-title">⚡ PERSONAL ACTION CENTRE</div><div class="action-grid"><div class="action-card warning"><h3>🔴 TEE CHECK</h3><div class="action-big" id="teeDays">—</div><div class="muted">Until 30 September 2026</div><a class="item" href="https://exam.ignou.ac.in/" target="_blank">Check official exam portal ↗</a></div><div class="action-card"><h3>📝 ASSIGNMENTS</h3><div class="action-big" id="assignmentProgress">0/5</div><div class="muted">courses marked submitted</div><a class="item" href="#assignments">Open assignment control ↓</a></div><div class="action-card success"><h3>📚 SEMESTER PROGRESS</h3><div class="action-big" id="semesterProgress">0%</div><div class="muted">20-credit Semester 1 tracker</div><a class="item" href="#semester">Open Semester 1 ↓</a></div></div><div class="note info"><b>NOW:</b> <span id="nextAction">Loading your highest-priority action…</span></div></section><section class="panel">
 <div class="note warning"><b>🚨 WHAT DO I NEED TO DO NOW?</b><br/><span id="urgent">Loading your priorities…</span></div>
 <div class="grid">
@@ -407,6 +422,7 @@ function saveState(key,checked,value){
   updateActionCentre();
   renderCourses();
   bindPersonal();
+  queueCloudSave();
 }
 
 function renderCourses(){
@@ -478,7 +494,7 @@ function updateDeadline(){
   if(deadlineBarEl)deadlineBarEl.style.width=pct+"%";
 }
 
-const notices=[
+let notices=[
   {
     type:"DEADLINE",
     title:"Semester 1 July 2026 assignments",
@@ -518,13 +534,40 @@ const notices=[
 ];
 
 
+/* AUTOMATIC NOTICE ENGINE */
+const MONITOR_FEED_URL="https://raw.githubusercontent.com/digbijoy123/IGNOU-BCA-MONITOR/main/notices.json";
+const FALLBACK_NOTICES=notices.slice();
+let noticeFeedMeta={updatedAt:"",ok:false};
+async function loadAutomaticNotices(){
+  const status=document.getElementById("noticeFeedStatus");
+  try{
+    const r=await fetch(MONITOR_FEED_URL+"?t="+Date.now(),{cache:"no-store"});
+    if(!r.ok)throw new Error("Monitor feed HTTP "+r.status);
+    const data=await r.json();
+    if(!data||!Array.isArray(data.notices))throw new Error("Invalid monitor feed");
+    const incoming=data.notices.map(n=>({type:n.type||n.category||"INFO",title:n.title||"Untitled notice",source:n.source||"IGNOU",date:n.date||"Recent",courses:Array.isArray(n.courses)?n.courses:["BCA_NEW"],text:n.text||"Automatic notice detected by the monitor engine. Verify on the official source.",url:n.url||"https://www.ignou.ac.in/announcements/0",id:n.id||n.url||n.title}));
+    if(incoming.length)notices=incoming;
+    noticeFeedMeta={updatedAt:data.generated_at||data.updated_at||new Date().toISOString(),ok:true};
+    if(status){status.textContent="AUTO • ONLINE";status.className="auto-badge";}
+    const checked=document.getElementById("noticeChecked");
+    if(checked)checked.textContent=new Date(noticeFeedMeta.updatedAt).toLocaleString("en-IN");
+    renderNotifications();
+  }catch(e){
+    notices=FALLBACK_NOTICES.slice();
+    noticeFeedMeta={updatedAt:"",ok:false};
+    if(status){status.textContent="AUTO • OFFLINE";status.className="auto-badge offline";}
+    renderNotifications();
+  }
+}
+function startAutomaticNoticePolling(){loadAutomaticNotices();setInterval(loadAutomaticNotices,30*60*1000);}
+
 function updateActionCentre(){const submitted=courses.filter(([c])=>state(c+"_submitted").checked).length;const completed=courses.filter(([c])=>state(c+"_completed").checked).length;const pct=Math.round(completed/courses.length*100);const now=new Date(),due=new Date("2026-09-30T23:59:59+05:30");const d=Math.max(0,Math.ceil((due-now)/86400000));const t=document.getElementById("teeDays");if(t)t.textContent=d+" days";const a=document.getElementById("assignmentProgress");if(a)a.textContent=submitted+"/5";const s=document.getElementById("semesterProgress");if(s)s.textContent=pct+"%";const n=document.getElementById("nextAction");if(n)n.textContent=now<=due?"Check your December 2026 TEE status/eligibility on the official exam portal. Do not assume eligibility from the dashboard.":submitted<5?"Continue Semester 1 assignments and keep submission proof.":"All assignments are marked submitted. Keep checking BCA_NEW and RC Guwahati for practical/counselling notices."}
 let noticeFilter="ALL";function openOfficialChecks(){["https://www.ignou.ac.in/announcements/0","https://www.ignou.ac.in/schools/programme/BCA_NEW","https://www.ignou.ac.in/pages/43","https://rcguwahati.ignou.ac.in/","https://exam.ignou.ac.in/"].forEach(u=>window.open(u,"_blank"))}
-function renderNotifications(){const el=document.getElementById("noticeList");if(!el)return;const read=state("notice_reads").value?JSON.parse(state("notice_reads").value):{};const list=notices.filter(n=>noticeFilter==="ALL"||n.type===noticeFilter);el.innerHTML=list.map(n=>{const i=notices.indexOf(n),isRead=!!read[i];const cls=n.type==="DEADLINE"?"warning":n.type==="NEW"?"info":"success";return `<div class="notification ${isRead?"":"unread"}"><div class="notice-meta"><span class="status ${cls}">${n.type}</span><b>${esc(n.title)}</b></div><div class="muted">${esc(n.source)} · ${esc(n.date)}</div>${n.courses.map(c=>`<span class="notice-course">${esc(c)}</span>`).join("")}<p>${esc(n.text)}</p><a target="_blank" href="${n.url}">Open official source ↗</a>${isRead?"<span class='muted'> · Read</span>":`<button class="btn" onclick="markRead(${i})">MARK READ</button>`}</div>`}).join("")||'<div class="note">No notices match this filter.</div>';const checked=document.getElementById("noticeChecked");if(checked)checked.textContent=new Date().toLocaleString("en-IN");document.querySelectorAll(".notice-filter").forEach(b=>b.classList.toggle("active",b.dataset.filter===noticeFilter))}
+function renderNotifications(){const el=document.getElementById("noticeList");if(!el)return;const read=state("notice_reads").value?JSON.parse(state("notice_reads").value):{};const list=notices.filter(n=>noticeFilter==="ALL"||n.type===noticeFilter);el.innerHTML=list.map(n=>{const key=n.id||n.url||n.title,isRead=!!read[key];const cls=n.type==="DEADLINE"?"warning":n.type==="NEW"?"notice-new":n.type==="UPDATED"?"notice-updated":"success";return `<div class="notification ${isRead?"":"unread"}><div class="notice-meta"><span class="status ${cls}">${esc(n.type)}</span><b>${esc(n.title)}</b></div><div class="muted">${esc(n.source)} · ${esc(n.date)}</div>${(n.courses||[]).map(c=>`<span class="notice-course">${esc(c)}</span>`).join("")}<p>${esc(n.text)}</p><a target="_blank" href="${esc(n.url)}">Open official source ↗</a>${isRead?"<span class='muted'> · Read</span>":`<button class="btn" onclick='markRead(${JSON.stringify(key)})'>MARK READ</button>`}</div>`}).join("")||'<div class="note">No notices match this filter.</div>';const checked=document.getElementById("noticeChecked");if(checked&&noticeFeedMeta.ok&&noticeFeedMeta.updatedAt)checked.textContent=new Date(noticeFeedMeta.updatedAt).toLocaleString("en-IN");document.querySelectorAll(".notice-filter").forEach(b=>b.classList.toggle("active",b.dataset.filter===noticeFilter))}
 
-function markRead(i){
+function markRead(key){
   const read=state("notice_reads").value ? JSON.parse(state("notice_reads").value) : {};
-  read[i]=true;
+  read[key]=true;
   saveState("notice_reads",false,JSON.stringify(read));
   renderNotifications();
 }
@@ -551,6 +594,7 @@ let monitorData=JSON.parse(localStorage.getItem(MONITOR_KEY)||'{"sources":{},"da
 function saveMonitor(){
   localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));
   renderMonitor();
+  queueCloudSave();
 }
 function todayKey(){
   return new Date().toLocaleDateString("en-CA");
@@ -626,6 +670,7 @@ function saveSourceNote(id,value){
   s.note=value;
   monitorData.sources[id]=s;
   localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));
+  queueCloudSave();
 }
 function completeDailyCheck(){
   const checked=officialSources.filter(s=>{
@@ -670,7 +715,9 @@ function exportControlData(){
     exportedAt:new Date().toISOString(),
     version:1,
     personal:rows,
-    monitoring:monitorData
+    monitoring:monitorData,
+    academic:academicData,
+    phase3:phase3Data
   };
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
   const a=document.createElement("a");
@@ -694,13 +741,48 @@ function importControlData(event){
         monitorData=data.monitoring;
         localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));
       }
-      renderCourses(); bindPersonal(); updateUrgent(); updateDeadline(); renderNotifications(); updateActionCentre(); renderMonitor();
+      if(data.academic && typeof data.academic==="object"){
+        academicData=data.academic;
+        localStorage.setItem(ACADEMIC_KEY,JSON.stringify(academicData));
+      }
+      if(data.phase3 && typeof data.phase3==="object"){
+        phase3Data=data.phase3;
+        localStorage.setItem(PHASE3_KEY,JSON.stringify(phase3Data));
+      }
+      renderCourses(); bindPersonal(); updateUrgent(); updateDeadline(); renderNotifications(); updateActionCentre(); renderMonitor(); renderAcademic(); renderCrossControl(); renderPhase3();
       alert("Backup imported successfully.");
     }catch(e){alert("This backup file could not be read.");}
   };
   reader.readAsText(file);
 }
 
+
+/* CLOUD SYNC — NO LOGIN */
+const CLOUD_CONFIG_KEY="ignou_bca_cloud_config_v1";
+const DEFAULT_CLOUD_DB_URL="https://ignou-bca-control-default-rtdb.asia-southeast1.firebasedatabase.app";
+const cloudConfig=JSON.parse(localStorage.getItem(CLOUD_CONFIG_KEY)||"{}");
+function cleanDbUrl(v){return String(v||"").trim().replace(/\/+$/g,"");}
+function getCloudConfig(){return {dbUrl:cleanDbUrl(document.getElementById("syncDbUrl")?.value||cloudConfig.dbUrl||DEFAULT_CLOUD_DB_URL),code:String(document.getElementById("syncCode")?.value||cloudConfig.code||"").trim()};}
+function setCloudStatus(msg,good=false){const el=document.getElementById("cloudStatus");if(el){el.textContent=msg;el.style.background=good?"var(--green)":"#fffbe6";el.style.border="2px solid #111";el.style.padding="7px";}}
+function saveCloudConfigLocal(cfg){cloudConfig.dbUrl=cfg.dbUrl;cloudConfig.code=cfg.code;localStorage.setItem(CLOUD_CONFIG_KEY,JSON.stringify(cloudConfig));}
+function randomSyncCode(){const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";const a=new Uint32Array(20);crypto.getRandomValues(a);return Array.from(a,x=>chars[x%chars.length]).join("");}
+function generateSyncCode(){const code=randomSyncCode();const input=document.getElementById("syncCode");if(input)input.value=code;const cfg=getCloudConfig();cfg.code=code;saveCloudConfigLocal(cfg);setCloudStatus("New sync code generated. Save it somewhere private before using another device.",true);}
+async function sha256Hex(text){const hash=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(text));return Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,"0")).join("");}
+async function deriveCloudKey(code){const material=await crypto.subtle.digest("SHA-256",new TextEncoder().encode("IGNOU-BCA-CLOUD|"+code));return crypto.subtle.importKey("raw",material,{name:"AES-GCM"},false,["encrypt","decrypt"]);}
+async function encryptCloud(payload,code){const key=await deriveCloudKey(code),iv=crypto.getRandomValues(new Uint8Array(12)),plain=new TextEncoder().encode(JSON.stringify(payload)),cipher=await crypto.subtle.encrypt({name:"AES-GCM",iv},key,plain);return {v:1,iv:Array.from(iv),data:Array.from(new Uint8Array(cipher))};}
+async function decryptCloud(packet,code){const key=await deriveCloudKey(code),plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:new Uint8Array(packet.iv)},key,new Uint8Array(packet.data));return JSON.parse(new TextDecoder().decode(plain));}
+function cloudPayload(){return {savedAt:new Date().toISOString(),version:2,personal:rows,monitoring:monitorData,academic:academicData,phase3:phase3Data};}
+async function saveCloudNow(){const cfg=getCloudConfig();if(!cfg.dbUrl||!cfg.code){setCloudStatus("Enter a Firebase database URL and a sync code first.");return;}try{saveCloudConfigLocal(cfg);const id=await sha256Hex(cfg.code),packet=await encryptCloud(cloudPayload(),cfg.code),r=await fetch(cfg.dbUrl+"/ignou-sync/"+id+".json",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(packet)});if(!r.ok)throw new Error("HTTP "+r.status);setCloudStatus("Saved to cloud at "+new Date().toLocaleTimeString("en-IN"),true);}catch(e){setCloudStatus("Cloud save failed: "+e.message);}}
+async function loadCloudNow(){const cfg=getCloudConfig();if(!cfg.dbUrl||!cfg.code){setCloudStatus("Enter a Firebase database URL and a sync code first.");return;}try{saveCloudConfigLocal(cfg);const id=await sha256Hex(cfg.code),r=await fetch(cfg.dbUrl+"/ignou-sync/"+id+".json",{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);const packet=await r.json();if(!packet){setCloudStatus("No cloud save exists for this sync code.");return;}const data=await decryptCloud(packet,cfg.code);if(data.personal){rows=data.personal;localStorage.setItem(STORAGE_KEY,JSON.stringify(rows));}if(data.monitoring){monitorData=data.monitoring;localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));}if(data.academic){academicData=data.academic;localStorage.setItem(ACADEMIC_KEY,JSON.stringify(academicData));}if(data.phase3){phase3Data=data.phase3;localStorage.setItem(PHASE3_KEY,JSON.stringify(phase3Data));}renderCourses();bindPersonal();updateUrgent();updateDeadline();renderNotifications();updateActionCentre();renderMonitor();renderAcademic();renderCrossControl();renderPhase3();setCloudStatus("Loaded cloud save from "+(data.savedAt?new Date(data.savedAt).toLocaleString("en-IN"):"cloud"),true);}catch(e){setCloudStatus("Cloud load failed. Check the URL, code and Firebase rules.");}}
+function copySyncCode(){const code=document.getElementById("syncCode")?.value.trim();if(!code){setCloudStatus("Generate or enter a sync code first.");return;}if(navigator.clipboard){navigator.clipboard.writeText(code).then(()=>setCloudStatus("Sync code copied to clipboard.",true)).catch(()=>setCloudStatus("Copy failed. Select the code manually."));}}
+function initCloudUI(){const code=document.getElementById("syncCode"),db=document.getElementById("syncDbUrl");if(code)code.value=cloudConfig.code||"";if(db)db.value=cloudConfig.dbUrl||DEFAULT_CLOUD_DB_URL;if(cloudConfig.dbUrl&&cloudConfig.code)setCloudStatus("Cloud sync is configured on this device. Use LOAD FROM CLOUD to restore it.",true);}
+let cloudSaveTimer=null;
+function queueCloudSave(){
+  const cfg=getCloudConfig();
+  if(!cfg.dbUrl||!cfg.code)return;
+  clearTimeout(cloudSaveTimer);
+  cloudSaveTimer=setTimeout(()=>saveCloudNow(),1500);
+}
 
 /* PHASE 2A — ACADEMIC RECORD */
 const academicCourses=[
@@ -768,7 +850,8 @@ function updateAcademicSummary(){
 function saveAcademic(){
   localStorage.setItem(ACADEMIC_KEY,JSON.stringify(academicData));
   updateAcademicSummary();
-  alert("Semester 1 academic record saved locally.");
+  queueCloudSave();
+  alert("Semester 1 academic record saved locally and queued for cloud save.");
 }
 
 
@@ -868,6 +951,7 @@ const phase3Deadlines=[
 
 function phase3Save(){
   localStorage.setItem(PHASE3_KEY,JSON.stringify(phase3Data));
+  queueCloudSave();
 }
 function p3DaysUntil(date){
   return Math.ceil((new Date(date)-new Date())/86400000);
@@ -1002,12 +1086,15 @@ function init(){
   updateToday();
   const ld=document.getElementById("logDate"); if(ld)ld.value=todayKey();
   renderMonitor();
+  initCloudUI();
   renderCourses();
   bindPersonal();
   updateUrgent();
   updateDeadline();
   renderNotifications();
-  updateActionCentre();document.querySelectorAll(".notice-filter").forEach(b=>b.addEventListener("click",()=>{noticeFilter=b.dataset.filter;renderNotifications()}));
+  updateActionCentre();
+  startAutomaticNoticePolling();
+  document.querySelectorAll(".notice-filter").forEach(b=>b.addEventListener("click",()=>{noticeFilter=b.dataset.filter;renderNotifications()}));
 }
 init();
 </script>
