@@ -21,6 +21,20 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 .bar{height:18px;border:2px solid #111;background:#fff;margin-top:8px}.bar span{display:block;height:100%;background:#111;width:0}
 .id-card img{display:block;width:100%;max-width:700px;height:auto;border:2px solid #111}.footer{text-align:center;padding:30px;font-weight:700}
 @media(max-width:700px){.headerbox{display:block}.mini-grid{grid-template-columns:1fr}.card{box-shadow:4px 4px #111}}
+
+#courseGrid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
+#courseGrid>.panel{min-width:0;overflow:hidden}
+#courseGrid .course-head h2{min-width:0;overflow-wrap:anywhere}
+#courseGrid .mini-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
+#courseGrid .mini{min-width:0;overflow:hidden}
+#courseGrid .mini .task{min-width:0;overflow-wrap:anywhere}
+#courseGrid .mini .task input{flex:0 0 auto}
+.pdf-btn{display:inline-block;border:3px solid #111;background:var(--yellow);color:#111;text-decoration:none;padding:7px 10px;font-weight:1000;box-shadow:3px 3px #111;white-space:nowrap}
+.pdf-btn:hover{transform:translate(-1px,-1px)}
+.semester-table .assignment-cell{white-space:nowrap}
+@media(max-width:1000px){#courseGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){#courseGrid{grid-template-columns:1fr}.semester-table{font-size:13px}.semester-table th,.semester-table td{padding:7px}.pdf-btn{padding:6px 8px}}
+
 </style>
 </head>
 <body>
@@ -31,7 +45,7 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <h1>IGNOU BCA<br>FULL CONTROL CENTRE</h1>
 <p>BCA_NEW · July 2026 · RC Guwahati · LSC 0400</p>
 <nav class="nav">
-<a href="#notifications">🔔 NOTIFICATIONS</a><a href="#details">MY DETAILS</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">SOURCES</a>
+<a href="#notifications">🔔 NOTIFICATIONS</a><a href="#details">MY DETAILS</a><a href="#semester">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">SOURCES</a>
 <button onclick="logout()">CLOUD LOG OUT</button>
 </nav>
 </div>
@@ -80,14 +94,14 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <p class="muted">You requested the ID card to remain visible on the public deployment.</p>
 </section>
 
-<div class="section-title">📚 SEMESTER 1 — 20 CREDITS</div>
+<div class="section-title" id="semester">📚 SEMESTER 1 — 20 CREDITS</div>
 <section class="panel">
 <table><thead><tr><th>Code</th><th>Course</th><th>Credits</th><th>Assignment</th></tr></thead><tbody>
-<tr><td>BCS111</td><td>Computer Basics and PC Software</td><td>4</td><td>31 Oct 2026</td></tr>
-<tr><td>BCS12 / BCS-012</td><td>Basic Mathematics</td><td>4</td><td>31 Oct 2026</td></tr>
-<tr><td>BCSL13 / BCSL-013</td><td>Computer Basics and PC Software Lab</td><td>2</td><td>31 Oct 2026</td></tr>
-<tr><td>BEGLA136 / BEGLA-136</td><td>English at the Work Place</td><td>6</td><td>31 Oct 2026</td></tr>
-<tr><td>BEVAE181 / BEVAE-181</td><td>Environmental Studies</td><td>4</td><td>31 Oct 2026</td></tr></tbody></table>
+<tr><td>BCS111</td><td>Computer Basics and PC Software</td><td>4</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf">PDF ↗</a></td></tr>
+<tr><td>BCS12 / BCS-012</td><td>Basic Mathematics</td><td>4</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-012-BCA-NEW-2026-27.pdf">PDF ↗</a></td></tr>
+<tr><td>BCSL13 / BCSL-013</td><td>Computer Basics and PC Software Lab</td><td>2</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCSL-013-BCA-NEW-2026-27.pdf">PDF ↗</a></td></tr>
+<tr><td>BEGLA136 / BEGLA-136</td><td>English at the Work Place</td><td>6</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEGLA-136-BCA-NEW-2026-27.pdf">PDF ↗</a></td></tr>
+<tr><td>BEVAE181 / BEVAE-181</td><td>Environmental Studies</td><td>4</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEVAE-181-BCA-NEW-2026-27.pdf">PDF ↗</a></td></tr></tbody></table>
 </section>
 
 <div class="section-title" id="assignments">📝 ASSIGNMENT CONTROL — PERSONAL DATA ONLY</div>
