@@ -75,6 +75,27 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 @media(max-width:800px){.source-monitor{grid-template-columns:1fr}.monitor-summary{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.daily-check-list,.log-form,.monitor-summary{grid-template-columns:1fr}.log-form .full{grid-column:auto}}
 
+
+/* PHASE 2A — SEMESTER 1 ACADEMIC CONTROL */
+.academic-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}
+.academic-stat{border:2px solid #111;background:#fff;padding:11px}
+.academic-stat b{display:block;font-size:21px;margin-top:3px}
+.academic-progress{height:20px;border:2px solid #111;background:#fff;margin-top:7px}
+.academic-progress span{display:block;height:100%;background:#111;width:0}
+.academic-course-table{overflow-x:auto}
+.academic-course-table table{min-width:760px}
+.academic-course-table select,.academic-course-table input{border:2px solid #111;padding:7px;font:inherit;font-weight:800;background:#fff;width:100%}
+.academic-course-table .course-status{font-weight:1000;white-space:nowrap}
+.grade-note{font-size:11px;font-weight:700;color:#555;margin-top:5px}
+.roadmap{display:grid;grid-template-columns:repeat(6,minmax(110px,1fr));gap:8px;margin-top:12px}
+.roadmap-item{border:2px solid #111;background:#fff;padding:10px;text-align:center;font-weight:1000}
+.roadmap-item.current{background:var(--yellow);box-shadow:3px 3px #111}
+.credit-chip{display:inline-block;border:2px solid #111;padding:3px 6px;background:var(--green);font-size:11px;font-weight:1000}
+.academic-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.academic-actions button{border:3px solid #111;background:var(--yellow);padding:9px 12px;font-weight:1000;cursor:pointer}
+@media(max-width:900px){.academic-summary{grid-template-columns:1fr 1fr}.roadmap{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.academic-summary{grid-template-columns:1fr}.roadmap{grid-template-columns:1fr 1fr}}
+
 </style>
 </head>
 <body>
@@ -85,7 +106,7 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <h1>IGNOU BCA<br>FULL CONTROL CENTRE</h1>
 <p>BCA_NEW · July 2026 · RC Guwahati · LSC 0400</p>
 <nav class="nav">
-<a href="#official-monitor">📡 SOURCE MONITOR</a><a href="#notifications">🔔 NOTIFICATIONS</a><a href="#action-centre">⚡ ACTION CENTRE</a><a href="#details">MY DETAILS</a><a href="#semester">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">SOURCES</a>
+<a href="#official-monitor">📡 SOURCE MONITOR</a><a href="#notifications">🔔 NOTIFICATIONS</a><a href="#action-centre">⚡ ACTION CENTRE</a><a href="#details">MY DETAILS</a><a href="#academic">ACADEMIC</a><a href="#semester">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">SOURCES</a>
 
 </nav>
 </div>
@@ -197,6 +218,66 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <section class="panel id-card">
 <img src="https://raw.githubusercontent.com/digbijoy123/IGNOU-BCA-CONTROL-CENTRE/main/ignou-student-id-card.png" alt="IGNOU Student ID Card">
 <p class="muted">You requested the ID card to remain visible on the public deployment.</p>
+</section>
+
+
+<div class="section-title" id="academic">🎓 SEMESTER 1 ACADEMIC CONTROL</div>
+<section class="panel">
+  <div class="note info">
+    <b>ACADEMIC RULE:</b> This section is your personal record. Enter results only after checking the official IGNOU Grade Card / result source.
+    The dashboard does not claim to know your academic result automatically.
+  </div>
+
+  <div class="roadmap">
+    <div class="roadmap-item current">SEM 1<br><span class="muted">CURRENT</span></div>
+    <div class="roadmap-item">SEM 2<br><span class="muted">NOT STARTED</span></div>
+    <div class="roadmap-item">SEM 3<br><span class="muted">NOT STARTED</span></div>
+    <div class="roadmap-item">SEM 4<br><span class="muted">NOT STARTED</span></div>
+    <div class="roadmap-item">SEM 5<br><span class="muted">NOT STARTED</span></div>
+    <div class="roadmap-item">SEM 6<br><span class="muted">NOT STARTED</span></div>
+  </div>
+
+  <div class="academic-summary">
+    <div class="academic-stat"><span class="muted">Semester 1 credits</span><b>20</b></div>
+    <div class="academic-stat"><span class="muted">Credits marked earned</span><b id="earnedCredits">0 / 20</b></div>
+    <div class="academic-stat"><span class="muted">Courses completed</span><b id="academicCompleted">0 / 5</b></div>
+    <div class="academic-stat"><span class="muted">Results recorded</span><b id="resultsRecorded">0 / 5</b></div>
+  </div>
+
+  <div class="muted">Credit completion</div>
+  <div class="academic-progress"><span id="creditProgress"></span></div>
+
+  <h2>📚 COURSE LIFECYCLE</h2>
+  <div class="academic-course-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Course</th>
+          <th>Credits</th>
+          <th>Academic Status</th>
+          <th>TEE / Result</th>
+          <th>Grade / Mark</th>
+        </tr>
+      </thead>
+      <tbody id="academicCourseRows"></tbody>
+    </table>
+  </div>
+
+  <div class="academic-actions">
+    <button onclick="saveAcademic()">SAVE ACADEMIC RECORD</button>
+    <a class="pdf-btn" target="_blank" href="https://gradecard.ignou.ac.in/">OPEN OFFICIAL GRADE CARD ↗</a>
+    <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/pages/7">OPEN OFFICIAL RESULTS ↗</a>
+  </div>
+
+  <div class="note" style="margin-top:14px">
+    <b>STATUS MEANINGS</b><br>
+    Registered → course is part of your current academic record.<br>
+    Assignment Submitted → assignment stage recorded locally.<br>
+    TEE Attempted → you recorded that you attempted the exam.<br>
+    Result Pending → exam attempted but result has not been entered.<br>
+    Completed → you have verified the result and marked the course complete.<br>
+    Re-attempt → use only after an official result indicates another attempt is required.
+  </div>
 </section>
 
 <div class="section-title" id="semester">📚 SEMESTER 1 — 20 CREDITS</div>
@@ -553,7 +634,78 @@ function importControlData(event){
   reader.readAsText(file);
 }
 
+
+/* PHASE 2A — ACADEMIC RECORD */
+const academicCourses=[
+  ["BCS111","Computer Basics and PC Software",4],
+  ["BCS12","Basic Mathematics",4],
+  ["BCSL13","Computer Basics and PC Software Lab",2],
+  ["BEGLA136","English at the Work Place",6],
+  ["BEVAE181","Environmental Studies",4]
+];
+const ACADEMIC_KEY="ignou_bca_academic_v1";
+let academicData=JSON.parse(localStorage.getItem(ACADEMIC_KEY)||"{}");
+
+function academicRecord(code){
+  return academicData[code]||{status:"REGISTERED",result:"NOT RECORDED",grade:""};
+}
+function renderAcademic(){
+  const body=document.getElementById("academicCourseRows");
+  if(!body)return;
+  body.innerHTML=academicCourses.map(([code,name,credits])=>{
+    const r=academicRecord(code);
+    return `<tr>
+      <td><b>${esc(code)}</b><br><span class="muted">${esc(name)}</span></td>
+      <td><span class="credit-chip">${credits} credits</span></td>
+      <td>
+        <select data-academic="${code}" data-field="status">
+          ${["REGISTERED","ASSIGNMENT SUBMITTED","TEE ATTEMPTED","RESULT PENDING","COMPLETED","RE-ATTEMPT"].map(x=>`<option ${r.status===x?"selected":""}>${x}</option>`).join("")}
+        </select>
+      </td>
+      <td>
+        <select data-academic="${code}" data-field="result">
+          ${["NOT RECORDED","PASS / COMPLETED","RESULT PENDING","RE-ATTEMPT REQUIRED"].map(x=>`<option ${r.result===x?"selected":""}>${x}</option>`).join("")}
+        </select>
+      </td>
+      <td>
+        <input data-academic="${code}" data-field="grade" value="${esc(r.grade||"")}" placeholder="e.g. A / B / numeric">
+        <div class="grade-note">Personal record — verify against official result.</div>
+      </td>
+    </tr>`;
+  }).join("");
+
+  document.querySelectorAll("[data-academic]").forEach(el=>{
+    el.onchange=()=>{
+      const code=el.dataset.academic, field=el.dataset.field;
+      const r=academicRecord(code);
+      r[field]=el.value;
+      academicData[code]=r;
+      localStorage.setItem(ACADEMIC_KEY,JSON.stringify(academicData));
+      updateAcademicSummary();
+    };
+  });
+  updateAcademicSummary();
+}
+function updateAcademicSummary(){
+  let earned=0,completed=0,results=0;
+  academicCourses.forEach(([code,,credits])=>{
+    const r=academicRecord(code);
+    if(r.status==="COMPLETED" && r.result==="PASS / COMPLETED"){earned+=credits;completed++;}
+    if(r.result!=="NOT RECORDED")results++;
+  });
+  const ec=document.getElementById("earnedCredits"); if(ec)ec.textContent=earned+" / 20";
+  const cc=document.getElementById("academicCompleted"); if(cc)cc.textContent=completed+" / 5";
+  const rr=document.getElementById("resultsRecorded"); if(rr)rr.textContent=results+" / 5";
+  const cp=document.getElementById("creditProgress"); if(cp)cp.style.width=(earned/20*100)+"%";
+}
+function saveAcademic(){
+  localStorage.setItem(ACADEMIC_KEY,JSON.stringify(academicData));
+  updateAcademicSummary();
+  alert("Semester 1 academic record saved locally.");
+}
+
 function init(){
+  renderAcademic();
   updateToday();
   const ld=document.getElementById("logDate"); if(ld)ld.value=todayKey();
   renderMonitor();
