@@ -38,6 +38,43 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 
 /* CONTROL CENTRE V2 */
 .action-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}.action-card{border:3px solid #111;padding:13px;background:#fff;min-width:0}.action-card h3{margin:0 0 7px;font-size:16px}.action-card .action-big{font-size:24px;font-weight:1000}.notice-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.notice-filter{border:2px solid #111;background:#fff;padding:7px 10px;font-weight:1000;cursor:pointer}.notice-filter.active{background:var(--yellow);box-shadow:3px 3px #111}.notice-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}.quick-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.quick-row a{border:2px solid #111;background:#fff;padding:10px;text-decoration:none;color:#111;font-weight:1000}.quick-row a:hover{background:var(--yellow)}@media(max-width:900px){.action-grid{grid-template-columns:1fr 1fr}.quick-row{grid-template-columns:1fr 1fr}}@media(max-width:600px){.action-grid,.quick-row{grid-template-columns:1fr}}
+
+/* OFFICIAL SOURCE MONITOR */
+.source-monitor{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.source-row{border:3px solid #111;background:#fff;padding:12px;min-width:0}
+.source-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.source-name{font-size:16px;font-weight:1000}
+.source-purpose{font-size:12px;font-weight:700;color:#555;margin-top:4px}
+.source-status{display:inline-block;border:2px solid #111;padding:4px 7px;font-size:10px;font-weight:1000;white-space:nowrap}
+.source-status.checked{background:var(--green)}
+.source-status.due{background:var(--yellow)}
+.source-status.action{background:var(--red)}
+.source-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.source-actions a,.source-actions button{border:2px solid #111;background:#fff;color:#111;padding:7px 9px;font-weight:1000;text-decoration:none;cursor:pointer}
+.source-actions a:hover,.source-actions button:hover{background:var(--yellow)}
+.source-last{font-size:11px;font-weight:800;margin-top:8px}
+.source-note{margin-top:8px}
+.source-note input{width:100%;padding:8px;border:2px solid #111}
+.monitor-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}
+.monitor-stat{border:2px solid #111;background:#fff;padding:10px}
+.monitor-stat b{display:block;font-size:20px}
+.daily-check{border:3px solid #111;background:#fff;padding:14px;margin-top:14px}
+.daily-check-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
+.daily-check-list label{border:2px solid #111;padding:9px;background:#fff;font-weight:900}
+.notice-log{margin-top:14px}
+.log-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.log-form input,.log-form textarea,.log-form select{width:100%;padding:9px;border:2px solid #111;font:inherit}
+.log-form textarea{min-height:80px;resize:vertical}
+.log-form .full{grid-column:1/-1}
+.log-entry{border:2px solid #111;background:#fff;padding:11px;margin-top:9px}
+.log-entry-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.log-entry .log-action{background:var(--yellow);border:2px solid #111;padding:3px 6px;font-size:11px;font-weight:1000}
+.backup-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.backup-row button{border:3px solid #111;background:var(--yellow);padding:9px 12px;font-weight:1000;cursor:pointer}
+.monitor-help{background:#fffbe6;border:2px solid #111;padding:11px;margin-top:10px;font-size:12px;font-weight:800}
+@media(max-width:800px){.source-monitor{grid-template-columns:1fr}.monitor-summary{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.daily-check-list,.log-form,.monitor-summary{grid-template-columns:1fr}.log-form .full{grid-column:auto}}
+
 </style>
 </head>
 <body>
@@ -48,7 +85,7 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <h1>IGNOU BCA<br>FULL CONTROL CENTRE</h1>
 <p>BCA_NEW · July 2026 · RC Guwahati · LSC 0400</p>
 <nav class="nav">
-<a href="#notifications">🔔 NOTIFICATIONS</a><a href="#action-centre">⚡ ACTION CENTRE</a><a href="#details">MY DETAILS</a><a href="#semester">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">SOURCES</a>
+<a href="#official-monitor">📡 SOURCE MONITOR</a><a href="#notifications">🔔 NOTIFICATIONS</a><a href="#action-centre">⚡ ACTION CENTRE</a><a href="#details">MY DETAILS</a><a href="#semester">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">SOURCES</a>
 
 </nav>
 </div>
@@ -56,6 +93,69 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 </header>
 
 <main class="wrap">
+
+<div class="section-title" id="official-monitor">📡 OFFICIAL SOURCE MONITOR</div>
+<section class="panel">
+  <div class="note info">
+    <b>HOW THIS WORKS:</b> This is a local monitoring console, not a live IGNOU scraper.
+    Open each official source, check for relevant changes, then mark that source checked.
+    The browser stores your check history locally.
+  </div>
+
+  <div class="monitor-summary">
+    <div class="monitor-stat"><span class="muted">Sources checked today</span><b id="monitorChecked">0/5</b></div>
+    <div class="monitor-stat"><span class="muted">Need checking</span><b id="monitorDue">5</b></div>
+    <div class="monitor-stat"><span class="muted">Open notice actions</span><b id="monitorOpen">0</b></div>
+    <div class="monitor-stat"><span class="muted">Last activity</span><b id="monitorLast">—</b></div>
+  </div>
+
+  <div class="source-monitor" id="sourceMonitor"></div>
+
+  <div class="daily-check">
+    <h2>✅ DAILY 5-SOURCE CHECK</h2>
+    <p class="muted">Use this after checking the five official sources. This does not claim that IGNOU was checked automatically.</p>
+    <div class="daily-check-list" id="dailyCheckList"></div>
+    <button class="btn" onclick="completeDailyCheck()">MARK DAILY CHECK COMPLETE</button>
+  </div>
+
+  <div class="notice-log">
+    <h2>📰 OFFICIAL NOTICE LOG</h2>
+    <p class="muted">Record only notices you actually saw on an official source. This creates your personal audit trail.</p>
+    <div class="log-form">
+      <input id="logDate" type="date">
+      <select id="logSource">
+        <option>IGNOU Announcements</option>
+        <option>BCA_NEW Programme</option>
+        <option>Current Assignments</option>
+        <option>RC Guwahati</option>
+        <option>TEE Exam Portal</option>
+        <option>Other official IGNOU source</option>
+      </select>
+      <input class="full" id="logTitle" placeholder="Official notice title">
+      <input class="full" id="logUrl" placeholder="Official notice URL">
+      <textarea class="full" id="logWhy" placeholder="Why does this matter to me?"></textarea>
+      <select id="logStatus">
+        <option value="OPEN">ACTION REQUIRED</option>
+        <option value="WATCH">WATCH</option>
+        <option value="DONE">DONE</option>
+      </select>
+      <button class="btn" onclick="addNoticeLog()">+ SAVE NOTICE</button>
+    </div>
+    <div id="noticeLogList"></div>
+  </div>
+
+  <div class="backup-row">
+    <button onclick="exportControlData()">⬇ EXPORT MY CONTROL DATA</button>
+    <button onclick="document.getElementById('importData').click()">⬆ IMPORT BACKUP</button>
+    <input id="importData" type="file" accept=".json" style="display:none" onchange="importControlData(event)">
+  </div>
+
+  <div class="monitor-help">
+    <b>RULE:</b> A source being marked “checked” only means you personally opened and reviewed it.
+    The dashboard never pretends that a live official page was automatically monitored.
+  </div>
+</section>
+
 <section id="notifications" class="panel">
 <h2>🔔 DAILY IGNOU NOTIFICATIONS</h2>
 <p class="muted">Relevant BCA_NEW / RC Guwahati control-centre notices are shown here. Verify important information on the original official source.</p>
@@ -288,8 +388,175 @@ function updateToday(){
   }
 }
 
+
+/* OFFICIAL SOURCE MONITOR */
+const officialSources=[
+  {id:"hq",name:"IGNOU Announcements",purpose:"HQ notices and university-wide announcements",url:"https://www.ignou.ac.in/announcements/0"},
+  {id:"bca",name:"BCA_NEW Programme",purpose:"Programme-level BCA_NEW information",url:"https://www.ignou.ac.in/schools/programme/BCA_NEW"},
+  {id:"assign",name:"Current Assignments",purpose:"Assignment PDFs, dates and instructions",url:"https://www.ignou.ac.in/pages/43"},
+  {id:"rc",name:"RC Guwahati",purpose:"Local practical, counselling and regional notices",url:"https://rcguwahati.ignou.ac.in/"},
+  {id:"tee",name:"TEE Exam Portal",purpose:"TEE forms, exam notices and eligibility checks",url:"https://exam.ignou.ac.in/"}
+];
+const MONITOR_KEY="ignou_bca_monitor_v1";
+let monitorData=JSON.parse(localStorage.getItem(MONITOR_KEY)||'{"sources":{},"daily":{},"logs":[]}');
+
+function saveMonitor(){
+  localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));
+  renderMonitor();
+}
+function todayKey(){
+  return new Date().toLocaleDateString("en-CA");
+}
+function fmtDateTime(iso){
+  if(!iso)return "Never";
+  return new Date(iso).toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"});
+}
+function sourceRecord(id){
+  return monitorData.sources[id]||{lastChecked:"",note:""};
+}
+function renderMonitor(){
+  const now=new Date(), today=todayKey();
+  const checked=officialSources.filter(s=>sourceRecord(s.id).lastChecked &&
+    new Date(sourceRecord(s.id).lastChecked).toLocaleDateString("en-CA")===today).length;
+  const due=officialSources.length-checked;
+  const open=(monitorData.logs||[]).filter(x=>x.status==="OPEN").length;
+  const last=[...officialSources.map(s=>sourceRecord(s.id).lastChecked),...(monitorData.logs||[]).map(x=>x.createdAt)]
+    .filter(Boolean).sort().pop();
+
+  const a=document.getElementById("monitorChecked"); if(a)a.textContent=checked+"/5";
+  const b=document.getElementById("monitorDue"); if(b)b.textContent=due;
+  const c=document.getElementById("monitorOpen"); if(c)c.textContent=open;
+  const d=document.getElementById("monitorLast"); if(d)d.textContent=last?new Date(last).toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"}):"—";
+
+  const grid=document.getElementById("sourceMonitor");
+  if(grid)grid.innerHTML=officialSources.map(s=>{
+    const r=sourceRecord(s.id);
+    const isToday=r.lastChecked && new Date(r.lastChecked).toLocaleDateString("en-CA")===today;
+    const status=isToday?"CHECKED":"DUE";
+    return `<div class="source-row">
+      <div class="source-top">
+        <div><div class="source-name">${esc(s.name)}</div><div class="source-purpose">${esc(s.purpose)}</div></div>
+        <span class="source-status ${isToday?"checked":"due"}">${status}</span>
+      </div>
+      <div class="source-actions">
+        <a target="_blank" href="${s.url}">OPEN OFFICIAL ↗</a>
+        <button onclick="markSourceChecked('${s.id}')">✓ MARK CHECKED</button>
+      </div>
+      <div class="source-last">Last checked: ${esc(fmtDateTime(r.lastChecked))}</div>
+      <div class="source-note"><input value="${esc(r.note||"")}" placeholder="Optional note from this check..." onchange="saveSourceNote('${s.id}',this.value)"></div>
+    </div>`;
+  }).join("");
+
+  const dl=document.getElementById("dailyCheckList");
+  if(dl)dl.innerHTML=officialSources.map(s=>{
+    const r=sourceRecord(s.id);
+    const isToday=r.lastChecked && new Date(r.lastChecked).toLocaleDateString("en-CA")===today;
+    return `<label><input type="checkbox" ${isToday?"checked":""} disabled> ${esc(s.name)}</label>`;
+  }).join("");
+
+  const ll=document.getElementById("noticeLogList");
+  if(ll){
+    const logs=[...(monitorData.logs||[])].sort((x,y)=>y.createdAt.localeCompare(x.createdAt));
+    ll.innerHTML=logs.length?logs.map((x,i)=>`
+      <div class="log-entry">
+        <div class="log-entry-head"><b>${esc(x.title)}</b><span class="log-action">${esc(x.status)}</span></div>
+        <div class="muted">${esc(x.date)} · ${esc(x.source)}</div>
+        ${x.why?`<p>${esc(x.why)}</p>`:""}
+        ${x.url?`<a target="_blank" href="${esc(x.url)}">Open official notice ↗</a>`:""}
+        <button class="btn" style="margin-top:8px" onclick="deleteNoticeLog(${i})">DELETE LOG</button>
+      </div>`).join(""):'<div class="note">No official notices recorded yet.</div>';
+  }
+}
+function markSourceChecked(id){
+  const s=sourceRecord(id);
+  s.lastChecked=new Date().toISOString();
+  monitorData.sources[id]=s;
+  saveMonitor();
+}
+function saveSourceNote(id,value){
+  const s=sourceRecord(id);
+  s.note=value;
+  monitorData.sources[id]=s;
+  localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));
+}
+function completeDailyCheck(){
+  const checked=officialSources.filter(s=>{
+    const r=sourceRecord(s.id);
+    return r.lastChecked && new Date(r.lastChecked).toLocaleDateString("en-CA")===todayKey();
+  }).length;
+  if(checked<5){
+    alert("Check all five official sources first, then mark the daily check complete.");
+    return;
+  }
+  monitorData.daily[todayKey()]={completedAt:new Date().toISOString()};
+  saveMonitor();
+  alert("Daily official-source check recorded.");
+}
+function addNoticeLog(){
+  const title=document.getElementById("logTitle").value.trim();
+  if(!title){alert("Add the official notice title first.");return;}
+  monitorData.logs=monitorData.logs||[];
+  monitorData.logs.push({
+    date:document.getElementById("logDate").value||todayKey(),
+    source:document.getElementById("logSource").value,
+    title:title,
+    url:document.getElementById("logUrl").value.trim(),
+    why:document.getElementById("logWhy").value.trim(),
+    status:document.getElementById("logStatus").value,
+    createdAt:new Date().toISOString()
+  });
+  document.getElementById("logTitle").value="";
+  document.getElementById("logUrl").value="";
+  document.getElementById("logWhy").value="";
+  saveMonitor();
+}
+function deleteNoticeLog(index){
+  const logs=[...(monitorData.logs||[])].sort((x,y)=>y.createdAt.localeCompare(x.createdAt));
+  const target=logs[index];
+  if(!target)return;
+  monitorData.logs=(monitorData.logs||[]).filter(x=>x.createdAt!==target.createdAt);
+  saveMonitor();
+}
+function exportControlData(){
+  const payload={
+    exportedAt:new Date().toISOString(),
+    version:1,
+    personal:rows,
+    monitoring:monitorData
+  };
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="ignou-control-centre-backup-"+todayKey()+".json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function importControlData(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      if(data.personal && typeof data.personal==="object"){
+        rows=data.personal;
+        localStorage.setItem(STORAGE_KEY,JSON.stringify(rows));
+      }
+      if(data.monitoring && typeof data.monitoring==="object"){
+        monitorData=data.monitoring;
+        localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));
+      }
+      renderCourses(); bindPersonal(); updateUrgent(); updateDeadline(); renderNotifications(); updateActionCentre(); renderMonitor();
+      alert("Backup imported successfully.");
+    }catch(e){alert("This backup file could not be read.");}
+  };
+  reader.readAsText(file);
+}
+
 function init(){
   updateToday();
+  const ld=document.getElementById("logDate"); if(ld)ld.value=todayKey();
+  renderMonitor();
   renderCourses();
   bindPersonal();
   updateUrgent();
