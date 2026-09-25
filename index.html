@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>IGNOU BCA — Full Control Centre</title>
-
 <style>
 :root{--bg:#f7f1df;--paper:#fffdf5;--ink:#111;--yellow:#ffd43b;--pink:#ff6b9d;--blue:#67d5ff;--green:#7bea8a;--red:#ff6262;--border:3px solid #111;--shadow:7px 7px 0 #111}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
@@ -151,6 +151,16 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 @media(max-width:850px){.phase3-summary{grid-template-columns:1fr 1fr}.p3-deadlines{grid-template-columns:1fr}}
 @media(max-width:600px){.phase3-summary{grid-template-columns:1fr}.p3-action{display:block}.p3-action button{margin-top:8px}}
 
+
+/* PHASE 3.5 — CLEAN CONTROL CENTRE VIEWS */
+.app-view{display:none}
+.app-view.active{display:block}
+.view-intro{background:#111;color:#fff;border:3px solid #111;box-shadow:7px 7px #111;padding:14px 16px;margin:0 0 20px}
+.view-intro h2{margin:0 0 5px;font-size:22px}
+.view-intro p{margin:0;font-weight:700;color:#fff}
+.nav-view.active{background:var(--yellow);box-shadow:3px 3px #111}
+.nav-view{appearance:none}
+@media(max-width:600px){.view-intro{box-shadow:4px 4px #111}}
 </style>
 </head>
 <body>
@@ -158,133 +168,133 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <div class="wrap headerbox">
 <div>
 <div class="date">25 SEPTEMBER 2026</div>
-<h1>IGNOU BCA<br>FULL CONTROL CENTRE</h1>
+<h1>IGNOU BCA<br/>FULL CONTROL CENTRE</h1>
 <p>BCA_NEW · July 2026 · RC Guwahati · LSC 0400</p>
-<nav class="nav">
-<a href="#intelligence">🚨 DEADLINES</a><a href="#official-monitor">📡 SOURCE MONITOR</a><a href="#notifications">🔔 NOTIFICATIONS</a><a href="#action-centre">⚡ ACTION CENTRE</a><a href="#details">MY DETAILS</a><a href="#academic">ACADEMIC</a><a href="#course-control">COURSE CONTROL</a><a href="#semester">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">SOURCES</a>
-
-</nav>
+<nav class="nav"><button class="nav-view" data-view="dashboard" type="button">⚡ DASHBOARD</button><button class="nav-view" data-view="monitor" type="button">📡 MONITOR</button><button class="nav-view" data-view="academic-view" type="button">🎓 ACADEMIC</button><button class="nav-view" data-view="details-view" type="button">👤 MY DETAILS</button></nav>
 </div>
 </div>
 </header>
-
 <main class="wrap">
 
 
-<div class="section-title" id="intelligence">🚨 PHASE 3 — DEADLINE & NOTIFICATION INTELLIGENCE</div>
-<section class="panel">
-  <div class="note info">
-    <b>IMPORTANT:</b> This layer calculates urgency from the dates stored in this dashboard and your personal progress.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="app-view active" id="view-dashboard"><div class="view-intro"><h2>⚡ DASHBOARD</h2><p>Your single place for what needs attention now. Deadlines, priorities and urgent actions live here.</p></div><div class="section-title" id="intelligence">🚨 PHASE 3 — DEADLINE &amp; NOTIFICATION INTELLIGENCE</div><section class="panel">
+<div class="note info">
+<b>IMPORTANT:</b> This layer calculates urgency from the dates stored in this dashboard and your personal progress.
     It does not automatically scrape IGNOU or claim that a website changed.
   </div>
-
-  <div class="phase3-summary">
-    <div class="p3-stat"><span class="muted">Urgent now</span><b id="p3Urgent">0</b></div>
-    <div class="p3-stat"><span class="muted">Due soon</span><b id="p3Soon">0</b></div>
-    <div class="p3-stat"><span class="muted">Open actions</span><b id="p3Open">0</b></div>
-    <div class="p3-stat"><span class="muted">Overdue</span><b id="p3Overdue">0</b></div>
-  </div>
-
-  <h2>⏱️ DEADLINE CONTROL</h2>
-  <div class="p3-deadlines" id="p3Deadlines"></div>
-
-  <h2>🎯 PRIORITY QUEUE</h2>
-  <div class="p3-action-list" id="p3Actions"></div>
-
-  <div class="p3-controls">
-    <button onclick="refreshPhase3()">↻ REFRESH INTELLIGENCE</button>
-    <button onclick="markAllP3Reviewed()">✓ MARK CURRENT QUEUE REVIEWED</button>
-  </div>
-
-  <div class="p3-history">
-    <b>🕘 LOCAL ALERT HISTORY</b>
-    <div id="p3History"></div>
-  </div>
-</section>
-
-<div class="section-title" id="official-monitor">📡 OFFICIAL SOURCE MONITOR</div>
-<section class="panel">
-  <div class="note info">
-    <b>HOW THIS WORKS:</b> This is a local monitoring console, not a live IGNOU scraper.
+<div class="phase3-summary">
+<div class="p3-stat"><span class="muted">Urgent now</span><b id="p3Urgent">0</b></div>
+<div class="p3-stat"><span class="muted">Due soon</span><b id="p3Soon">0</b></div>
+<div class="p3-stat"><span class="muted">Open actions</span><b id="p3Open">0</b></div>
+<div class="p3-stat"><span class="muted">Overdue</span><b id="p3Overdue">0</b></div>
+</div>
+<h2>⏱️ DEADLINE CONTROL</h2>
+<div class="p3-deadlines" id="p3Deadlines"></div>
+<h2>🎯 PRIORITY QUEUE</h2>
+<div class="p3-action-list" id="p3Actions"></div>
+<div class="p3-controls">
+<button onclick="refreshPhase3()">↻ REFRESH INTELLIGENCE</button>
+<button onclick="markAllP3Reviewed()">✓ MARK CURRENT QUEUE REVIEWED</button>
+</div>
+<div class="p3-history">
+<b>🕘 LOCAL ALERT HISTORY</b>
+<div id="p3History"></div>
+</div>
+</section></div><div class="app-view" id="view-monitor"><div class="view-intro"><h2>📡 MONITOR</h2><p>Official-source checking, notice records and official links. This is the only place for IGNOU monitoring.</p></div><div class="section-title" id="official-monitor">📡 OFFICIAL SOURCE MONITOR</div><section class="panel">
+<div class="note info">
+<b>HOW THIS WORKS:</b> This is a local monitoring console, not a live IGNOU scraper.
     Open each official source, check for relevant changes, then mark that source checked.
     The browser stores your check history locally.
   </div>
-
-  <div class="monitor-summary">
-    <div class="monitor-stat"><span class="muted">Sources checked today</span><b id="monitorChecked">0/5</b></div>
-    <div class="monitor-stat"><span class="muted">Need checking</span><b id="monitorDue">5</b></div>
-    <div class="monitor-stat"><span class="muted">Open notice actions</span><b id="monitorOpen">0</b></div>
-    <div class="monitor-stat"><span class="muted">Last activity</span><b id="monitorLast">—</b></div>
-  </div>
-
-  <div class="source-monitor" id="sourceMonitor"></div>
-
-  <div class="daily-check">
-    <h2>✅ DAILY 5-SOURCE CHECK</h2>
-    <p class="muted">Use this after checking the five official sources. This does not claim that IGNOU was checked automatically.</p>
-    <div class="daily-check-list" id="dailyCheckList"></div>
-    <button class="btn" onclick="completeDailyCheck()">MARK DAILY CHECK COMPLETE</button>
-  </div>
-
-  <div class="notice-log">
-    <h2>📰 OFFICIAL NOTICE LOG</h2>
-    <p class="muted">Record only notices you actually saw on an official source. This creates your personal audit trail.</p>
-    <div class="log-form">
-      <input id="logDate" type="date">
-      <select id="logSource">
-        <option>IGNOU Announcements</option>
-        <option>BCA_NEW Programme</option>
-        <option>Current Assignments</option>
-        <option>RC Guwahati</option>
-        <option>TEE Exam Portal</option>
-        <option>Other official IGNOU source</option>
-      </select>
-      <input class="full" id="logTitle" placeholder="Official notice title">
-      <input class="full" id="logUrl" placeholder="Official notice URL">
-      <textarea class="full" id="logWhy" placeholder="Why does this matter to me?"></textarea>
-      <select id="logStatus">
-        <option value="OPEN">ACTION REQUIRED</option>
-        <option value="WATCH">WATCH</option>
-        <option value="DONE">DONE</option>
-      </select>
-      <button class="btn" onclick="addNoticeLog()">+ SAVE NOTICE</button>
-    </div>
-    <div id="noticeLogList"></div>
-  </div>
-
-  <div class="backup-row">
-    <button onclick="exportControlData()">⬇ EXPORT MY CONTROL DATA</button>
-    <button onclick="document.getElementById('importData').click()">⬆ IMPORT BACKUP</button>
-    <input id="importData" type="file" accept=".json" style="display:none" onchange="importControlData(event)">
-  </div>
-
-  <div class="monitor-help">
-    <b>RULE:</b> A source being marked “checked” only means you personally opened and reviewed it.
+<div class="monitor-summary">
+<div class="monitor-stat"><span class="muted">Sources checked today</span><b id="monitorChecked">0/5</b></div>
+<div class="monitor-stat"><span class="muted">Need checking</span><b id="monitorDue">5</b></div>
+<div class="monitor-stat"><span class="muted">Open notice actions</span><b id="monitorOpen">0</b></div>
+<div class="monitor-stat"><span class="muted">Last activity</span><b id="monitorLast">—</b></div>
+</div>
+<div class="source-monitor" id="sourceMonitor"></div>
+<div class="daily-check">
+<h2>✅ DAILY 5-SOURCE CHECK</h2>
+<p class="muted">Use this after checking the five official sources. This does not claim that IGNOU was checked automatically.</p>
+<div class="daily-check-list" id="dailyCheckList"></div>
+<button class="btn" onclick="completeDailyCheck()">MARK DAILY CHECK COMPLETE</button>
+</div>
+<div class="notice-log">
+<h2>📰 OFFICIAL NOTICE LOG</h2>
+<p class="muted">Record only notices you actually saw on an official source. This creates your personal audit trail.</p>
+<div class="log-form">
+<input id="logDate" type="date"/>
+<select id="logSource">
+<option>IGNOU Announcements</option>
+<option>BCA_NEW Programme</option>
+<option>Current Assignments</option>
+<option>RC Guwahati</option>
+<option>TEE Exam Portal</option>
+<option>Other official IGNOU source</option>
+</select>
+<input class="full" id="logTitle" placeholder="Official notice title"/>
+<input class="full" id="logUrl" placeholder="Official notice URL"/>
+<textarea class="full" id="logWhy" placeholder="Why does this matter to me?"></textarea>
+<select id="logStatus">
+<option value="OPEN">ACTION REQUIRED</option>
+<option value="WATCH">WATCH</option>
+<option value="DONE">DONE</option>
+</select>
+<button class="btn" onclick="addNoticeLog()">+ SAVE NOTICE</button>
+</div>
+<div id="noticeLogList"></div>
+</div>
+<div class="backup-row">
+<button onclick="exportControlData()">⬇ EXPORT MY CONTROL DATA</button>
+<button onclick="document.getElementById('importData').click()">⬆ IMPORT BACKUP</button>
+<input accept=".json" id="importData" onchange="importControlData(event)" style="display:none" type="file"/>
+</div>
+<div class="monitor-help">
+<b>RULE:</b> A source being marked “checked” only means you personally opened and reviewed it.
     The dashboard never pretends that a live official page was automatically monitored.
   </div>
-</section>
-
-<section id="notifications" class="panel">
+</section><section class="panel" id="notifications">
 <h2>🔔 DAILY IGNOU NOTIFICATIONS</h2>
 <p class="muted">Relevant BCA_NEW / RC Guwahati control-centre notices are shown here. Verify important information on the original official source.</p>
 <div class="muted">Control-centre notice snapshot. Last checked: <span id="noticeChecked">—</span></div><div class="notice-toolbar"><button class="notice-filter active" data-filter="ALL">ALL</button><button class="notice-filter" data-filter="DEADLINE">DEADLINES</button><button class="notice-filter" data-filter="INFO">INFO</button><button class="btn" onclick="openOfficialChecks()">↻ CHECK OFFICIAL SOURCES</button></div><div class="notice-meta"><span class="muted">Official pages open in new tabs for live verification.</span><span class="muted">Snapshot verified 25 Sep 2026</span></div><div id="noticeList"></div>
-</section>
-
-<section class="panel" id="action-centre"><div class="section-title">⚡ PERSONAL ACTION CENTRE</div><div class="action-grid"><div class="action-card warning"><h3>🔴 TEE CHECK</h3><div class="action-big" id="teeDays">—</div><div class="muted">Until 30 September 2026</div><a class="item" target="_blank" href="https://exam.ignou.ac.in/">Check official exam portal ↗</a></div><div class="action-card"><h3>📝 ASSIGNMENTS</h3><div class="action-big" id="assignmentProgress">0/5</div><div class="muted">courses marked submitted</div><a class="item" href="#assignments">Open assignment control ↓</a></div><div class="action-card success"><h3>📚 SEMESTER PROGRESS</h3><div class="action-big" id="semesterProgress">0%</div><div class="muted">20-credit Semester 1 tracker</div><a class="item" href="#semester">Open Semester 1 ↓</a></div></div><div class="note info"><b>NOW:</b> <span id="nextAction">Loading your highest-priority action…</span></div></section><section class="panel"><h2>🚀 ONE-TAP CONTROL LINKS</h2><div class="quick-row"><a target="_blank" href="https://www.ignou.ac.in/announcements/0">IGNOU ANNOUNCEMENTS ↗</a><a target="_blank" href="https://www.ignou.ac.in/schools/programme/BCA_NEW">BCA_NEW ↗</a><a target="_blank" href="https://rcguwahati.ignou.ac.in/">RC GUWAHATI ↗</a><a target="_blank" href="https://www.ignou.ac.in/pages/43">CURRENT ASSIGNMENTS ↗</a></div></section>
-
-<section class="panel">
-<div class="note warning"><b>🚨 WHAT DO I NEED TO DO NOW?</b><br><span id="urgent">Loading your priorities…</span></div>
+</section><section class="panel" id="action-centre"><div class="section-title">⚡ PERSONAL ACTION CENTRE</div><div class="action-grid"><div class="action-card warning"><h3>🔴 TEE CHECK</h3><div class="action-big" id="teeDays">—</div><div class="muted">Until 30 September 2026</div><a class="item" href="https://exam.ignou.ac.in/" target="_blank">Check official exam portal ↗</a></div><div class="action-card"><h3>📝 ASSIGNMENTS</h3><div class="action-big" id="assignmentProgress">0/5</div><div class="muted">courses marked submitted</div><a class="item" href="#assignments">Open assignment control ↓</a></div><div class="action-card success"><h3>📚 SEMESTER PROGRESS</h3><div class="action-big" id="semesterProgress">0%</div><div class="muted">20-credit Semester 1 tracker</div><a class="item" href="#semester">Open Semester 1 ↓</a></div></div><div class="note info"><b>NOW:</b> <span id="nextAction">Loading your highest-priority action…</span></div></section><section class="panel"><h2>🚀 ONE-TAP CONTROL LINKS</h2><div class="quick-row"><a href="https://www.ignou.ac.in/announcements/0" target="_blank">IGNOU ANNOUNCEMENTS ↗</a><a href="https://www.ignou.ac.in/schools/programme/BCA_NEW" target="_blank">BCA_NEW ↗</a><a href="https://rcguwahati.ignou.ac.in/" target="_blank">RC GUWAHATI ↗</a><a href="https://www.ignou.ac.in/pages/43" target="_blank">CURRENT ASSIGNMENTS ↗</a></div></section><section class="panel">
+<div class="note warning"><b>🚨 WHAT DO I NEED TO DO NOW?</b><br/><span id="urgent">Loading your priorities…</span></div>
 <div class="grid">
-<a class="item" target="_blank" href="https://www.ignou.ac.in/announcements/0">📢 IGNOU Announcements</a>
-<a class="item" target="_blank" href="https://ignou.samarth.edu.in/">🎓 Samarth</a>
-<a class="item" target="_blank" href="https://exam.ignou.ac.in/">📝 TEE Exam Portal</a>
-<a class="item" target="_blank" href="https://rcguwahati.ignou.ac.in/">🏫 RC Guwahati</a>
-<a class="item" target="_blank" href="https://egyankosh.ac.in/">📚 eGyanKosh</a>
+<a class="item" href="https://www.ignou.ac.in/announcements/0" target="_blank">📢 IGNOU Announcements</a>
+<a class="item" href="https://ignou.samarth.edu.in/" target="_blank">🎓 Samarth</a>
+<a class="item" href="https://exam.ignou.ac.in/" target="_blank">📝 TEE Exam Portal</a>
+<a class="item" href="https://rcguwahati.ignou.ac.in/" target="_blank">🏫 RC Guwahati</a>
+<a class="item" href="https://egyankosh.ac.in/" target="_blank">📚 eGyanKosh</a>
 </div>
-</section>
-
-<div class="section-title" id="details">👤 OFFICIAL IGNOU DETAILS — LOCKED</div>
-<section class="panel">
+</section><div class="section-title" id="sources">📢 OFFICIAL SOURCES</div><section class="grid">
+<div class="panel"><h2>IGNOU HQ</h2><a class="item" href="https://www.ignou.ac.in/" target="_blank">Main Website</a><a class="item" href="https://www.ignou.ac.in/announcements/0" target="_blank">Announcements</a><a class="item" href="https://www.ignou.ac.in/pages/43" target="_blank">Current Assignments</a><a class="item" href="https://www.ignou.ac.in/pages/54" target="_blank">Student Services</a></div>
+<div class="panel"><h2>🏫 RC Guwahati</h2><a class="item" href="https://rcguwahati.ignou.ac.in/" target="_blank">RC Guwahati</a><a class="item" href="https://rcguwahati.ignou.ac.in/Ignou-RC-Guwahati/userfiles/file/SCLIST.pdf" target="_blank">Official LSC List</a></div>
+<div class="panel"><h2>📚 Study</h2><a class="item" href="https://egyankosh.ac.in/" target="_blank">eGyanKosh</a><a class="item" href="https://www.ignou.ac.in/viewFile/SOCIS/programmeguide/BCA_NEW-May-2026.pdf" target="_blank">BCA_NEW Programme Guide</a><a class="item" href="https://www.ignou.ac.in/pages/60" target="_blank">Previous Papers</a></div>
+</section></div><div class="app-view" id="view-details-view"><div class="view-intro"><h2>👤 MY DETAILS</h2><p>Your fixed IGNOU identity, enrolment and ID-card information.</p></div><div class="section-title" id="details">👤 OFFICIAL IGNOU DETAILS — LOCKED</div><section class="panel">
 <div class="details">
 <div class="detail"><div class="label">Name</div><div class="value">DIGBIJOY DAS</div></div>
 <div class="detail"><div class="label">Enrolment Number</div><div class="value">2650982050</div></div>
@@ -299,128 +309,88 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <div class="detail"><div class="label">Study Material</div><div class="value">Physical Books — received</div></div>
 <div class="detail"><div class="label">Registration Number</div><div class="value"><span class="status unknown">NOT SEPARATELY SHOWN</span></div></div>
 </div>
-</section>
-
-<div class="section-title">🪪 MY ID CARD</div>
-<section class="panel id-card">
-<img src="https://raw.githubusercontent.com/digbijoy123/IGNOU-BCA-CONTROL-CENTRE/main/ignou-student-id-card.png" alt="IGNOU Student ID Card">
+</section><div class="section-title">🪪 MY ID CARD</div><section class="panel id-card">
+<img alt="IGNOU Student ID Card" src="https://raw.githubusercontent.com/digbijoy123/IGNOU-BCA-CONTROL-CENTRE/main/ignou-student-id-card.png"/>
 <p class="muted">You requested the ID card to remain visible on the public deployment.</p>
-</section>
-
-
-<div class="section-title" id="academic">🎓 SEMESTER 1 ACADEMIC CONTROL</div>
-<section class="panel">
-  <div class="note info">
-    <b>ACADEMIC RULE:</b> This section is your personal record. Enter results only after checking the official IGNOU Grade Card / result source.
+</section></div><div class="app-view" id="view-academic-view"><div class="view-intro"><h2>🎓 ACADEMIC</h2><p>Your Semester 1 academic record, course lifecycle, assignments, TEE, practicals and results.</p></div><div class="section-title" id="academic">🎓 SEMESTER 1 ACADEMIC CONTROL</div><section class="panel">
+<div class="note info">
+<b>ACADEMIC RULE:</b> This section is your personal record. Enter results only after checking the official IGNOU Grade Card / result source.
     The dashboard does not claim to know your academic result automatically.
   </div>
-
-  <div class="roadmap">
-    <div class="roadmap-item current">SEM 1<br><span class="muted">CURRENT</span></div>
-    <div class="roadmap-item">SEM 2<br><span class="muted">NOT STARTED</span></div>
-    <div class="roadmap-item">SEM 3<br><span class="muted">NOT STARTED</span></div>
-    <div class="roadmap-item">SEM 4<br><span class="muted">NOT STARTED</span></div>
-    <div class="roadmap-item">SEM 5<br><span class="muted">NOT STARTED</span></div>
-    <div class="roadmap-item">SEM 6<br><span class="muted">NOT STARTED</span></div>
-  </div>
-
-  <div class="academic-summary">
-    <div class="academic-stat"><span class="muted">Semester 1 credits</span><b>20</b></div>
-    <div class="academic-stat"><span class="muted">Credits marked earned</span><b id="earnedCredits">0 / 20</b></div>
-    <div class="academic-stat"><span class="muted">Courses completed</span><b id="academicCompleted">0 / 5</b></div>
-    <div class="academic-stat"><span class="muted">Results recorded</span><b id="resultsRecorded">0 / 5</b></div>
-  </div>
-
-  <div class="muted">Credit completion</div>
-  <div class="academic-progress"><span id="creditProgress"></span></div>
-
-  <h2>📚 COURSE LIFECYCLE</h2>
-  <div class="academic-course-table">
-    <table>
-      <thead>
-        <tr>
-          <th>Course</th>
-          <th>Credits</th>
-          <th>Academic Status</th>
-          <th>TEE / Result</th>
-          <th>Grade / Mark</th>
-        </tr>
-      </thead>
-      <tbody id="academicCourseRows"></tbody>
-    </table>
-  </div>
-
-  <div class="academic-actions">
-    <button onclick="saveAcademic()">SAVE ACADEMIC RECORD</button>
-    <a class="pdf-btn" target="_blank" href="https://gradecard.ignou.ac.in/">OPEN OFFICIAL GRADE CARD ↗</a>
-    <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/pages/7">OPEN OFFICIAL RESULTS ↗</a>
-  </div>
-
-  <div class="note" style="margin-top:14px">
-    <b>STATUS MEANINGS</b><br>
-    Registered → course is part of your current academic record.<br>
-    Assignment Submitted → assignment stage recorded locally.<br>
-    TEE Attempted → you recorded that you attempted the exam.<br>
-    Result Pending → exam attempted but result has not been entered.<br>
-    Completed → you have verified the result and marked the course complete.<br>
+<div class="roadmap">
+<div class="roadmap-item current">SEM 1<br/><span class="muted">CURRENT</span></div>
+<div class="roadmap-item">SEM 2<br/><span class="muted">NOT STARTED</span></div>
+<div class="roadmap-item">SEM 3<br/><span class="muted">NOT STARTED</span></div>
+<div class="roadmap-item">SEM 4<br/><span class="muted">NOT STARTED</span></div>
+<div class="roadmap-item">SEM 5<br/><span class="muted">NOT STARTED</span></div>
+<div class="roadmap-item">SEM 6<br/><span class="muted">NOT STARTED</span></div>
+</div>
+<div class="academic-summary">
+<div class="academic-stat"><span class="muted">Semester 1 credits</span><b>20</b></div>
+<div class="academic-stat"><span class="muted">Credits marked earned</span><b id="earnedCredits">0 / 20</b></div>
+<div class="academic-stat"><span class="muted">Courses completed</span><b id="academicCompleted">0 / 5</b></div>
+<div class="academic-stat"><span class="muted">Results recorded</span><b id="resultsRecorded">0 / 5</b></div>
+</div>
+<div class="muted">Credit completion</div>
+<div class="academic-progress"><span id="creditProgress"></span></div>
+<h2>📚 COURSE LIFECYCLE</h2>
+<div class="academic-course-table">
+<table>
+<thead>
+<tr>
+<th>Course</th>
+<th>Credits</th>
+<th>Academic Status</th>
+<th>TEE / Result</th>
+<th>Grade / Mark</th>
+</tr>
+</thead>
+<tbody id="academicCourseRows"></tbody>
+</table>
+</div>
+<div class="academic-actions">
+<button onclick="saveAcademic()">SAVE ACADEMIC RECORD</button>
+<a class="pdf-btn" href="https://gradecard.ignou.ac.in/" target="_blank">OPEN OFFICIAL GRADE CARD ↗</a>
+<a class="pdf-btn" href="https://www.ignou.ac.in/pages/7" target="_blank">OPEN OFFICIAL RESULTS ↗</a>
+</div>
+<div class="note" style="margin-top:14px">
+<b>STATUS MEANINGS</b><br/>
+    Registered → course is part of your current academic record.<br/>
+    Assignment Submitted → assignment stage recorded locally.<br/>
+    TEE Attempted → you recorded that you attempted the exam.<br/>
+    Result Pending → exam attempted but result has not been entered.<br/>
+    Completed → you have verified the result and marked the course complete.<br/>
     Re-attempt → use only after an official result indicates another attempt is required.
   </div>
-</section>
-
-
-<div class="section-title" id="course-control">🔗 COURSE CONTROL — EVERYTHING CONNECTED</div>
-<section class="panel">
-  <div class="note info">
-    <b>ONE RECORD PER COURSE:</b> Assignment, TEE, practical/result and academic status are now displayed together.
+</section><div class="section-title" id="course-control">🔗 COURSE CONTROL — EVERYTHING CONNECTED</div><section class="panel">
+<div class="note info">
+<b>ONE RECORD PER COURSE:</b> Assignment, TEE, practical/result and academic status are now displayed together.
     This section reads your existing locally saved tracker data; it does not create a second copy of your progress.
   </div>
-  <div class="cross-control" id="crossControl"></div>
-  <div id="consistencyBox" class="consistency-box"></div>
-  <div class="cross-actions">
-    <button onclick="renderCrossControl()">↻ REFRESH CONTROL</button>
-    <button onclick="runConsistencyCheck()">✓ RUN CONSISTENCY CHECK</button>
-  </div>
-</section>
-
-<div class="section-title" id="semester">📚 SEMESTER 1 — 20 CREDITS</div>
-<section class="panel">
+<div class="cross-control" id="crossControl"></div>
+<div class="consistency-box" id="consistencyBox"></div>
+<div class="cross-actions">
+<button onclick="renderCrossControl()">↻ REFRESH CONTROL</button>
+<button onclick="runConsistencyCheck()">✓ RUN CONSISTENCY CHECK</button>
+</div>
+</section><div class="section-title" id="semester">📚 SEMESTER 1 — 20 CREDITS</div><section class="panel">
 <table><thead><tr><th>Code</th><th>Course</th><th>Credits</th><th>Assignment</th></tr></thead><tbody>
-<tr><td>BCS111</td><td>Computer Basics and PC Software</td><td>4</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf">PDF ↗</a></td></tr>
-<tr><td>BCS12 / BCS-012</td><td>Basic Mathematics</td><td>4</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-012-BCA-NEW-2026-27.pdf">PDF ↗</a></td></tr>
-<tr><td>BCSL13 / BCSL-013</td><td>Computer Basics and PC Software Lab</td><td>2</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCSL-013-BCA-NEW-2026-27.pdf">PDF ↗</a></td></tr>
-<tr><td>BEGLA136 / BEGLA-136</td><td>English at the Work Place</td><td>6</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEGLA-136-BCA-NEW-2026-27.pdf">PDF ↗</a></td></tr>
-<tr><td>BEVAE181 / BEVAE-181</td><td>Environmental Studies</td><td>4</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEVAE-181-BCA-NEW-2026-27.pdf">PDF ↗</a></td></tr></tbody></table>
-</section>
-
-<div class="section-title" id="assignments">📝 ASSIGNMENT CONTROL — PERSONAL DATA ONLY</div>
-<section class="panel">
-<div class="note warning"><b>JULY 2026 SESSION — DEADLINE: 31 OCTOBER 2026</b><br><span id="daysLeft"></span></div>
+<tr><td>BCS111</td><td>Computer Basics and PC Software</td><td>4</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf" target="_blank">PDF ↗</a></td></tr>
+<tr><td>BCS12 / BCS-012</td><td>Basic Mathematics</td><td>4</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-012-BCA-NEW-2026-27.pdf" target="_blank">PDF ↗</a></td></tr>
+<tr><td>BCSL13 / BCSL-013</td><td>Computer Basics and PC Software Lab</td><td>2</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCSL-013-BCA-NEW-2026-27.pdf" target="_blank">PDF ↗</a></td></tr>
+<tr><td>BEGLA136 / BEGLA-136</td><td>English at the Work Place</td><td>6</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEGLA-136-BCA-NEW-2026-27.pdf" target="_blank">PDF ↗</a></td></tr>
+<tr><td>BEVAE181 / BEVAE-181</td><td>Environmental Studies</td><td>4</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEVAE-181-BCA-NEW-2026-27.pdf" target="_blank">PDF ↗</a></td></tr></tbody></table>
+</section><div class="section-title" id="assignments">📝 ASSIGNMENT CONTROL — PERSONAL DATA ONLY</div><section class="panel">
+<div class="note warning"><b>JULY 2026 SESSION — DEADLINE: 31 OCTOBER 2026</b><br/><span id="daysLeft"></span></div>
 <div class="bar"><span id="deadlineBar"></span></div>
-</section>
-<div id="courseGrid" class="grid"></div>
-
-<div class="section-title" id="tee">📝 DECEMBER 2026 TEE</div>
-<section class="grid">
-<div class="panel"><h2>TEE Form</h2><div class="note warning"><b>30 SEPTEMBER 2026</b><br>Verify eligibility in the official exam portal before payment.</div><a class="item" target="_blank" href="https://exam.ignou.ac.in/">Open Official Exam Portal</a><label class="task"><input data-check="tee_form"> I have checked my TEE form status</label></div>
-<div class="panel"><h2>Grade Card</h2><a class="item" target="_blank" href="https://gradecard.ignou.ac.in/">Open Grade Card</a><a class="item" target="_blank" href="https://www.ignou.ac.in/pages/7">Open Results</a></div>
-</section>
-
-<div class="section-title" id="practical">🧪 PRACTICAL + COUNSELLING</div>
-<section class="grid">
-<div class="panel"><h2>BCSL13 Practical</h2><span class="status unknown">SCHEDULE UNKNOWN</span><p>Wait for an official RC/LSC schedule.</p><a class="item" target="_blank" href="https://rcguwahati.ignou.ac.in/">Check RC Guwahati</a><label class="task"><input data-check="practical"> I have checked RC/practical notices</label></div>
+</section><div class="grid" id="courseGrid"></div><div class="section-title" id="tee">📝 DECEMBER 2026 TEE</div><section class="grid">
+<div class="panel"><h2>TEE Form</h2><div class="note warning"><b>30 SEPTEMBER 2026</b><br/>Verify eligibility in the official exam portal before payment.</div><a class="item" href="https://exam.ignou.ac.in/" target="_blank">Open Official Exam Portal</a><label class="task"><input data-check="tee_form"/> I have checked my TEE form status</label></div>
+<div class="panel"><h2>Grade Card</h2><a class="item" href="https://gradecard.ignou.ac.in/" target="_blank">Open Grade Card</a><a class="item" href="https://www.ignou.ac.in/pages/7" target="_blank">Open Results</a></div>
+</section><div class="section-title" id="practical">🧪 PRACTICAL + COUNSELLING</div><section class="grid">
+<div class="panel"><h2>BCSL13 Practical</h2><span class="status unknown">SCHEDULE UNKNOWN</span><p>Wait for an official RC/LSC schedule.</p><a class="item" href="https://rcguwahati.ignou.ac.in/" target="_blank">Check RC Guwahati</a><label class="task"><input data-check="practical"/> I have checked RC/practical notices</label></div>
 <div class="panel"><h2>🏫 Counselling</h2><span class="status unknown">SCHEDULE UNKNOWN</span><p>Record personal notes only after an official schedule is published.</p><textarea data-value="counselling_note" placeholder="Your personal counselling note"></textarea></div>
-</section>
-
-<div class="section-title" id="sources">📢 OFFICIAL SOURCES</div>
-<section class="grid">
-<div class="panel"><h2>IGNOU HQ</h2><a class="item" target="_blank" href="https://www.ignou.ac.in/">Main Website</a><a class="item" target="_blank" href="https://www.ignou.ac.in/announcements/0">Announcements</a><a class="item" target="_blank" href="https://www.ignou.ac.in/pages/43">Current Assignments</a><a class="item" target="_blank" href="https://www.ignou.ac.in/pages/54">Student Services</a></div>
-<div class="panel"><h2>🏫 RC Guwahati</h2><a class="item" target="_blank" href="https://rcguwahati.ignou.ac.in/">RC Guwahati</a><a class="item" target="_blank" href="https://rcguwahati.ignou.ac.in/Ignou-RC-Guwahati/userfiles/file/SCLIST.pdf">Official LSC List</a></div>
-<div class="panel"><h2>📚 Study</h2><a class="item" target="_blank" href="https://egyankosh.ac.in/">eGyanKosh</a><a class="item" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/programmeguide/BCA_NEW-May-2026.pdf">BCA_NEW Programme Guide</a><a class="item" target="_blank" href="https://www.ignou.ac.in/pages/60">Previous Papers</a></div>
-</section>
-</main>
+</section></div></main>
 <footer class="footer">IGNOU BCA Full Control Centre · Personal progress is saved locally in this browser. Official information should always be verified against IGNOU.</footer>
-
-
 <script>
 const courses=[
   ["BCS111","Computer Basics and PC Software","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf"],
@@ -1015,7 +985,22 @@ function markAllP3Reviewed(){
 }
 function refreshPhase3(){renderPhase3();}
 
+function switchView(viewId){
+  document.querySelectorAll(".app-view").forEach(v=>v.classList.toggle("active",v.id==="view-"+viewId));
+  document.querySelectorAll(".nav-view").forEach(b=>b.classList.toggle("active",b.dataset.view===viewId));
+  window.scrollTo({top:0,behavior:"smooth"});
+  history.replaceState(null,"","#"+viewId);
+}
+function initViewNavigation(){
+  const hash=location.hash.replace("#","");
+  const allowed=["dashboard","monitor","academic-view","details-view"];
+  const initial=allowed.includes(hash)?hash:"dashboard";
+  switchView(initial);
+  document.querySelectorAll(".nav-view").forEach(b=>b.addEventListener("click",()=>switchView(b.dataset.view)));
+}
+
 function init(){
+  initViewNavigation();
   renderAcademic();
   renderCrossControl();
   renderPhase3();
@@ -1031,6 +1016,5 @@ function init(){
 }
 init();
 </script>
-
 </body>
 </html>
