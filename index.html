@@ -116,6 +116,41 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 .cross-actions button{border:3px solid #111;background:var(--yellow);padding:9px 12px;font-weight:1000;cursor:pointer}
 @media(max-width:800px){.cross-control{grid-template-columns:1fr}}
 
+
+/* PHASE 3 — NOTIFICATION & DEADLINE INTELLIGENCE */
+.phase3-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}
+.p3-stat{border:2px solid #111;background:#fff;padding:11px}
+.p3-stat b{display:block;font-size:22px;margin-top:3px}
+.p3-deadlines{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.p3-deadline{border:3px solid #111;background:#fff;padding:13px;min-width:0}
+.p3-deadline.overdue{background:var(--red)}
+.p3-deadline.urgent{background:#fffbe6}
+.p3-deadline.watch{background:var(--blue)}
+.p3-deadline.done{background:var(--green)}
+.p3-deadline-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.p3-days{border:2px solid #111;padding:4px 7px;font-weight:1000;white-space:nowrap;background:#fff}
+.p3-progress{height:16px;border:2px solid #111;background:#fff;margin-top:8px}
+.p3-progress span{display:block;height:100%;background:#111;width:0}
+.p3-action-list{margin-top:12px}
+.p3-action{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;border-top:2px solid #111;padding:10px 0}
+.p3-action-main{min-width:0}
+.p3-action-title{font-weight:1000}
+.p3-action-meta{font-size:11px;font-weight:700;color:#555;margin-top:3px}
+.p3-action button{border:2px solid #111;background:#fff;padding:6px 8px;font-weight:1000;cursor:pointer;white-space:nowrap}
+.p3-action button:hover{background:var(--yellow)}
+.p3-badge{display:inline-block;border:2px solid #111;padding:3px 6px;font-size:10px;font-weight:1000;margin-right:5px}
+.p3-badge.red{background:var(--red)}
+.p3-badge.yellow{background:var(--yellow)}
+.p3-badge.green{background:var(--green)}
+.p3-badge.blue{background:var(--blue)}
+.p3-history{border:2px solid #111;background:#fff;padding:11px;margin-top:10px}
+.p3-history-item{border-top:2px solid #111;padding:8px 0;font-weight:800}
+.p3-history-item:first-child{border-top:0}
+.p3-controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.p3-controls button{border:3px solid #111;background:var(--yellow);padding:9px 12px;font-weight:1000;cursor:pointer}
+@media(max-width:850px){.phase3-summary{grid-template-columns:1fr 1fr}.p3-deadlines{grid-template-columns:1fr}}
+@media(max-width:600px){.phase3-summary{grid-template-columns:1fr}.p3-action{display:block}.p3-action button{margin-top:8px}}
+
 </style>
 </head>
 <body>
@@ -126,7 +161,7 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <h1>IGNOU BCA<br>FULL CONTROL CENTRE</h1>
 <p>BCA_NEW · July 2026 · RC Guwahati · LSC 0400</p>
 <nav class="nav">
-<a href="#official-monitor">📡 SOURCE MONITOR</a><a href="#notifications">🔔 NOTIFICATIONS</a><a href="#action-centre">⚡ ACTION CENTRE</a><a href="#details">MY DETAILS</a><a href="#academic">ACADEMIC</a><a href="#course-control">COURSE CONTROL</a><a href="#semester">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">SOURCES</a>
+<a href="#intelligence">🚨 DEADLINES</a><a href="#official-monitor">📡 SOURCE MONITOR</a><a href="#notifications">🔔 NOTIFICATIONS</a><a href="#action-centre">⚡ ACTION CENTRE</a><a href="#details">MY DETAILS</a><a href="#academic">ACADEMIC</a><a href="#course-control">COURSE CONTROL</a><a href="#semester">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">SOURCES</a>
 
 </nav>
 </div>
@@ -134,6 +169,38 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 </header>
 
 <main class="wrap">
+
+
+<div class="section-title" id="intelligence">🚨 PHASE 3 — DEADLINE & NOTIFICATION INTELLIGENCE</div>
+<section class="panel">
+  <div class="note info">
+    <b>IMPORTANT:</b> This layer calculates urgency from the dates stored in this dashboard and your personal progress.
+    It does not automatically scrape IGNOU or claim that a website changed.
+  </div>
+
+  <div class="phase3-summary">
+    <div class="p3-stat"><span class="muted">Urgent now</span><b id="p3Urgent">0</b></div>
+    <div class="p3-stat"><span class="muted">Due soon</span><b id="p3Soon">0</b></div>
+    <div class="p3-stat"><span class="muted">Open actions</span><b id="p3Open">0</b></div>
+    <div class="p3-stat"><span class="muted">Overdue</span><b id="p3Overdue">0</b></div>
+  </div>
+
+  <h2>⏱️ DEADLINE CONTROL</h2>
+  <div class="p3-deadlines" id="p3Deadlines"></div>
+
+  <h2>🎯 PRIORITY QUEUE</h2>
+  <div class="p3-action-list" id="p3Actions"></div>
+
+  <div class="p3-controls">
+    <button onclick="refreshPhase3()">↻ REFRESH INTELLIGENCE</button>
+    <button onclick="markAllP3Reviewed()">✓ MARK CURRENT QUEUE REVIEWED</button>
+  </div>
+
+  <div class="p3-history">
+    <b>🕘 LOCAL ALERT HISTORY</b>
+    <div id="p3History"></div>
+  </div>
+</section>
 
 <div class="section-title" id="official-monitor">📡 OFFICIAL SOURCE MONITOR</div>
 <section class="panel">
@@ -824,9 +891,134 @@ function runConsistencyCheck(){
   }
 }
 
+
+/* PHASE 3 — NOTIFICATION & DEADLINE INTELLIGENCE */
+const PHASE3_KEY="ignou_bca_phase3_v1";
+let phase3Data=JSON.parse(localStorage.getItem(PHASE3_KEY)||'{"reviewed":{},"history":[]}');
+
+const phase3Deadlines=[
+  {id:"tee_form",title:"December 2026 TEE form deadline",date:"2026-09-30T23:59:59+05:30",type:"TEE",url:"https://exam.ignou.ac.in/",action:"Check your official TEE form status and eligibility before payment."},
+  {id:"assignments",title:"Semester 1 July 2026 assignments",date:"2026-10-31T23:59:59+05:30",type:"ASSIGNMENTS",url:"https://www.ignou.ac.in/pages/43",action:"Complete and submit all applicable assignments, then keep proof."}
+];
+
+function phase3Save(){
+  localStorage.setItem(PHASE3_KEY,JSON.stringify(phase3Data));
+}
+function p3DaysUntil(date){
+  return Math.ceil((new Date(date)-new Date())/86400000);
+}
+function p3DeadlineState(item){
+  const days=p3DaysUntil(item.date);
+  if(item.id==="assignments"){
+    const submitted=courses.filter(([c])=>state(c+"_submitted").checked).length;
+    if(submitted===5)return {label:"COMPLETED",className:"done",days:days};
+  }
+  if(days<0)return {label:"OVERDUE",className:"overdue",days:days};
+  if(days<=3)return {label:"URGENT",className:"overdue",days:days};
+  if(days<=14)return {label:"DUE SOON",className:"urgent",days:days};
+  return {label:"WATCH",className:"watch",days:days};
+}
+function p3DaysText(days){
+  if(days<0)return Math.abs(days)+" days overdue";
+  if(days===0)return "Due today";
+  if(days===1)return "1 day left";
+  return days+" days left";
+}
+function renderPhase3(){
+  const now=new Date();
+  const deadlines=document.getElementById("p3Deadlines");
+  let urgent=0,soon=0,overdue=0;
+  if(deadlines){
+    deadlines.innerHTML=phase3Deadlines.map(item=>{
+      const st=p3DeadlineState(item);
+      if(st.label==="URGENT")urgent++;
+      if(st.label==="DUE SOON")soon++;
+      if(st.label==="OVERDUE")overdue++;
+      const pct=Math.max(0,Math.min(100,100-(Math.max(0,(new Date(item.date)-now))/(new Date(item.date)-new Date("2026-07-01T00:00:00+05:30"))*100)));
+      return `<div class="p3-deadline ${st.className}">
+        <div class="p3-deadline-top">
+          <div><span class="p3-badge ${st.label==="OVERDUE"||st.label==="URGENT"?"red":st.label==="DUE SOON"?"yellow":st.label==="COMPLETED"?"green":"blue"}">${st.label}</span><b>${esc(item.title)}</b></div>
+          <span class="p3-days">${esc(p3DaysText(st.days))}</span>
+        </div>
+        <div class="muted" style="margin-top:7px">Deadline: ${new Date(item.date).toLocaleDateString("en-IN",{day:"2-digit",month:"long",year:"numeric"})}</div>
+        <div class="p3-progress"><span style="width:${item.id==="assignments"?Math.round(courses.filter(([c])=>state(c+"_submitted").checked).length/5*100):"0"}%"></span></div>
+        <p>${esc(item.action)}</p>
+        <a class="pdf-btn" target="_blank" href="${item.url}">OPEN OFFICIAL SOURCE ↗</a>
+      </div>`;
+    }).join("");
+  }
+
+  const actions=[];
+  const submitted=courses.filter(([c])=>state(c+"_submitted").checked).length;
+  if(p3DaysUntil(phase3Deadlines[0].date)>=0){
+    actions.push({id:"tee",level:p3DaysUntil(phase3Deadlines[0].date)<=3?"URGENT":"ACTION",title:"Check December 2026 TEE status",meta:"Official exam portal · deadline 30 Sep 2026",url:"https://exam.ignou.ac.in/"});
+  }
+  if(submitted<5){
+    actions.push({id:"assign",level:"ACTION",title:`Finish Semester 1 assignments (${submitted}/5 submitted)`,meta:"Assignment deadline 31 Oct 2026",url:"#assignments"});
+  }
+  if(!state("check_practical").checked){
+    actions.push({id:"practical",level:"WATCH",title:"Check RC Guwahati for practical / counselling updates",meta:"BCSL13 local schedule not recorded as checked",url:"https://rcguwahati.ignou.ac.in/"});
+  }
+  officialSources.forEach(s=>{
+    const r=sourceRecord(s.id);
+    const isToday=r.lastChecked && new Date(r.lastChecked).toLocaleDateString("en-CA")===todayKey();
+    if(!isToday)actions.push({id:"source_"+s.id,level:"WATCH",title:"Check "+s.name,meta:s.purpose,url:s.url});
+  });
+
+  const openLogs=(monitorData.logs||[]).filter(x=>x.status==="OPEN");
+  openLogs.forEach((x,i)=>actions.push({id:"log_"+i,level:"NOTICE",title:x.title,meta:x.source+" · action required",url:x.url||"#"}));
+
+  const actionsEl=document.getElementById("p3Actions");
+  if(actionsEl){
+    actionsEl.innerHTML=actions.length?actions.map(a=>{
+      const key=a.id+"_"+todayKey();
+      const reviewed=!!phase3Data.reviewed[key];
+      const badge=a.level==="URGENT"?"red":a.level==="ACTION"?"yellow":a.level==="NOTICE"?"blue":"green";
+      return `<div class="p3-action">
+        <div class="p3-action-main"><span class="p3-badge ${badge}">${esc(a.level)}</span><span class="p3-action-title">${esc(a.title)}</span><div class="p3-action-meta">${esc(a.meta)}${reviewed?" · REVIEWED":""}</div></div>
+        <div><a class="pdf-btn" target="${a.url.startsWith("http")?"_blank":"_self"}" href="${a.url}">OPEN ↗</a> <button onclick="reviewP3('${esc(a.id)}')">${reviewed?"REVIEWED":"MARK REVIEWED"}</button></div>
+      </div>`;
+    }).join(""):'<div class="note success"><b>🟢 NO OPEN PRIORITY ITEMS</b><br>Your current local queue has nothing requiring attention.</div>';
+  }
+
+  const open=actions.filter(a=>a.level==="URGENT"||a.level==="ACTION"||a.level==="NOTICE").length;
+  const u=document.getElementById("p3Urgent");if(u)u.textContent=urgent;
+  const s=document.getElementById("p3Soon");if(s)s.textContent=soon;
+  const o=document.getElementById("p3Open");if(o)o.textContent=open;
+  const od=document.getElementById("p3Overdue");if(od)od.textContent=overdue;
+
+  const h=document.getElementById("p3History");
+  if(h){
+    const hist=[...(phase3Data.history||[])].slice(-10).reverse();
+    h.innerHTML=hist.length?hist.map(x=>`<div class="p3-history-item">${esc(x.text)}<div class="muted">${fmtDateTime(x.at)}</div></div>`).join(""):'<div class="muted" style="margin-top:7px">No alert actions recorded yet.</div>';
+  }
+}
+function reviewP3(id){
+  phase3Data.reviewed[id+"_"+todayKey()]=true;
+  phase3Data.history=phase3Data.history||[];
+  phase3Data.history.push({text:"Reviewed: "+id,at:new Date().toISOString()});
+  phase3Data.history=phase3Data.history.slice(-50);
+  phase3Save();
+  renderPhase3();
+}
+function markAllP3Reviewed(){
+  const stamp=todayKey();
+  phase3Data.reviewed["tee_"+stamp]=true;
+  phase3Data.reviewed["assign_"+stamp]=true;
+  phase3Data.reviewed["practical_"+stamp]=true;
+  officialSources.forEach(s=>phase3Data.reviewed["source_"+s.id+"_"+stamp]=true);
+  phase3Data.history=phase3Data.history||[];
+  phase3Data.history.push({text:"Reviewed current Phase 3 priority queue.",at:new Date().toISOString()});
+  phase3Data.history=phase3Data.history.slice(-50);
+  phase3Save();
+  renderPhase3();
+}
+function refreshPhase3(){renderPhase3();}
+
 function init(){
   renderAcademic();
   renderCrossControl();
+  renderPhase3();
   updateToday();
   const ld=document.getElementById("logDate"); if(ld)ld.value=todayKey();
   renderMonitor();
