@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IGNOU BCA Full Control Centre</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f1e8;color:#111}
+header{background:#ffd43b;border-bottom:5px solid #111;padding:24px}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(30px,6vw,58px);line-height:.95;margin-bottom:12px;text-transform:uppercase}
+.subtitle{font-weight:800;font-size:16px}
+.container{max-width:1200px;margin:auto;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.card{background:#fff;border:4px solid #111;box-shadow:7px 7px 0 #111;padding:18px;margin-bottom:18px}
+.card.yellow{background:#ffd43b}.card.pink{background:#ff7eb6}.card.blue{background:#75d7ff}.card.green{background:#8ff0a4}.card.red{background:#ff7b72}
+.badge{display:inline-block;border:3px solid #111;padding:5px 9px;font-weight:900;background:#fff;margin:3px 3px 8px 0}
+.big{font-size:28px;font-weight:900}
+.item{border-top:3px solid #111;padding:12px 0}
+.item:first-child{border-top:0}
+a{color:#111;font-weight:900}
+button{border:3px solid #111;background:#fff;padding:10px 14px;font-weight:900;cursor:pointer;box-shadow:4px 4px 0 #111;margin:4px 4px 8px 0}
+button:active{transform:translate(3px,3px);box-shadow:1px 1px 0 #111}
+input[type=checkbox]{width:20px;height:20px;vertical-align:middle}
+.notice{display:flex;gap:10px;align-items:flex-start}
+.notice-dot{font-size:24px}
+.small{font-size:13px;font-weight:700}
+table{width:100%;border-collapse:collapse}
+th,td{border:3px solid #111;padding:9px;text-align:left}
+th{background:#111;color:#fff}
+.idcard{width:100%;max-width:520px;border:4px solid #111;display:block}
+footer{padding:30px 20px;text-align:center;font-weight:900}
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="badge">BCA_NEW • JULY 2026</div>
+    <h1>IGNOU BCA<br>FULL CONTROL CENTRE</h1>
+    <div class="subtitle">One place for your IGNOU details, assignments, exams, documents and important official links.</div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="card red">
+    <h2>🔴 LIVE IGNOU ALERT CENTER</h2>
+    <p><strong>Last checked:</strong> <span id="checked">This page is a static control centre. Open the official links below for the latest live notices.</span></p>
+    <div class="notice">
+      <div class="notice-dot">⚠️</div>
+      <div><strong>IMPORTANT:</strong> Always verify deadlines and eligibility on the original IGNOU notice before submitting forms or making payments.</div>
+    </div>
+    <button onclick="location.href='https://www.ignou.ac.in/pages/43'">CHECK IGNOU ASSIGNMENT UPDATES</button>
+    <button onclick="location.href='https://exam.ignou.ac.in/'">CHECK EXAM PORTAL</button>
+    <button onclick="location.href='https://rcguwahati.ignou.ac.in/'">CHECK RC GUWAHATI</button>
+  </section>
+
+  <section class="grid">
+    <div class="card yellow">
+      <h2>📌 What do I need to do now?</h2>
+      <div class="item"><label><input type="checkbox" data-task="assignments"> Work on Semester 1 assignments</label></div>
+      <div class="item"><label><input type="checkbox" data-task="exam"> Check December 2026 TEE requirements/status</label></div>
+      <div class="item"><label><input type="checkbox" data-task="practical"> Keep practical/counselling requirements on track</label></div>
+      <div class="item"><label><input type="checkbox" data-task="id"> Keep ID card and admission documents saved</label></div>
+      <p class="small">Your checkboxes are saved in this browser.</p>
+    </div>
+
+    <div class="card blue">
+      <h2>👤 My IGNOU Details</h2>
+      <p><strong>Name:</strong> DIGBIJOY DAS</p>
+      <p><strong>Programme:</strong> BCA_NEW — Bachelor of Computer Applications</p>
+      <p><strong>Enrolment:</strong> 2650982050</p>
+      <p><strong>Admission:</strong> July 2026</p>
+      <p><strong>Valid through:</strong> June 2032</p>
+      <p><strong>Medium:</strong> English</p>
+      <p><strong>Mode:</strong> Open Distance Learning</p>
+      <p><strong>Regional Centre:</strong> 04 — GUWAHATI</p>
+      <p><strong>Study Centre / LSC:</strong> 0400 — Regional Centre, TLC</p>
+      <p><strong>Quota:</strong> SC</p>
+      <p><strong>Registration Number:</strong> NOT SEPARATELY SHOWN</p>
+    </div>
+  </section>
+
+  <section class="card pink">
+    <h2>🪪 My IGNOU ID Card</h2>
+    <p>Keep this page private if you do not want your personal ID details publicly visible.</p>
+    <img class="idcard" src="ignou-student-id-card.png" alt="IGNOU Student ID Card">
+  </section>
+
+  <section class="card">
+    <h2>📚 Semester 1 — 20 Credits</h2>
+    <table>
+      <tr><th>Course</th><th>Title</th><th>Credits</th><th>Assignment</th></tr>
+      <tr><td>BCS111</td><td>Computer Basics and PC Software</td><td>4</td><td><a href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf" target="_blank">PDF</a></td></tr>
+      <tr><td>BCS12</td><td>Mathematics / Basic Mathematics</td><td>4</td><td><a href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-012-BCA-NEW-2026-27.pdf" target="_blank">PDF</a></td></tr>
+      <tr><td>BCSL13</td><td>Computer Basics and PC Software Lab</td><td>2</td><td><a href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCSL-013-BCA-NEW-2026-27.pdf" target="_blank">PDF</a></td></tr>
+      <tr><td>BEGLA136</td><td>English at the Work Place</td><td>6</td><td><a href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEGLA-136-BCA-NEW-2026-27.pdf" target="_blank">PDF</a></td></tr>
+      <tr><td>BEVAE181</td><td>Environmental Studies</td><td>4</td><td><a href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEVAE-181-BCA-NEW-2026-27.pdf" target="_blank">PDF</a></td></tr>
+    </table>
+    <p class="small">Current July 2026 assignment PDFs show 31 October 2026 as the last submission date. Verify the latest official notice before submission.</p>
+  </section>
+
+  <section class="grid">
+    <div class="card green">
+      <h2>📝 Assignments</h2>
+      <p><strong>Submission target:</strong> 31 October 2026</p>
+      <p>Submit to the Study Centre Coordinator according to IGNOU instructions.</p>
+      <button onclick="location.href='https://www.ignou.ac.in/pages/43'">OFFICIAL ASSIGNMENT PAGE</button>
+    </div>
+    <div class="card yellow">
+      <h2>🧪 Practical + Counselling</h2>
+      <p>BCSL13 is a practical/lab course. Track attendance, counselling/practical requirements and assignment/viva requirements.</p>
+      <button onclick="location.href='https://rcguwahati.ignou.ac.in/'">RC GUWAHATI</button>
+      <button onclick="location.href='https://rcguwahati.ignou.ac.in/Ignou-RC-Guwahati/userfiles/file/SCLIST.pdf'">LSC LIST</button>
+    </div>
+    <div class="card blue">
+      <h2>🎓 December 2026 TEE</h2>
+      <p><strong>Important:</strong> Check the official exam portal for the current form, datesheet, eligibility and payment status.</p>
+      <button onclick="location.href='https://exam.ignou.ac.in/'">EXAM PORTAL</button>
+      <button onclick="location.href='https://www.ignou.ac.in/pages/60'">PREVIOUS PAPERS</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>🌐 Official IGNOU Control Links</h2>
+    <div class="grid">
+      <div><a href="https://www.ignou.ac.in/schools/programme/BCA_NEW" target="_blank">BCA_NEW Programme</a></div>
+      <div><a href="https://www.ignou.ac.in/viewFile/SOCIS/programmeguide/BCA_NEW-May-2026.pdf" target="_blank">BCA_NEW Programme Guide</a></div>
+      <div><a href="https://ignou.samarth.edu.in/" target="_blank">Samarth</a></div>
+      <div><a href="https://isms.ignou.ac.in/changeadmdata/AdmissionStatusNew.ASP" target="_blank">Admission Status</a></div>
+      <div><a href="https://gradecard.ignou.ac.in/" target="_blank">Grade Card</a></div>
+      <div><a href="https://www.ignou.ac.in/pages/7" target="_blank">Results</a></div>
+      <div><a href="https://onlinerr.ignou.ac.in/" target="_blank">Re-registration</a></div>
+      <div><a href="https://egyankosh.ac.in/" target="_blank">eGyanKosh</a></div>
+      <div><a href="https://www.ignou.ac.in/pages/54" target="_blank">Student Services</a></div>
+      <div><a href="https://rcguwahati.ignou.ac.in/" target="_blank">RC Guwahati</a></div>
+    </div>
+  </section>
+
+  <section class="card pink">
+    <h2>✅ Weekly Control Check</h2>
+    <div class="item">☐ Check IGNOU main announcements</div>
+    <div class="item">☐ Check BCA_NEW programme page</div>
+    <div class="item">☐ Check RC Guwahati notices</div>
+    <div class="item">☐ Check assignment deadlines</div>
+    <div class="item">☐ Check exam/TEE updates</div>
+    <div class="item">☐ Check practical/counselling updates</div>
+  </section>
+</main>
+
+<footer>IGNOU BCA CONTROL CENTRE • Personal student dashboard • Verify important information on official IGNOU sources.</footer>
+
+<script>
+document.querySelectorAll('input[type="checkbox"][data-task]').forEach(box=>{
+  const key='ignou_control_'+box.dataset.task;
+  box.checked=localStorage.getItem(key)==='1';
+  box.addEventListener('change',()=>localStorage.setItem(key,box.checked?'1':'0'));
+});
+</script>
+</body>
+</html>
