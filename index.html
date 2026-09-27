@@ -4,47 +4,74 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IGNOU BCA Control Centre — Digbijoy Das</title>
-<meta name="description" content="Personal academic workspace for Digbijoy Das (Enrolment: 2650982050), BCA_NEW July 2026 batch at IGNOU Regional Centre Guwahati.">
+<meta name="description" content="Claymorphism Academic Command Centre for Digbijoy Das (Enrolment: 2650982050), BCA_NEW July 2026 batch at IGNOU Regional Centre Guwahati.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg-primary:#090d16;
-  --bg-secondary:#0f172a;
-  --bg-card:#131c31;
-  --bg-card-hover:#18243e;
-  --border-subtle:rgba(255,255,255,0.08);
-  --border-focus:rgba(99,102,241,0.5);
-  --text-main:#f8fafc;
-  --text-muted:#94a3b8;
-  --text-dim:#64748b;
-  --accent-indigo:#6366f1;
-  --accent-cyan:#06b6d4;
-  --accent-emerald:#10b981;
-  --accent-amber:#f59e0b;
-  --accent-rose:#f43f5e;
-  --glow-indigo:rgba(99,102,241,0.15);
+  --clay-bg:#e9edf5;
+  --clay-card:#f7f9fd;
+  --clay-card-hover:#ffffff;
+  --clay-inset:#e4ebf5;
+  --text-primary:#1e293b;
+  --text-secondary:#475569;
+  --text-muted:#64748b;
+  --text-light:#94a3b8;
+  
+  --clay-shadow-card:
+    14px 18px 36px rgba(166, 180, 205, 0.4),
+    -12px -12px 28px rgba(255, 255, 255, 0.95),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.8),
+    inset -3px -3px 6px rgba(166, 180, 205, 0.15);
+
+  --clay-shadow-card-hover:
+    18px 24px 44px rgba(166, 180, 205, 0.5),
+    -14px -14px 32px rgba(255, 255, 255, 0.95),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.9),
+    inset -4px -4px 8px rgba(166, 180, 205, 0.15);
+
+  --clay-shadow-inset:
+    inset 4px 4px 8px rgba(166, 180, 205, 0.35),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.95);
+
+  --clay-shadow-btn-primary:
+    8px 10px 22px rgba(79, 70, 229, 0.35),
+    -6px -6px 14px rgba(255, 255, 255, 0.8),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.4),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.15);
+
+  --clay-shadow-btn-secondary:
+    6px 8px 18px rgba(166, 180, 205, 0.3),
+    -6px -6px 14px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 4px rgba(166, 180, 205, 0.2);
+
+  --accent-indigo:#4f46e5;
+  --accent-cyan:#0891b2;
+  --accent-emerald:#059669;
+  --accent-amber:#d97706;
+  --accent-rose:#e11d48;
+  
   --font-sans:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
   --font-mono:'JetBrains Mono',monospace;
-  --radius-sm:6px;
-  --radius-md:10px;
-  --radius-lg:14px;
-  --radius-xl:18px;
 }
+
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-  background-color:var(--bg-primary);
+  background-color:var(--clay-bg);
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%,rgba(99,102,241,0.18),transparent),
-    radial-gradient(ellipse 60% 40% at 100% 60%,rgba(6,182,212,0.08),transparent);
-  color:var(--text-main);
+    radial-gradient(at 0% 0%, rgba(199, 210, 254, 0.45) 0px, transparent 55%),
+    radial-gradient(at 100% 0%, rgba(254, 215, 226, 0.45) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(224, 231, 255, 0.6) 0px, transparent 60%);
+  color:var(--text-primary);
   font-family:var(--font-sans);
   line-height:1.5;
   -webkit-font-smoothing:antialiased;
   min-height:100vh;
 }
-.container{max-width:1280px;margin:0 auto;padding:24px 20px 80px}
+
+.container{max-width:1280px;margin:0 auto;padding:28px 22px 80px}
 
 /* HEADER */
 .top-nav{
@@ -52,263 +79,374 @@ body{
   justify-content:space-between;
   align-items:center;
   flex-wrap:wrap;
-  gap:16px;
-  padding:20px 0 28px;
-  border-bottom:1px solid var(--border-subtle);
-  margin-bottom:28px;
+  gap:18px;
+  padding:10px 0 32px;
 }
-.brand{display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:16px}
 .brand-badge{
-  width:42px;
-  height:42px;
-  border-radius:var(--radius-md);
-  background:linear-gradient(135deg,var(--accent-indigo),var(--accent-cyan));
+  width:48px;
+  height:48px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#6366f1,#4f46e5);
   display:flex;
   align-items:center;
   justify-content:center;
   color:#fff;
   font-weight:800;
-  font-size:16px;
-  box-shadow:0 0 20px rgba(99,102,241,0.4);
+  font-size:17px;
+  box-shadow:
+    6px 8px 18px rgba(79, 70, 229, 0.35),
+    -4px -4px 12px rgba(255, 255, 255, 0.8),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.4),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.15);
 }
-.brand-title{font-size:19px;font-weight:800;letter-spacing:-0.4px;color:#fff}
-.brand-sub{font-size:12px;color:var(--text-dim);font-family:var(--font-mono)}
-.top-pills{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.brand-title{font-size:22px;font-weight:800;letter-spacing:-0.5px;color:var(--text-primary)}
+.brand-sub{font-size:13px;color:var(--text-muted);font-weight:600}
+
+.top-pills{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .pill{
   display:inline-flex;
   align-items:center;
-  gap:6px;
-  padding:5px 11px;
-  border-radius:100px;
+  gap:8px;
+  padding:8px 16px;
+  border-radius:9999px;
   font-size:12px;
-  font-weight:600;
-  background:rgba(255,255,255,0.05);
-  border:1px solid var(--border-subtle);
-  color:var(--text-muted);
+  font-weight:700;
+  background:#f0f4fa;
+  color:var(--text-secondary);
+  box-shadow:
+    4px 5px 12px rgba(166, 180, 205, 0.25),
+    -4px -4px 10px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.8),
+    inset -2px -2px 4px rgba(166, 180, 205, 0.15);
 }
 .pill.active{
-  background:rgba(16,185,129,0.12);
-  border-color:rgba(16,185,129,0.3);
+  background:#e8fdf5;
   color:var(--accent-emerald);
+  box-shadow:
+    4px 5px 12px rgba(16, 185, 129, 0.2),
+    -4px -4px 10px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 4px rgba(16, 185, 129, 0.15);
 }
 .pill.active::before{
   content:'';
-  width:6px;
-  height:6px;
+  width:7px;
+  height:7px;
   border-radius:50%;
   background:var(--accent-emerald);
   box-shadow:0 0 8px var(--accent-emerald);
 }
 
 /* HERO GRID */
-.hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;margin-bottom:24px}
+.hero-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:24px;margin-bottom:28px}
 @media(max-width:960px){.hero-grid{grid-template-columns:1fr}}
 
-.card{
-  background:var(--bg-card);
-  border:1px solid var(--border-subtle);
-  border-radius:var(--radius-lg);
-  padding:24px;
+.clay-card{
+  background:var(--clay-card);
+  border-radius:28px;
+  padding:28px;
+  box-shadow:var(--clay-shadow-card);
+  transition:all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   position:relative;
-  transition:border-color 0.2s,box-shadow 0.2s,background-color 0.2s;
 }
-.card:hover{
-  border-color:rgba(255,255,255,0.14);
+.clay-card:hover{
+  box-shadow:var(--clay-shadow-card-hover);
 }
+
 .card-title-row{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:18px;
+  margin-bottom:22px;
 }
 .card-title{
-  font-size:15px;
-  font-weight:700;
-  color:var(--text-main);
+  font-size:16px;
+  font-weight:800;
+  color:var(--text-primary);
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:10px;
   letter-spacing:-0.2px;
 }
-.card-title svg{width:18px;height:18px;color:var(--accent-indigo);flex-shrink:0}
+.card-title-icon{
+  width:32px;
+  height:32px;
+  border-radius:12px;
+  background:#eaf0f9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--accent-indigo);
+  box-shadow:
+    3px 4px 10px rgba(166, 180, 205, 0.3),
+    -3px -3px 8px rgba(255, 255, 255, 0.9),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.8),
+    inset -1px -1px 2px rgba(166, 180, 205, 0.2);
+}
+.card-title-icon svg{width:16px;height:16px}
 
-/* STUDENT PROFILE CARD */
+.clay-badge{
+  font-size:11px;
+  font-weight:800;
+  padding:5px 12px;
+  border-radius:9999px;
+  background:#ede9fe;
+  color:var(--accent-indigo);
+  letter-spacing:0.4px;
+  box-shadow:
+    3px 3px 8px rgba(99, 102, 241, 0.15),
+    -3px -3px 8px rgba(255, 255, 255, 0.9),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* STUDENT PROFILE INSET TILES */
 .profile-meta-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  margin-bottom:20px;
+  gap:14px;
+  margin-bottom:24px;
 }
-@media(max-width:540px){.profile-meta-grid{grid-template-columns:1fr}}
-.meta-box{
-  background:rgba(0,0,0,0.25);
-  border:1px solid var(--border-subtle);
-  border-radius:var(--radius-md);
-  padding:11px 14px;
+@media(max-width:560px){.profile-meta-grid{grid-template-columns:1fr}}
+
+.clay-inset-box{
+  background:var(--clay-inset);
+  border-radius:20px;
+  padding:14px 16px;
+  box-shadow:var(--clay-shadow-inset);
 }
 .meta-label{
   font-size:11px;
-  font-weight:600;
+  font-weight:700;
   text-transform:uppercase;
-  color:var(--text-dim);
+  color:var(--text-muted);
   letter-spacing:0.5px;
   margin-bottom:4px;
 }
 .meta-value{
   font-size:14px;
-  font-weight:700;
-  color:var(--text-main);
+  font-weight:800;
+  color:var(--text-primary);
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:8px;
 }
-.meta-value.mono{font-family:var(--font-mono);font-size:13px;letter-spacing:-0.2px}
+.meta-value.mono{font-family:var(--font-mono);font-size:13.5px}
+
 .copy-btn{
-  background:transparent;
+  background:#eef3fa;
   border:none;
   cursor:pointer;
-  color:var(--text-dim);
+  color:var(--text-muted);
   display:inline-flex;
   align-items:center;
-  padding:3px;
-  border-radius:4px;
-  transition:color 0.15s,background 0.15s;
+  justify-content:center;
+  width:26px;
+  height:26px;
+  border-radius:8px;
+  box-shadow:
+    2px 3px 6px rgba(166, 180, 205, 0.35),
+    -2px -2px 6px rgba(255, 255, 255, 0.9),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.8);
+  transition:all 0.15s ease;
 }
-.copy-btn:hover{color:var(--accent-cyan);background:rgba(255,255,255,0.06)}
-.copy-btn svg{width:14px;height:14px}
+.copy-btn:hover{
+  color:var(--accent-indigo);
+  transform:scale(1.05);
+}
+.copy-btn:active{
+  box-shadow:inset 2px 2px 4px rgba(166, 180, 205, 0.4);
+  transform:scale(0.95);
+}
+.copy-btn svg{width:13px;height:13px}
 
-.card-actions{display:flex;gap:10px;flex-wrap:wrap}
+.card-actions{display:flex;gap:12px;flex-wrap:wrap}
 
-/* ACTION BUTTONS */
-.btn-primary{
-  background:linear-gradient(135deg,#4f46e5,#6366f1);
+/* CLAY BUTTONS */
+.clay-btn-primary{
+  background:linear-gradient(135deg,#6366f1,#4f46e5);
   color:#fff;
-  border:1px solid rgba(255,255,255,0.15);
-  padding:9px 16px;
-  border-radius:var(--radius-md);
+  border:none;
+  padding:12px 22px;
+  border-radius:18px;
   font-size:13px;
-  font-weight:600;
+  font-weight:800;
   cursor:pointer;
   display:inline-flex;
   align-items:center;
-  gap:7px;
+  gap:8px;
   text-decoration:none;
-  transition:transform 0.15s,box-shadow 0.15s;
+  box-shadow:var(--clay-shadow-btn-primary);
+  transition:all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.btn-primary:hover{
-  transform:translateY(-1px);
-  box-shadow:0 4px 14px rgba(99,102,241,0.4);
+.clay-btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    10px 14px 26px rgba(79, 70, 229, 0.4),
+    -6px -6px 14px rgba(255, 255, 255, 0.8),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.5);
 }
-.btn-secondary{
-  background:rgba(255,255,255,0.05);
-  color:var(--text-main);
-  border:1px solid var(--border-subtle);
-  padding:9px 15px;
-  border-radius:var(--radius-md);
+.clay-btn-primary:active{
+  transform:translateY(1px) scale(0.98);
+  box-shadow:
+    4px 5px 12px rgba(79, 70, 229, 0.3),
+    inset 3px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.clay-btn-secondary{
+  background:#f4f7fc;
+  color:var(--text-secondary);
+  border:none;
+  padding:12px 20px;
+  border-radius:18px;
   font-size:13px;
-  font-weight:600;
+  font-weight:800;
   cursor:pointer;
   display:inline-flex;
   align-items:center;
-  gap:7px;
+  gap:8px;
   text-decoration:none;
-  transition:background 0.15s,border-color 0.15s,color 0.15s;
+  box-shadow:var(--clay-shadow-btn-secondary);
+  transition:all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.btn-secondary:hover{
-  background:rgba(255,255,255,0.09);
-  border-color:rgba(255,255,255,0.2);
-  color:#fff;
+.clay-btn-secondary:hover{
+  color:var(--text-primary);
+  transform:translateY(-2px);
+  box-shadow:
+    8px 12px 22px rgba(166, 180, 205, 0.4),
+    -8px -8px 18px rgba(255, 255, 255, 0.95);
 }
-.btn-secondary svg,.btn-primary svg{width:14px;height:14px}
+.clay-btn-secondary:active{
+  transform:translateY(1px) scale(0.98);
+  box-shadow:
+    inset 3px 3px 6px rgba(166, 180, 205, 0.35),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.9);
+}
+.clay-btn-primary svg,.clay-btn-secondary svg{width:15px;height:15px}
 
-/* CHECKLIST & PROGRESS */
-.progress-container{
-  background:rgba(0,0,0,0.3);
-  border:1px solid var(--border-subtle);
-  border-radius:var(--radius-md);
-  padding:14px;
-  margin-bottom:16px;
+/* CHECKLIST & CLAY PROGRESS BAR */
+.progress-card-inner{
+  background:var(--clay-inset);
+  border-radius:20px;
+  padding:16px 18px;
+  box-shadow:var(--clay-shadow-inset);
+  margin-bottom:20px;
 }
 .progress-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
   font-size:12px;
-  font-weight:700;
+  font-weight:800;
   color:var(--text-muted);
-  margin-bottom:8px;
+  margin-bottom:10px;
 }
 .progress-track{
-  height:8px;
-  border-radius:4px;
-  background:rgba(255,255,255,0.08);
+  height:12px;
+  border-radius:9999px;
+  background:#dbe3ef;
+  box-shadow:
+    inset 2px 2px 5px rgba(166, 180, 205, 0.5),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.9);
   overflow:hidden;
+  padding:2px;
 }
 .progress-fill{
   height:100%;
   width:0%;
-  background:linear-gradient(90deg,var(--accent-indigo),var(--accent-emerald));
-  border-radius:4px;
-  transition:width 0.3s cubic-bezier(0.4,0,0.2,1);
+  background:linear-gradient(90deg,#6366f1,#10b981);
+  border-radius:9999px;
+  box-shadow:
+    2px 2px 5px rgba(79, 70, 229, 0.3),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.4);
+  transition:width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.checklist{display:flex;flex-direction:column;gap:8px}
-.check-item{
+
+.checklist{display:flex;flex-direction:column;gap:11px}
+.clay-check-item{
   display:flex;
   align-items:flex-start;
-  gap:11px;
-  padding:10px 12px;
-  background:rgba(255,255,255,0.02);
-  border:1px solid var(--border-subtle);
-  border-radius:var(--radius-md);
+  gap:12px;
+  padding:12px 16px;
+  background:#f5f8fd;
+  border-radius:18px;
   cursor:pointer;
-  transition:background 0.15s,border-color 0.15s;
+  box-shadow:
+    4px 6px 14px rgba(166, 180, 205, 0.25),
+    -4px -4px 10px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.8),
+    inset -2px -2px 4px rgba(166, 180, 205, 0.1);
+  transition:all 0.15s ease;
 }
-.check-item:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.15)}
-.check-item input[type=checkbox]{
-  width:17px;
-  height:17px;
-  margin-top:2px;
+.clay-check-item:hover{
+  transform:translateY(-1px);
+  background:#ffffff;
+}
+.clay-checkbox{
+  width:20px;
+  height:20px;
+  margin-top:1px;
   accent-color:var(--accent-indigo);
   cursor:pointer;
   flex-shrink:0;
 }
 .check-item-text{
-  font-size:13px;
-  color:var(--text-muted);
-  font-weight:500;
+  font-size:13.5px;
+  color:var(--text-secondary);
+  font-weight:600;
   user-select:none;
 }
-.check-item input[type=checkbox]:checked + .check-item-text{
-  color:var(--text-dim);
+.clay-checkbox:checked + .check-item-text{
+  color:var(--text-light);
   text-decoration:line-through;
 }
 
-/* COURSE MATRIX */
-.table-card{
-  background:var(--bg-card);
-  border:1px solid var(--border-subtle);
-  border-radius:var(--radius-lg);
-  padding:24px;
-  margin-bottom:24px;
+/* SEARCH BAR */
+.filter-bar-wrap{margin-bottom:28px}
+.clay-search-bar{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background:var(--clay-inset);
+  border-radius:9999px;
+  padding:14px 24px;
+  box-shadow:var(--clay-shadow-inset);
 }
+.clay-search-bar svg{width:18px;height:18px;color:var(--text-muted);flex-shrink:0}
+.filter-input{
+  background:transparent;
+  border:none;
+  color:var(--text-primary);
+  font-size:14px;
+  font-weight:600;
+  font-family:var(--font-sans);
+  width:100%;
+  outline:none;
+}
+.filter-input::placeholder{color:var(--text-muted)}
+.kbd-pill{
+  font-family:var(--font-mono);
+  font-size:11px;
+  font-weight:700;
+  color:var(--text-muted);
+  background:#eef3fa;
+  padding:4px 9px;
+  border-radius:8px;
+  box-shadow:
+    2px 2px 5px rgba(166, 180, 205, 0.3),
+    -2px -2px 5px rgba(255, 255, 255, 0.9);
+}
+
+/* COURSE MATRIX */
+.table-card{margin-bottom:28px}
 .section-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
   flex-wrap:wrap;
-  gap:12px;
-  margin-bottom:18px;
-}
-.badge-tag{
-  font-size:11px;
-  font-weight:700;
-  padding:4px 9px;
-  border-radius:var(--radius-sm);
-  background:rgba(99,102,241,0.12);
-  color:var(--accent-indigo);
-  border:1px solid rgba(99,102,241,0.25);
-  font-family:var(--font-mono);
+  gap:14px;
+  margin-bottom:22px;
 }
 .table-wrap{
   overflow-x:auto;
@@ -316,178 +454,199 @@ body{
 }
 table{
   width:100%;
-  min-width:640px;
-  border-collapse:collapse;
-  font-size:13px;
+  min-width:680px;
+  border-collapse:separate;
+  border-spacing:0 10px;
+  font-size:13.5px;
 }
 th{
   text-align:left;
-  padding:12px 14px;
-  color:var(--text-dim);
+  padding:10px 16px;
+  color:var(--text-muted);
   font-size:11px;
-  font-weight:700;
+  font-weight:800;
   text-transform:uppercase;
   letter-spacing:0.5px;
-  border-bottom:1px solid var(--border-subtle);
+}
+tbody tr{
+  background:#fdfefe;
+  border-radius:18px;
+  box-shadow:
+    4px 5px 12px rgba(166, 180, 205, 0.2),
+    -4px -4px 10px rgba(255, 255, 255, 0.9),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.9);
+  transition:transform 0.15s ease,box-shadow 0.15s ease;
+}
+tbody tr:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    6px 8px 18px rgba(166, 180, 205, 0.3),
+    -6px -6px 14px rgba(255, 255, 255, 0.95);
 }
 td{
-  padding:14px;
-  border-bottom:1px solid rgba(255,255,255,0.04);
-  color:var(--text-muted);
+  padding:16px;
+  color:var(--text-secondary);
 }
-tbody tr:hover{background:rgba(255,255,255,0.02)}
-tbody tr:last-child td{border-bottom:none}
-.course-code{
+td:first-child{border-top-left-radius:18px;border-bottom-left-radius:18px}
+td:last-child{border-top-right-radius:18px;border-bottom-right-radius:18px}
+
+.course-pill{
   font-family:var(--font-mono);
-  font-weight:700;
-  color:var(--text-main);
-  background:rgba(255,255,255,0.05);
-  padding:3px 7px;
-  border-radius:4px;
+  font-weight:800;
+  color:var(--accent-indigo);
+  background:#ede9fe;
+  padding:5px 10px;
+  border-radius:10px;
   display:inline-block;
+  font-size:12.5px;
+  box-shadow:
+    2px 3px 6px rgba(99, 102, 241, 0.15),
+    -2px -2px 6px rgba(255, 255, 255, 0.8),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.6);
 }
-.course-name{color:var(--text-main);font-weight:600}
+.course-name{color:var(--text-primary);font-weight:700}
 .course-credits{
   font-family:var(--font-mono);
-  font-weight:600;
+  font-weight:700;
   color:var(--accent-cyan);
 }
-.pdf-link{
+
+.clay-pdf-btn{
   display:inline-flex;
   align-items:center;
   gap:6px;
   color:var(--accent-indigo);
   text-decoration:none;
-  font-weight:600;
-  padding:4px 9px;
-  border-radius:var(--radius-sm);
-  background:rgba(99,102,241,0.08);
-  border:1px solid rgba(99,102,241,0.2);
-  transition:background 0.15s,color 0.15s;
+  font-weight:700;
+  padding:7px 12px;
+  border-radius:12px;
+  background:#f4f7fc;
+  box-shadow:
+    3px 4px 10px rgba(166, 180, 205, 0.25),
+    -3px -3px 8px rgba(255, 255, 255, 0.9),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.8);
+  transition:all 0.15s ease;
 }
-.pdf-link:hover{background:var(--accent-indigo);color:#fff}
-.pdf-link svg{width:12px;height:12px}
+.clay-pdf-btn:hover{
+  background:var(--accent-indigo);
+  color:#fff;
+  transform:translateY(-1px);
+}
+.clay-pdf-btn svg{width:13px;height:13px}
 
-/* ASSIGNMENT STATUS SELECTOR */
-.status-badge{
+.clay-select{
   appearance:none;
   -webkit-appearance:none;
-  background:rgba(245,158,11,0.12);
+  background:#fdf2e9;
   color:var(--accent-amber);
-  border:1px solid rgba(245,158,11,0.25);
-  padding:5px 10px;
-  border-radius:6px;
-  font-size:11px;
-  font-weight:700;
+  border:none;
+  padding:7px 14px;
+  border-radius:12px;
+  font-size:12px;
+  font-weight:800;
   cursor:pointer;
   font-family:var(--font-sans);
   outline:none;
+  box-shadow:
+    3px 4px 8px rgba(217, 119, 6, 0.15),
+    -3px -3px 8px rgba(255, 255, 255, 0.9),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.8);
+  transition:all 0.15s ease;
 }
-.status-badge[data-state="done"]{
-  background:rgba(16,185,129,0.12);
+.clay-select[data-state="done"]{
+  background:#e8fdf5;
   color:var(--accent-emerald);
-  border-color:rgba(16,185,129,0.25);
+  box-shadow:
+    3px 4px 8px rgba(16, 185, 129, 0.15),
+    -3px -3px 8px rgba(255, 255, 255, 0.9);
 }
-.status-badge[data-state="writing"]{
-  background:rgba(6,182,212,0.12);
+.clay-select[data-state="writing"]{
+  background:#ecfeff;
   color:var(--accent-cyan);
-  border-color:rgba(6,182,212,0.25);
+  box-shadow:
+    3px 4px 8px rgba(8, 145, 178, 0.15),
+    -3px -3px 8px rgba(255, 255, 255, 0.9);
 }
 
-/* PORTALS & DIRECTORY */
+/* PORTALS GRID */
 .hub-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:18px;
-  margin-bottom:24px;
+  grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+  gap:22px;
+  margin-bottom:28px;
 }
 .portal-card{
-  background:var(--bg-card);
-  border:1px solid var(--border-subtle);
-  border-radius:var(--radius-lg);
-  padding:20px;
+  background:var(--clay-card);
+  border-radius:26px;
+  padding:24px;
+  box-shadow:var(--clay-shadow-card);
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  gap:14px;
+  gap:16px;
+  transition:all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .portal-card:hover{
-  border-color:rgba(255,255,255,0.15);
-  background:var(--bg-card-hover);
+  background:var(--clay-card-hover);
+  transform:translateY(-4px);
+  box-shadow:var(--clay-shadow-card-hover);
 }
-.portal-info-row{display:flex;gap:12px;align-items:flex-start}
-.portal-icon{
-  width:36px;
-  height:36px;
-  border-radius:var(--radius-md);
-  background:rgba(255,255,255,0.05);
-  border:1px solid var(--border-subtle);
+.portal-info-row{display:flex;gap:14px;align-items:flex-start}
+.portal-icon-clay{
+  width:44px;
+  height:44px;
+  border-radius:16px;
+  background:#eaf0f9;
   display:flex;
   align-items:center;
   justify-content:center;
   color:var(--accent-cyan);
   flex-shrink:0;
+  box-shadow:
+    4px 5px 12px rgba(166, 180, 205, 0.35),
+    -4px -4px 10px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.8),
+    inset -2px -2px 4px rgba(166, 180, 205, 0.15);
 }
-.portal-icon svg{width:18px;height:18px}
-.portal-name{font-size:14px;font-weight:700;color:var(--text-main);margin-bottom:3px}
-.portal-desc{font-size:12px;color:var(--text-dim);line-height:1.4}
+.portal-icon-clay svg{width:20px;height:20px}
+.portal-name{font-size:15px;font-weight:800;color:var(--text-primary);margin-bottom:4px}
+.portal-desc{font-size:12.5px;color:var(--text-muted);line-height:1.45}
 .portal-footer{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding-top:12px;
-  border-top:1px solid rgba(255,255,255,0.05);
+  padding-top:14px;
+  border-top:1px solid rgba(166, 180, 205, 0.2);
 }
-.link-action{
+.link-action-clay{
   display:inline-flex;
   align-items:center;
-  gap:5px;
+  gap:6px;
   color:var(--accent-indigo);
-  font-size:12px;
-  font-weight:700;
+  font-size:12.5px;
+  font-weight:800;
   text-decoration:none;
+  padding:6px 12px;
+  border-radius:12px;
+  background:#f0f4fa;
+  box-shadow:
+    3px 4px 8px rgba(166, 180, 205, 0.25),
+    -3px -3px 8px rgba(255, 255, 255, 0.9);
+  transition:all 0.15s ease;
 }
-.link-action:hover{text-decoration:underline}
-.link-action svg{width:13px;height:13px}
-
-/* SEARCH & FILTER BAR */
-.filter-bar{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  background:var(--bg-secondary);
-  border:1px solid var(--border-subtle);
-  border-radius:var(--radius-lg);
-  padding:12px 18px;
-  margin-bottom:20px;
+.link-action-clay:hover{
+  background:var(--accent-indigo);
+  color:#fff;
+  transform:translateY(-1px);
 }
-.filter-bar svg{width:16px;height:16px;color:var(--text-dim);flex-shrink:0}
-.filter-input{
-  background:transparent;
-  border:none;
-  color:var(--text-main);
-  font-size:13px;
-  font-family:var(--font-sans);
-  width:100%;
-  outline:none;
-}
-.filter-input::placeholder{color:var(--text-dim)}
-.kbd-shortcut{
-  font-family:var(--font-mono);
-  font-size:11px;
-  color:var(--text-dim);
-  background:rgba(255,255,255,0.06);
-  padding:2px 6px;
-  border-radius:4px;
-  border:1px solid var(--border-subtle);
-}
+.link-action-clay svg{width:13px;height:13px}
 
 /* ID CARD MODAL */
 .modal-backdrop{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.85);
-  backdrop-filter:blur(8px);
+  background:rgba(30, 41, 59, 0.45);
+  backdrop-filter:blur(10px);
   display:none;
   align-items:center;
   justify-content:center;
@@ -495,82 +654,93 @@ tbody tr:last-child td{border-bottom:none}
   z-index:9999;
 }
 .modal-backdrop.open{display:flex}
-.modal-content{
-  background:var(--bg-card);
-  border:1px solid var(--border-subtle);
-  border-radius:var(--radius-xl);
+.modal-clay-content{
+  background:#f9fbfe;
+  border-radius:32px;
   max-width:620px;
   width:100%;
-  padding:24px;
-  box-shadow:0 24px 60px rgba(0,0,0,0.7);
-  position:relative;
-  animation:modalSlide 0.2s ease-out;
+  padding:28px;
+  box-shadow:
+    20px 30px 60px rgba(71, 85, 105, 0.35),
+    -16px -16px 40px rgba(255, 255, 255, 0.95),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.9);
+  animation:modalPop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-@keyframes modalSlide{
-  from{opacity:0;transform:scale(0.96)}
+@keyframes modalPop{
+  from{opacity:0;transform:scale(0.92)}
   to{opacity:1;transform:scale(1)}
 }
 .modal-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:16px;
+  margin-bottom:18px;
 }
-.modal-title{font-size:16px;font-weight:700;color:var(--text-main)}
-.modal-close{
-  background:rgba(255,255,255,0.06);
+.modal-title{font-size:17px;font-weight:800;color:var(--text-primary)}
+.modal-close-clay{
+  background:#eef3fa;
   border:none;
   color:var(--text-muted);
-  width:28px;
-  height:28px;
+  width:32px;
+  height:32px;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
+  box-shadow:
+    3px 4px 8px rgba(166, 180, 205, 0.3),
+    -3px -3px 8px rgba(255, 255, 255, 0.9);
+  font-weight:800;
+  transition:all 0.15s ease;
 }
-.modal-close:hover{background:rgba(255,255,255,0.12);color:#fff}
-.modal-img{
+.modal-close-clay:hover{
+  color:var(--text-primary);
+  transform:scale(1.08);
+}
+.modal-img-clay{
   width:100%;
   height:auto;
-  border-radius:var(--radius-md);
-  border:1px solid var(--border-subtle);
+  border-radius:20px;
+  box-shadow:var(--clay-shadow-inset);
   display:block;
 }
 
 /* FOOTER */
 footer{
   text-align:center;
-  padding:32px 20px;
-  border-top:1px solid var(--border-subtle);
-  color:var(--text-dim);
-  font-size:12px;
+  padding:36px 20px 20px;
+  color:var(--text-muted);
+  font-size:12.5px;
+  font-weight:600;
 }
-footer a{color:var(--text-muted);text-decoration:none}
+footer a{color:var(--accent-indigo);text-decoration:none;font-weight:700}
 footer a:hover{text-decoration:underline}
 
-/* TOAST NOTIFICATION */
-.toast{
+/* TOAST */
+.toast-clay{
   position:fixed;
   bottom:24px;
   right:24px;
-  background:#1e293b;
-  color:#fff;
-  border:1px solid rgba(255,255,255,0.15);
-  padding:10px 16px;
-  border-radius:var(--radius-md);
+  background:#ffffff;
+  color:var(--text-primary);
+  padding:12px 20px;
+  border-radius:20px;
   font-size:13px;
-  font-weight:600;
+  font-weight:800;
   display:flex;
   align-items:center;
-  gap:8px;
-  box-shadow:0 8px 24px rgba(0,0,0,0.5);
+  gap:10px;
+  box-shadow:
+    10px 14px 30px rgba(166, 180, 205, 0.45),
+    -8px -8px 20px rgba(255, 255, 255, 0.95),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.9);
   transform:translateY(80px);
   opacity:0;
-  transition:transform 0.2s,opacity 0.2s;
+  transition:all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index:99999;
 }
-.toast.show{transform:translateY(0);opacity:1}
+.toast-clay.show{transform:translateY(0);opacity:1}
 </style>
 </head>
 <body>
@@ -595,22 +765,24 @@ footer a:hover{text-decoration:underline}
   <!-- HERO SECTION: PROFILE & ACTION CHECKLIST -->
   <section class="hero-grid">
     <!-- STUDENT PROFILE CARD -->
-    <div class="card">
+    <div class="clay-card">
       <div class="card-title-row">
         <h2 class="card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="card-title-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </span>
           Student Credentials
         </h2>
-        <span class="badge-tag">ACTIVE RECORD</span>
+        <span class="clay-badge">ACTIVE RECORD</span>
       </div>
 
       <div class="profile-meta-grid">
-        <div class="meta-box">
+        <div class="clay-inset-box">
           <div class="meta-label">Full Name</div>
           <div class="meta-value">DIGBIJOY DAS</div>
         </div>
 
-        <div class="meta-box">
+        <div class="clay-inset-box">
           <div class="meta-label">Enrolment Number</div>
           <div class="meta-value mono">
             <span id="enrolment-val">2650982050</span>
@@ -620,7 +792,7 @@ footer a:hover{text-decoration:underline}
           </div>
         </div>
 
-        <div class="meta-box">
+        <div class="clay-inset-box">
           <div class="meta-label">Programme Code</div>
           <div class="meta-value mono">
             <span>BCA_NEW</span>
@@ -630,47 +802,49 @@ footer a:hover{text-decoration:underline}
           </div>
         </div>
 
-        <div class="meta-box">
+        <div class="clay-inset-box">
           <div class="meta-label">Regional Centre</div>
           <div class="meta-value">04 — GUWAHATI</div>
         </div>
 
-        <div class="meta-box">
+        <div class="clay-inset-box">
           <div class="meta-label">Guardian</div>
           <div class="meta-value">INDRANI DAS</div>
         </div>
 
-        <div class="meta-box">
+        <div class="clay-inset-box">
           <div class="meta-label">District & PIN</div>
           <div class="meta-value">CACHAR — 788002</div>
         </div>
       </div>
 
       <div class="card-actions">
-        <button class="btn-primary" onclick="openIdModal()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+        <button class="clay-btn-primary" onclick="openIdModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
           View Official Student ID Card
         </button>
-        <a class="btn-secondary" href="https://ignou.samarth.edu.in/" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <a class="clay-btn-secondary" href="https://ignou.samarth.edu.in/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           Samarth Login
         </a>
       </div>
     </div>
 
     <!-- ACTION TRACKER & CHECKLIST -->
-    <div class="card">
+    <div class="clay-card">
       <div class="card-title-row">
         <h2 class="card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span class="card-title-icon" style="color:var(--accent-emerald)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </span>
           Semester 1 Milestones
         </h2>
-        <span class="badge-tag" id="progress-percent">0% COMPLETED</span>
+        <span class="clay-badge" id="progress-percent" style="background:#e8fdf5;color:var(--accent-emerald)">0% COMPLETED</span>
       </div>
 
-      <div class="progress-container">
+      <div class="progress-card-inner">
         <div class="progress-head">
-          <span>PROGRESS</span>
+          <span>COMPLETION STATUS</span>
           <span id="progress-count">0 of 5 done</span>
         </div>
         <div class="progress-track">
@@ -679,24 +853,24 @@ footer a:hover{text-decoration:underline}
       </div>
 
       <div class="checklist">
-        <label class="check-item">
-          <input type="checkbox" data-task="write_assignments">
+        <label class="clay-check-item">
+          <input type="checkbox" class="clay-checkbox" data-task="write_assignments">
           <span class="check-item-text">Write Semester 1 assignments for all 5 subjects</span>
         </label>
-        <label class="check-item">
-          <input type="checkbox" data-task="submit_oct31">
+        <label class="clay-check-item">
+          <input type="checkbox" class="clay-checkbox" data-task="submit_oct31">
           <span class="check-item-text">Submit physical assignments to Study Centre by 31 Oct 2026</span>
         </label>
-        <label class="check-item">
-          <input type="checkbox" data-task="bcsl013_lab">
+        <label class="clay-check-item">
+          <input type="checkbox" class="clay-checkbox" data-task="bcsl013_lab">
           <span class="check-item-text">Attend practical counselling sessions for BCSL-013 Lab</span>
         </label>
-        <label class="check-item">
-          <input type="checkbox" data-task="tee_dec2026">
+        <label class="clay-check-item">
+          <input type="checkbox" class="clay-checkbox" data-task="tee_dec2026">
           <span class="check-item-text">Fill December 2026 TEE examination form on exam.ignou.ac.in</span>
         </label>
-        <label class="check-item">
-          <input type="checkbox" data-task="hall_ticket">
+        <label class="clay-check-item">
+          <input type="checkbox" class="clay-checkbox" data-task="hall_ticket">
           <span class="check-item-text">Download hall ticket & verify examination centre address</span>
         </label>
       </div>
@@ -704,25 +878,29 @@ footer a:hover{text-decoration:underline}
   </section>
 
   <!-- SEARCH / FILTER BAR -->
-  <div class="filter-bar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" id="portal-filter" class="filter-input" placeholder="Search portals, subjects, or services (e.g. 'exam', 'grade card', 'BCS-012')..." autocomplete="off">
-    <span class="kbd-shortcut">/</span>
+  <div class="filter-bar-wrap">
+    <div class="clay-search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="portal-filter" class="filter-input" placeholder="Search portals, subjects, or services (e.g. 'exam', 'grade card', 'BCS-012')..." autocomplete="off">
+      <span class="kbd-pill">/</span>
+    </div>
   </div>
 
   <!-- SEMESTER 1 CURRICULUM & ASSIGNMENTS TABLE -->
-  <section class="table-card" id="section-curriculum">
+  <section class="clay-card table-card" id="section-curriculum">
     <div class="section-header">
       <div>
         <h2 class="card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span class="card-title-icon" style="color:var(--accent-cyan)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </span>
           Semester 1 Curriculum & Assignment Papers
         </h2>
-        <p style="font-size:12px;color:var(--text-dim);margin-top:2px">Official assignments for July 2026 – June 2027 cycle • Target submission: 31 October 2026</p>
+        <p style="font-size:12.5px;color:var(--text-muted);margin-top:4px">Official assignments for July 2026 – June 2027 cycle • Target submission: 31 October 2026</p>
       </div>
-      <div style="display:flex;gap:8px">
-        <a class="btn-secondary" href="https://www.ignou.ac.in/pages/43" target="_blank" rel="noopener noreferrer">
-          Assignment Portal
+      <div>
+        <a class="clay-btn-secondary" href="https://www.ignou.ac.in/pages/43" target="_blank" rel="noopener noreferrer">
+          Assignment Portal ↗
         </a>
       </div>
     </div>
@@ -740,17 +918,17 @@ footer a:hover{text-decoration:underline}
         </thead>
         <tbody id="course-tbody">
           <tr data-search="BCS-111 Computer Basics PC Software">
-            <td><span class="course-code">BCS-111</span></td>
+            <td><span class="course-pill">BCS-111</span></td>
             <td><div class="course-name">Computer Basics and PC Software</div></td>
             <td><span class="course-credits">4 Credits</span></td>
             <td>
-              <a class="pdf-link" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">
+              <a class="clay-pdf-btn" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 PDF (2026-27)
               </a>
             </td>
             <td>
-              <select class="status-badge" data-course="bcs111" onchange="updateCourseStatus(this)">
+              <select class="clay-select" data-course="bcs111" onchange="updateCourseStatus(this)">
                 <option value="pending">Pending</option>
                 <option value="writing">In Progress</option>
                 <option value="done">Completed</option>
@@ -759,17 +937,17 @@ footer a:hover{text-decoration:underline}
           </tr>
 
           <tr data-search="BCS-012 Mathematics Basic Mathematics">
-            <td><span class="course-code">BCS-012</span></td>
+            <td><span class="course-pill">BCS-012</span></td>
             <td><div class="course-name">Basic Mathematics</div></td>
             <td><span class="course-credits">4 Credits</span></td>
             <td>
-              <a class="pdf-link" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-012-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">
+              <a class="clay-pdf-btn" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-012-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 PDF (2026-27)
               </a>
             </td>
             <td>
-              <select class="status-badge" data-course="bcs012" onchange="updateCourseStatus(this)">
+              <select class="clay-select" data-course="bcs012" onchange="updateCourseStatus(this)">
                 <option value="pending">Pending</option>
                 <option value="writing">In Progress</option>
                 <option value="done">Completed</option>
@@ -778,17 +956,17 @@ footer a:hover{text-decoration:underline}
           </tr>
 
           <tr data-search="BCSL-013 Computer Basics PC Software Lab practical">
-            <td><span class="course-code">BCSL-013</span></td>
+            <td><span class="course-pill">BCSL-013</span></td>
             <td><div class="course-name">Computer Basics and PC Software Lab</div></td>
             <td><span class="course-credits">2 Credits</span></td>
             <td>
-              <a class="pdf-link" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCSL-013-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">
+              <a class="clay-pdf-btn" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCSL-013-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 PDF (2026-27)
               </a>
             </td>
             <td>
-              <select class="status-badge" data-course="bcsl013" onchange="updateCourseStatus(this)">
+              <select class="clay-select" data-course="bcsl013" onchange="updateCourseStatus(this)">
                 <option value="pending">Pending</option>
                 <option value="writing">In Progress</option>
                 <option value="done">Completed</option>
@@ -797,17 +975,17 @@ footer a:hover{text-decoration:underline}
           </tr>
 
           <tr data-search="BEGLA-136 English at the Work Place">
-            <td><span class="course-code">BEGLA-136</span></td>
+            <td><span class="course-pill">BEGLA-136</span></td>
             <td><div class="course-name">English at the Work Place</div></td>
             <td><span class="course-credits">6 Credits</span></td>
             <td>
-              <a class="pdf-link" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEGLA-136-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">
+              <a class="clay-pdf-btn" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEGLA-136-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 PDF (2026-27)
               </a>
             </td>
             <td>
-              <select class="status-badge" data-course="begla136" onchange="updateCourseStatus(this)">
+              <select class="clay-select" data-course="begla136" onchange="updateCourseStatus(this)">
                 <option value="pending">Pending</option>
                 <option value="writing">In Progress</option>
                 <option value="done">Completed</option>
@@ -816,17 +994,17 @@ footer a:hover{text-decoration:underline}
           </tr>
 
           <tr data-search="BEVAE-181 Environmental Studies">
-            <td><span class="course-code">BEVAE-181</span></td>
+            <td><span class="course-pill">BEVAE-181</span></td>
             <td><div class="course-name">Environmental Studies</div></td>
             <td><span class="course-credits">4 Credits</span></td>
             <td>
-              <a class="pdf-link" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEVAE-181-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">
+              <a class="clay-pdf-btn" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEVAE-181-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 PDF (2026-27)
               </a>
             </td>
             <td>
-              <select class="status-badge" data-course="bevae181" onchange="updateCourseStatus(this)">
+              <select class="clay-select" data-course="bevae181" onchange="updateCourseStatus(this)">
                 <option value="pending">Pending</option>
                 <option value="writing">In Progress</option>
                 <option value="done">Completed</option>
@@ -843,7 +1021,7 @@ footer a:hover{text-decoration:underline}
     <!-- SAMARTH & ADMISSION -->
     <div class="portal-card" data-search="Samarth student portal admission status login">
       <div class="portal-info-row">
-        <div class="portal-icon">
+        <div class="portal-icon-clay">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         </div>
         <div>
@@ -852,10 +1030,9 @@ footer a:hover{text-decoration:underline}
         </div>
       </div>
       <div class="portal-footer">
-        <span class="badge-tag">PRIMARY SSO</span>
-        <a class="link-action" href="https://ignou.samarth.edu.in/" target="_blank" rel="noopener noreferrer">
-          Open Samarth
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span class="clay-badge" style="background:#ede9fe;color:var(--accent-indigo)">PRIMARY SSO</span>
+        <a class="link-action-clay" href="https://ignou.samarth.edu.in/" target="_blank" rel="noopener noreferrer">
+          Open Samarth ↗
         </a>
       </div>
     </div>
@@ -863,7 +1040,7 @@ footer a:hover{text-decoration:underline}
     <!-- TEE EXAM PORTAL -->
     <div class="portal-card" data-search="exam portal TEE form datesheet test centre fee">
       <div class="portal-info-row">
-        <div class="portal-icon" style="color:var(--accent-amber)">
+        <div class="portal-icon-clay" style="color:var(--accent-amber)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
         <div>
@@ -872,10 +1049,9 @@ footer a:hover{text-decoration:underline}
         </div>
       </div>
       <div class="portal-footer">
-        <span class="badge-tag">DECEMBER 2026</span>
-        <a class="link-action" href="https://exam.ignou.ac.in/" target="_blank" rel="noopener noreferrer">
-          Exam Portal
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span class="clay-badge" style="background:#fef3c7;color:var(--accent-amber)">DECEMBER 2026</span>
+        <a class="link-action-clay" href="https://exam.ignou.ac.in/" target="_blank" rel="noopener noreferrer">
+          Exam Portal ↗
         </a>
       </div>
     </div>
@@ -883,7 +1059,7 @@ footer a:hover{text-decoration:underline}
     <!-- GRADE CARD & RESULTS -->
     <div class="portal-card" data-search="grade card results assignment marks provisional marksheet">
       <div class="portal-info-row">
-        <div class="portal-icon" style="color:var(--accent-emerald)">
+        <div class="portal-icon-clay" style="color:var(--accent-emerald)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
         </div>
         <div>
@@ -892,10 +1068,9 @@ footer a:hover{text-decoration:underline}
         </div>
       </div>
       <div class="portal-footer">
-        <span class="badge-tag">RESULTS</span>
-        <a class="link-action" href="https://gradecard.ignou.ac.in/" target="_blank" rel="noopener noreferrer">
-          Check Grade Card
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span class="clay-badge" style="background:#e8fdf5;color:var(--accent-emerald)">RESULTS</span>
+        <a class="link-action-clay" href="https://gradecard.ignou.ac.in/" target="_blank" rel="noopener noreferrer">
+          Check Grade Card ↗
         </a>
       </div>
     </div>
@@ -903,7 +1078,7 @@ footer a:hover{text-decoration:underline}
     <!-- ASSIGNMENT SUBMISSION STATUS -->
     <div class="portal-card" data-search="admission status assignment submission check isms">
       <div class="portal-info-row">
-        <div class="portal-icon" style="color:var(--accent-indigo)">
+        <div class="portal-icon-clay" style="color:var(--accent-indigo)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
         </div>
         <div>
@@ -912,10 +1087,9 @@ footer a:hover{text-decoration:underline}
         </div>
       </div>
       <div class="portal-footer">
-        <span class="badge-tag">ISMS IGNOU</span>
-        <a class="link-action" href="https://isms.ignou.ac.in/changeadmdata/AdmissionStatusNew.ASP" target="_blank" rel="noopener noreferrer">
-          Check Status
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span class="clay-badge" style="background:#e0e7ff;color:var(--accent-indigo)">ISMS IGNOU</span>
+        <a class="link-action-clay" href="https://isms.ignou.ac.in/changeadmdata/AdmissionStatusNew.ASP" target="_blank" rel="noopener noreferrer">
+          Check Status ↗
         </a>
       </div>
     </div>
@@ -923,7 +1097,7 @@ footer a:hover{text-decoration:underline}
     <!-- REGIONAL CENTRE GUWAHATI -->
     <div class="portal-card" data-search="RC Guwahati regional centre 04 induction practical counselling TLC">
       <div class="portal-info-row">
-        <div class="portal-icon" style="color:var(--accent-cyan)">
+        <div class="portal-icon-clay" style="color:var(--accent-cyan)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
         <div>
@@ -932,10 +1106,9 @@ footer a:hover{text-decoration:underline}
         </div>
       </div>
       <div class="portal-footer">
-        <span class="badge-tag">REGIONAL OFFICE</span>
-        <a class="link-action" href="https://rcguwahati.ignou.ac.in/" target="_blank" rel="noopener noreferrer">
-          RC Website
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span class="clay-badge" style="background:#cffafe;color:var(--accent-cyan)">REGIONAL OFFICE</span>
+        <a class="link-action-clay" href="https://rcguwahati.ignou.ac.in/" target="_blank" rel="noopener noreferrer">
+          RC Website ↗
         </a>
       </div>
     </div>
@@ -943,7 +1116,7 @@ footer a:hover{text-decoration:underline}
     <!-- EGYANKOSH STUDY MATERIALS -->
     <div class="portal-card" data-search="eGyanKosh books pdf study materials download modules">
       <div class="portal-info-row">
-        <div class="portal-icon" style="color:var(--accent-rose)">
+        <div class="portal-icon-clay" style="color:var(--accent-rose)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
         </div>
         <div>
@@ -952,10 +1125,9 @@ footer a:hover{text-decoration:underline}
         </div>
       </div>
       <div class="portal-footer">
-        <span class="badge-tag">FREE TEXTBOOKS</span>
-        <a class="link-action" href="https://egyankosh.ac.in/" target="_blank" rel="noopener noreferrer">
-          eGyanKosh
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span class="clay-badge" style="background:#ffe4e6;color:var(--accent-rose)">FREE TEXTBOOKS</span>
+        <a class="link-action-clay" href="https://egyankosh.ac.in/" target="_blank" rel="noopener noreferrer">
+          eGyanKosh ↗
         </a>
       </div>
     </div>
@@ -963,7 +1135,7 @@ footer a:hover{text-decoration:underline}
     <!-- PREVIOUS YEAR PAPERS -->
     <div class="portal-card" data-search="previous papers pyq question papers old papers SOCIS">
       <div class="portal-info-row">
-        <div class="portal-icon">
+        <div class="portal-icon-clay" style="color:var(--accent-indigo)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
         </div>
         <div>
@@ -972,10 +1144,9 @@ footer a:hover{text-decoration:underline}
         </div>
       </div>
       <div class="portal-footer">
-        <span class="badge-tag">ARCHIVES</span>
-        <a class="link-action" href="https://www.ignou.ac.in/pages/60" target="_blank" rel="noopener noreferrer">
-          Download PYQs
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span class="clay-badge" style="background:#e0e7ff;color:var(--accent-indigo)">ARCHIVES</span>
+        <a class="link-action-clay" href="https://www.ignou.ac.in/pages/60" target="_blank" rel="noopener noreferrer">
+          Download PYQs ↗
         </a>
       </div>
     </div>
@@ -983,7 +1154,7 @@ footer a:hover{text-decoration:underline}
     <!-- PROGRAMME GUIDE & SYLLABUS -->
     <div class="portal-card" data-search="programme guide syllabus rules passing marks credit system">
       <div class="portal-info-row">
-        <div class="portal-icon">
+        <div class="portal-icon-clay" style="color:var(--accent-amber)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         </div>
         <div>
@@ -992,10 +1163,9 @@ footer a:hover{text-decoration:underline}
         </div>
       </div>
       <div class="portal-footer">
-        <span class="badge-tag">OFFICIAL PDF</span>
-        <a class="link-action" href="https://www.ignou.ac.in/viewFile/SOCIS/programmeguide/BCA_NEW-May-2026.pdf" target="_blank" rel="noopener noreferrer">
-          View Guide (PDF)
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span class="clay-badge" style="background:#fef3c7;color:var(--accent-amber)">OFFICIAL PDF</span>
+        <a class="link-action-clay" href="https://www.ignou.ac.in/viewFile/SOCIS/programmeguide/BCA_NEW-May-2026.pdf" target="_blank" rel="noopener noreferrer">
+          View Guide ↗
         </a>
       </div>
     </div>
@@ -1003,7 +1173,7 @@ footer a:hover{text-decoration:underline}
     <!-- RE-REGISTRATION -->
     <div class="portal-card" data-search="re-registration semester 2 fee payment admission renewal">
       <div class="portal-info-row">
-        <div class="portal-icon" style="color:var(--accent-indigo)">
+        <div class="portal-icon-clay" style="color:var(--accent-emerald)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
         </div>
         <div>
@@ -1012,10 +1182,9 @@ footer a:hover{text-decoration:underline}
         </div>
       </div>
       <div class="portal-footer">
-        <span class="badge-tag">SEMESTER RENEWAL</span>
-        <a class="link-action" href="https://onlinerr.ignou.ac.in/" target="_blank" rel="noopener noreferrer">
-          Re-Registration
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span class="clay-badge" style="background:#e8fdf5;color:var(--accent-emerald)">SEMESTER 2</span>
+        <a class="link-action-clay" href="https://onlinerr.ignou.ac.in/" target="_blank" rel="noopener noreferrer">
+          Re-Registration ↗
         </a>
       </div>
     </div>
@@ -1023,15 +1192,15 @@ footer a:hover{text-decoration:underline}
 
   <!-- ID CARD MODAL -->
   <div class="modal-backdrop" id="id-modal" onclick="closeIdModalOnBackdrop(event)">
-    <div class="modal-content">
+    <div class="modal-clay-content">
       <div class="modal-header">
         <div class="modal-title">Official IGNOU Identity Card</div>
-        <button class="modal-close" onclick="closeIdModal()" title="Close modal">✕</button>
+        <button class="modal-close-clay" onclick="closeIdModal()" title="Close modal">✕</button>
       </div>
-      <img class="modal-img" src="ignou-student-id-card.png" alt="IGNOU Student Identity Card for Digbijoy Das (2650982050)">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12px;color:var(--text-dim)">
+      <img class="modal-img-clay" src="ignou-student-id-card.png" alt="IGNOU Student Identity Card for Digbijoy Das (2650982050)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;font-size:12.5px;color:var(--text-muted);font-weight:600">
         <span>Enrolment: 2650982050 • Regional Centre 04 Guwahati</span>
-        <a href="ignou-student-id-card.png" download="ignou-student-id-card-digbijoy-das.png" class="pdf-link">
+        <a href="ignou-student-id-card.png" download="ignou-student-id-card-digbijoy-das.png" class="clay-pdf-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download PNG
         </a>
@@ -1040,20 +1209,20 @@ footer a:hover{text-decoration:underline}
   </div>
 
   <!-- TOAST NOTIFICATION -->
-  <div class="toast" id="toast-notify">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:var(--accent-emerald)"><polyline points="20 6 9 17 4 12"/></svg>
+  <div class="toast-clay" id="toast-notify">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:17px;height:17px;color:var(--accent-emerald)"><polyline points="20 6 9 17 4 12"/></svg>
     <span id="toast-msg">Copied!</span>
   </div>
 
   <!-- FOOTER -->
   <footer>
-    <p>IGNOU BCA Control Centre • Crafted for Digbijoy Das • All academic records persist locally in your browser.</p>
+    <p>IGNOU BCA Control Centre • Claymorphism Edition for Digbijoy Das • Records persist locally in browser.</p>
     <p style="margin-top:4px">Always confirm schedule dates and circulars on <a href="https://www.ignou.ac.in" target="_blank" rel="noopener noreferrer">ignou.ac.in</a>.</p>
   </footer>
 </div>
 
 <script>
-// TASK PROGRESS & STORAGE
+// TASK PROGRESS & LOCAL STORAGE
 (function() {
   const checkboxes = document.querySelectorAll('input[type="checkbox"][data-task]');
   const progressBar = document.getElementById('progress-bar');
@@ -1110,7 +1279,7 @@ function updateCourseStatus(select) {
   try {
     localStorage.setItem('ignou_course_status_' + select.dataset.course, val);
   } catch(e) {}
-  showToast('Updated course status to ' + select.options[select.selectedIndex].text);
+  showToast('Updated status to ' + select.options[select.selectedIndex].text);
 }
 initCourseStatuses();
 
