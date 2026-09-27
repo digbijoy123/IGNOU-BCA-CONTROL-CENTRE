@@ -3,300 +3,1196 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IGNOU BCA Full Control Centre</title>
+<title>IGNOU BCA Control Centre — Digbijoy Das</title>
+<meta name="description" content="Personal academic workspace for Digbijoy Das (Enrolment: 2650982050), BCA_NEW July 2026 batch at IGNOU Regional Centre Guwahati.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f1e8;color:#111;line-height:1.4}
-header{background:#ffd43b;border-bottom:5px solid #111;padding:24px}
-h1,h2,p{margin-top:0}
-h1{font-size:clamp(28px,5vw,52px);line-height:1;margin-bottom:10px;text-transform:uppercase;letter-spacing:-0.5px}
-.subtitle{font-weight:800;font-size:15px;max-width:850px}
-.container{max-width:1200px;margin:auto;padding:20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
-.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px}
-
-.card{background:#fff;border:4px solid #111;box-shadow:7px 7px 0 #111;padding:20px;margin-bottom:20px}
-.card.yellow{background:#ffd43b}
-.card.pink{background:#ff7eb6}
-.card.blue{background:#75d7ff}
-.card.green{background:#8ff0a4}
-.card.red{background:#ff7b72}
-
-.badge{display:inline-block;border:3px solid #111;padding:5px 10px;font-weight:900;background:#fff;margin:0 4px 10px 0;font-size:13px;text-transform:uppercase}
-.badge-dark{background:#111;color:#fff}
-
-.item{border-top:3px solid #111;padding:10px 0;display:flex;align-items:center;gap:10px}
-.item:first-child{border-top:0}
-.item label{cursor:pointer;font-weight:700;display:flex;align-items:center;gap:10px;width:100%}
-.item input[type=checkbox]:checked + span{text-decoration:line-through;opacity:0.7}
-
-.btn{display:inline-block;text-decoration:none;color:#111;border:3px solid #111;background:#fff;padding:10px 14px;font-weight:900;cursor:pointer;box-shadow:4px 4px 0 #111;margin:4px 6px 8px 0;font-size:13px;text-transform:uppercase;transition:transform 0.1s,box-shadow 0.1s}
-.btn:hover{background:#fdfdfd;transform:translate(-2px,-2px);box-shadow:6px 6px 0 #111}
-.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #111}
-.btn:focus-visible{outline:3px dashed #111;outline-offset:2px}
-
-input[type=checkbox]{width:20px;height:20px;accent-color:#111;cursor:pointer;margin:0}
-
-.notice{display:flex;gap:12px;align-items:flex-start}
-.notice-dot{font-size:24px;line-height:1}
-.small{font-size:13px;font-weight:700}
-.progress-bar{border:3px solid #111;background:#fff;height:20px;margin:12px 0 6px;box-shadow:3px 3px 0 #111;overflow:hidden}
-.progress-fill{height:100%;background:#8ff0a4;width:0%;transition:width 0.25s ease}
-
-.table-responsive{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:12px}
-table{width:100%;min-width:540px;border-collapse:collapse}
-th,td{border:3px solid #111;padding:10px;text-align:left}
-th{background:#111;color:#fff;font-weight:900}
-td a{color:#111;font-weight:900;text-decoration:underline}
-td a:hover{background:#ffd43b}
-
-.idcard{width:100%;max-width:520px;height:auto;border:4px solid #111;box-shadow:4px 4px 0 #111;display:block}
-
-.link-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
-.link-grid a{display:block;padding:10px 14px;background:#fff;border:3px solid #111;box-shadow:4px 4px 0 #111;color:#111;text-decoration:none;font-weight:900;transition:transform 0.1s,box-shadow 0.1s}
-.link-grid a:hover{background:#ffd43b;transform:translate(-2px,-2px);box-shadow:6px 6px 0 #111}
-.link-grid a:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #111}
-
-footer{padding:30px 20px;text-align:center;font-weight:900;font-size:13px;border-top:4px solid #111;background:#ffd43b}
-
-@media(max-width:600px){
-  .grid-2{grid-template-columns:1fr}
-  .card{padding:15px;box-shadow:5px 5px 0 #111}
+:root{
+  --bg-primary:#090d16;
+  --bg-secondary:#0f172a;
+  --bg-card:#131c31;
+  --bg-card-hover:#18243e;
+  --border-subtle:rgba(255,255,255,0.08);
+  --border-focus:rgba(99,102,241,0.5);
+  --text-main:#f8fafc;
+  --text-muted:#94a3b8;
+  --text-dim:#64748b;
+  --accent-indigo:#6366f1;
+  --accent-cyan:#06b6d4;
+  --accent-emerald:#10b981;
+  --accent-amber:#f59e0b;
+  --accent-rose:#f43f5e;
+  --glow-indigo:rgba(99,102,241,0.15);
+  --font-sans:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --radius-sm:6px;
+  --radius-md:10px;
+  --radius-lg:14px;
+  --radius-xl:18px;
 }
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background-color:var(--bg-primary);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%,rgba(99,102,241,0.18),transparent),
+    radial-gradient(ellipse 60% 40% at 100% 60%,rgba(6,182,212,0.08),transparent);
+  color:var(--text-main);
+  font-family:var(--font-sans);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+.container{max-width:1280px;margin:0 auto;padding:24px 20px 80px}
+
+/* HEADER */
+.top-nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:16px;
+  padding:20px 0 28px;
+  border-bottom:1px solid var(--border-subtle);
+  margin-bottom:28px;
+}
+.brand{display:flex;align-items:center;gap:14px}
+.brand-badge{
+  width:42px;
+  height:42px;
+  border-radius:var(--radius-md);
+  background:linear-gradient(135deg,var(--accent-indigo),var(--accent-cyan));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-weight:800;
+  font-size:16px;
+  box-shadow:0 0 20px rgba(99,102,241,0.4);
+}
+.brand-title{font-size:19px;font-weight:800;letter-spacing:-0.4px;color:#fff}
+.brand-sub{font-size:12px;color:var(--text-dim);font-family:var(--font-mono)}
+.top-pills{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:5px 11px;
+  border-radius:100px;
+  font-size:12px;
+  font-weight:600;
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--border-subtle);
+  color:var(--text-muted);
+}
+.pill.active{
+  background:rgba(16,185,129,0.12);
+  border-color:rgba(16,185,129,0.3);
+  color:var(--accent-emerald);
+}
+.pill.active::before{
+  content:'';
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--accent-emerald);
+  box-shadow:0 0 8px var(--accent-emerald);
+}
+
+/* HERO GRID */
+.hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;margin-bottom:24px}
+@media(max-width:960px){.hero-grid{grid-template-columns:1fr}}
+
+.card{
+  background:var(--bg-card);
+  border:1px solid var(--border-subtle);
+  border-radius:var(--radius-lg);
+  padding:24px;
+  position:relative;
+  transition:border-color 0.2s,box-shadow 0.2s,background-color 0.2s;
+}
+.card:hover{
+  border-color:rgba(255,255,255,0.14);
+}
+.card-title-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+.card-title{
+  font-size:15px;
+  font-weight:700;
+  color:var(--text-main);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  letter-spacing:-0.2px;
+}
+.card-title svg{width:18px;height:18px;color:var(--accent-indigo);flex-shrink:0}
+
+/* STUDENT PROFILE CARD */
+.profile-meta-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-bottom:20px;
+}
+@media(max-width:540px){.profile-meta-grid{grid-template-columns:1fr}}
+.meta-box{
+  background:rgba(0,0,0,0.25);
+  border:1px solid var(--border-subtle);
+  border-radius:var(--radius-md);
+  padding:11px 14px;
+}
+.meta-label{
+  font-size:11px;
+  font-weight:600;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  letter-spacing:0.5px;
+  margin-bottom:4px;
+}
+.meta-value{
+  font-size:14px;
+  font-weight:700;
+  color:var(--text-main);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.meta-value.mono{font-family:var(--font-mono);font-size:13px;letter-spacing:-0.2px}
+.copy-btn{
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  color:var(--text-dim);
+  display:inline-flex;
+  align-items:center;
+  padding:3px;
+  border-radius:4px;
+  transition:color 0.15s,background 0.15s;
+}
+.copy-btn:hover{color:var(--accent-cyan);background:rgba(255,255,255,0.06)}
+.copy-btn svg{width:14px;height:14px}
+
+.card-actions{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ACTION BUTTONS */
+.btn-primary{
+  background:linear-gradient(135deg,#4f46e5,#6366f1);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.15);
+  padding:9px 16px;
+  border-radius:var(--radius-md);
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  text-decoration:none;
+  transition:transform 0.15s,box-shadow 0.15s;
+}
+.btn-primary:hover{
+  transform:translateY(-1px);
+  box-shadow:0 4px 14px rgba(99,102,241,0.4);
+}
+.btn-secondary{
+  background:rgba(255,255,255,0.05);
+  color:var(--text-main);
+  border:1px solid var(--border-subtle);
+  padding:9px 15px;
+  border-radius:var(--radius-md);
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  text-decoration:none;
+  transition:background 0.15s,border-color 0.15s,color 0.15s;
+}
+.btn-secondary:hover{
+  background:rgba(255,255,255,0.09);
+  border-color:rgba(255,255,255,0.2);
+  color:#fff;
+}
+.btn-secondary svg,.btn-primary svg{width:14px;height:14px}
+
+/* CHECKLIST & PROGRESS */
+.progress-container{
+  background:rgba(0,0,0,0.3);
+  border:1px solid var(--border-subtle);
+  border-radius:var(--radius-md);
+  padding:14px;
+  margin-bottom:16px;
+}
+.progress-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:12px;
+  font-weight:700;
+  color:var(--text-muted);
+  margin-bottom:8px;
+}
+.progress-track{
+  height:8px;
+  border-radius:4px;
+  background:rgba(255,255,255,0.08);
+  overflow:hidden;
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--accent-indigo),var(--accent-emerald));
+  border-radius:4px;
+  transition:width 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.checklist{display:flex;flex-direction:column;gap:8px}
+.check-item{
+  display:flex;
+  align-items:flex-start;
+  gap:11px;
+  padding:10px 12px;
+  background:rgba(255,255,255,0.02);
+  border:1px solid var(--border-subtle);
+  border-radius:var(--radius-md);
+  cursor:pointer;
+  transition:background 0.15s,border-color 0.15s;
+}
+.check-item:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.15)}
+.check-item input[type=checkbox]{
+  width:17px;
+  height:17px;
+  margin-top:2px;
+  accent-color:var(--accent-indigo);
+  cursor:pointer;
+  flex-shrink:0;
+}
+.check-item-text{
+  font-size:13px;
+  color:var(--text-muted);
+  font-weight:500;
+  user-select:none;
+}
+.check-item input[type=checkbox]:checked + .check-item-text{
+  color:var(--text-dim);
+  text-decoration:line-through;
+}
+
+/* COURSE MATRIX */
+.table-card{
+  background:var(--bg-card);
+  border:1px solid var(--border-subtle);
+  border-radius:var(--radius-lg);
+  padding:24px;
+  margin-bottom:24px;
+}
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-bottom:18px;
+}
+.badge-tag{
+  font-size:11px;
+  font-weight:700;
+  padding:4px 9px;
+  border-radius:var(--radius-sm);
+  background:rgba(99,102,241,0.12);
+  color:var(--accent-indigo);
+  border:1px solid rgba(99,102,241,0.25);
+  font-family:var(--font-mono);
+}
+.table-wrap{
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+table{
+  width:100%;
+  min-width:640px;
+  border-collapse:collapse;
+  font-size:13px;
+}
+th{
+  text-align:left;
+  padding:12px 14px;
+  color:var(--text-dim);
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  border-bottom:1px solid var(--border-subtle);
+}
+td{
+  padding:14px;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  color:var(--text-muted);
+}
+tbody tr:hover{background:rgba(255,255,255,0.02)}
+tbody tr:last-child td{border-bottom:none}
+.course-code{
+  font-family:var(--font-mono);
+  font-weight:700;
+  color:var(--text-main);
+  background:rgba(255,255,255,0.05);
+  padding:3px 7px;
+  border-radius:4px;
+  display:inline-block;
+}
+.course-name{color:var(--text-main);font-weight:600}
+.course-credits{
+  font-family:var(--font-mono);
+  font-weight:600;
+  color:var(--accent-cyan);
+}
+.pdf-link{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  color:var(--accent-indigo);
+  text-decoration:none;
+  font-weight:600;
+  padding:4px 9px;
+  border-radius:var(--radius-sm);
+  background:rgba(99,102,241,0.08);
+  border:1px solid rgba(99,102,241,0.2);
+  transition:background 0.15s,color 0.15s;
+}
+.pdf-link:hover{background:var(--accent-indigo);color:#fff}
+.pdf-link svg{width:12px;height:12px}
+
+/* ASSIGNMENT STATUS SELECTOR */
+.status-badge{
+  appearance:none;
+  -webkit-appearance:none;
+  background:rgba(245,158,11,0.12);
+  color:var(--accent-amber);
+  border:1px solid rgba(245,158,11,0.25);
+  padding:5px 10px;
+  border-radius:6px;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+  font-family:var(--font-sans);
+  outline:none;
+}
+.status-badge[data-state="done"]{
+  background:rgba(16,185,129,0.12);
+  color:var(--accent-emerald);
+  border-color:rgba(16,185,129,0.25);
+}
+.status-badge[data-state="writing"]{
+  background:rgba(6,182,212,0.12);
+  color:var(--accent-cyan);
+  border-color:rgba(6,182,212,0.25);
+}
+
+/* PORTALS & DIRECTORY */
+.hub-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:18px;
+  margin-bottom:24px;
+}
+.portal-card{
+  background:var(--bg-card);
+  border:1px solid var(--border-subtle);
+  border-radius:var(--radius-lg);
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:14px;
+}
+.portal-card:hover{
+  border-color:rgba(255,255,255,0.15);
+  background:var(--bg-card-hover);
+}
+.portal-info-row{display:flex;gap:12px;align-items:flex-start}
+.portal-icon{
+  width:36px;
+  height:36px;
+  border-radius:var(--radius-md);
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--border-subtle);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--accent-cyan);
+  flex-shrink:0;
+}
+.portal-icon svg{width:18px;height:18px}
+.portal-name{font-size:14px;font-weight:700;color:var(--text-main);margin-bottom:3px}
+.portal-desc{font-size:12px;color:var(--text-dim);line-height:1.4}
+.portal-footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding-top:12px;
+  border-top:1px solid rgba(255,255,255,0.05);
+}
+.link-action{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  color:var(--accent-indigo);
+  font-size:12px;
+  font-weight:700;
+  text-decoration:none;
+}
+.link-action:hover{text-decoration:underline}
+.link-action svg{width:13px;height:13px}
+
+/* SEARCH & FILTER BAR */
+.filter-bar{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:var(--bg-secondary);
+  border:1px solid var(--border-subtle);
+  border-radius:var(--radius-lg);
+  padding:12px 18px;
+  margin-bottom:20px;
+}
+.filter-bar svg{width:16px;height:16px;color:var(--text-dim);flex-shrink:0}
+.filter-input{
+  background:transparent;
+  border:none;
+  color:var(--text-main);
+  font-size:13px;
+  font-family:var(--font-sans);
+  width:100%;
+  outline:none;
+}
+.filter-input::placeholder{color:var(--text-dim)}
+.kbd-shortcut{
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--text-dim);
+  background:rgba(255,255,255,0.06);
+  padding:2px 6px;
+  border-radius:4px;
+  border:1px solid var(--border-subtle);
+}
+
+/* ID CARD MODAL */
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(8px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:9999;
+}
+.modal-backdrop.open{display:flex}
+.modal-content{
+  background:var(--bg-card);
+  border:1px solid var(--border-subtle);
+  border-radius:var(--radius-xl);
+  max-width:620px;
+  width:100%;
+  padding:24px;
+  box-shadow:0 24px 60px rgba(0,0,0,0.7);
+  position:relative;
+  animation:modalSlide 0.2s ease-out;
+}
+@keyframes modalSlide{
+  from{opacity:0;transform:scale(0.96)}
+  to{opacity:1;transform:scale(1)}
+}
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:16px;
+}
+.modal-title{font-size:16px;font-weight:700;color:var(--text-main)}
+.modal-close{
+  background:rgba(255,255,255,0.06);
+  border:none;
+  color:var(--text-muted);
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+.modal-close:hover{background:rgba(255,255,255,0.12);color:#fff}
+.modal-img{
+  width:100%;
+  height:auto;
+  border-radius:var(--radius-md);
+  border:1px solid var(--border-subtle);
+  display:block;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:32px 20px;
+  border-top:1px solid var(--border-subtle);
+  color:var(--text-dim);
+  font-size:12px;
+}
+footer a{color:var(--text-muted);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+/* TOAST NOTIFICATION */
+.toast{
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  background:#1e293b;
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.15);
+  padding:10px 16px;
+  border-radius:var(--radius-md);
+  font-size:13px;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.5);
+  transform:translateY(80px);
+  opacity:0;
+  transition:transform 0.2s,opacity 0.2s;
+  z-index:99999;
+}
+.toast.show{transform:translateY(0);opacity:1}
 </style>
 </head>
 <body>
-<header>
-  <div class="container">
-    <div class="badge">BCA_NEW • JULY 2026</div>
-    <div class="badge badge-dark">SEMESTER 1</div>
-    <h1>IGNOU BCA<br>FULL CONTROL CENTRE</h1>
-    <div class="subtitle">Personal offline-first control hub for student profile, semester tasks, assignments, practical counselling, and verified official portals.</div>
-  </div>
-</header>
 
-<main class="container">
-  <!-- PRIMARY ALERT / NOTICE -->
-  <section class="card red" aria-label="Official Verification Notice">
-    <h2>🔴 CONTROL NOTICE & VERIFICATION</h2>
-    <div class="notice">
-      <div class="notice-dot">⚠️</div>
+<div class="container">
+  <!-- TOP NAVIGATION -->
+  <header class="top-nav">
+    <div class="brand">
+      <div class="brand-badge">BCA</div>
       <div>
-        <strong>IMPORTANT NOTICE:</strong> Always verify registration deadlines, TEE examination datesheets, and submission criteria on official IGNOU portals before submitting forms or making fee payments.
+        <h1 class="brand-title">IGNOU Control Centre</h1>
+        <div class="brand-sub">Bachelor of Computer Applications • BCA_NEW</div>
+      </div>
+    </div>
+    <div class="top-pills">
+      <div class="pill active">July 2026 Batch</div>
+      <div class="pill">RC 04: Guwahati</div>
+      <div class="pill">20 Credits (Sem 1)</div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION: PROFILE & ACTION CHECKLIST -->
+  <section class="hero-grid">
+    <!-- STUDENT PROFILE CARD -->
+    <div class="card">
+      <div class="card-title-row">
+        <h2 class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Student Credentials
+        </h2>
+        <span class="badge-tag">ACTIVE RECORD</span>
+      </div>
+
+      <div class="profile-meta-grid">
+        <div class="meta-box">
+          <div class="meta-label">Full Name</div>
+          <div class="meta-value">DIGBIJOY DAS</div>
+        </div>
+
+        <div class="meta-box">
+          <div class="meta-label">Enrolment Number</div>
+          <div class="meta-value mono">
+            <span id="enrolment-val">2650982050</span>
+            <button class="copy-btn" onclick="copyText('2650982050', 'Enrolment number copied!')" title="Copy enrolment number">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="meta-box">
+          <div class="meta-label">Programme Code</div>
+          <div class="meta-value mono">
+            <span>BCA_NEW</span>
+            <button class="copy-btn" onclick="copyText('BCA_NEW', 'Programme code copied!')" title="Copy programme code">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="meta-box">
+          <div class="meta-label">Regional Centre</div>
+          <div class="meta-value">04 — GUWAHATI</div>
+        </div>
+
+        <div class="meta-box">
+          <div class="meta-label">Guardian</div>
+          <div class="meta-value">INDRANI DAS</div>
+        </div>
+
+        <div class="meta-box">
+          <div class="meta-label">District & PIN</div>
+          <div class="meta-value">CACHAR — 788002</div>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn-primary" onclick="openIdModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+          View Official Student ID Card
+        </button>
+        <a class="btn-secondary" href="https://ignou.samarth.edu.in/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Samarth Login
+        </a>
+      </div>
+    </div>
+
+    <!-- ACTION TRACKER & CHECKLIST -->
+    <div class="card">
+      <div class="card-title-row">
+        <h2 class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Semester 1 Milestones
+        </h2>
+        <span class="badge-tag" id="progress-percent">0% COMPLETED</span>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-head">
+          <span>PROGRESS</span>
+          <span id="progress-count">0 of 5 done</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-bar"></div>
+        </div>
+      </div>
+
+      <div class="checklist">
+        <label class="check-item">
+          <input type="checkbox" data-task="write_assignments">
+          <span class="check-item-text">Write Semester 1 assignments for all 5 subjects</span>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" data-task="submit_oct31">
+          <span class="check-item-text">Submit physical assignments to Study Centre by 31 Oct 2026</span>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" data-task="bcsl013_lab">
+          <span class="check-item-text">Attend practical counselling sessions for BCSL-013 Lab</span>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" data-task="tee_dec2026">
+          <span class="check-item-text">Fill December 2026 TEE examination form on exam.ignou.ac.in</span>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" data-task="hall_ticket">
+          <span class="check-item-text">Download hall ticket & verify examination centre address</span>
+        </label>
       </div>
     </div>
   </section>
 
-  <!-- STUDENT PROFILE & UNIFIED CHECKLIST -->
-  <section class="grid-2">
-    <!-- STUDENT PROFILE -->
-    <div class="card blue">
-      <h2>👤 My IGNOU Details</h2>
-      <p><strong>Name:</strong> DIGBIJOY DAS</p>
-      <p><strong>Programme:</strong> BCA_NEW — Bachelor of Computer Applications</p>
-      <p><strong>Enrolment No:</strong> 2650982050</p>
-      <p><strong>Admission Cycle:</strong> July 2026</p>
-      <p><strong>Valid Through:</strong> June 2032</p>
-      <p><strong>Medium:</strong> English</p>
-      <p><strong>Mode:</strong> Open Distance Learning (ODL)</p>
-      <p><strong>Regional Centre:</strong> 04 — GUWAHATI</p>
-      <p><strong>Study Centre (LSC):</strong> 0400 — Regional Centre, TLC</p>
-      <p><strong>Category / Quota:</strong> SC</p>
+  <!-- SEARCH / FILTER BAR -->
+  <div class="filter-bar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="portal-filter" class="filter-input" placeholder="Search portals, subjects, or services (e.g. 'exam', 'grade card', 'BCS-012')..." autocomplete="off">
+    <span class="kbd-shortcut">/</span>
+  </div>
+
+  <!-- SEMESTER 1 CURRICULUM & ASSIGNMENTS TABLE -->
+  <section class="table-card" id="section-curriculum">
+    <div class="section-header">
+      <div>
+        <h2 class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          Semester 1 Curriculum & Assignment Papers
+        </h2>
+        <p style="font-size:12px;color:var(--text-dim);margin-top:2px">Official assignments for July 2026 – June 2027 cycle • Target submission: 31 October 2026</p>
+      </div>
+      <div style="display:flex;gap:8px">
+        <a class="btn-secondary" href="https://www.ignou.ac.in/pages/43" target="_blank" rel="noopener noreferrer">
+          Assignment Portal
+        </a>
+      </div>
     </div>
 
-    <!-- UNIFIED ACTION CHECKLIST -->
-    <div class="card yellow">
-      <h2>📌 Action & Task Checklist</h2>
-      <div class="progress-bar" aria-label="Task progress">
-        <div class="progress-fill" id="task-progress"></div>
-      </div>
-      <p class="small" id="progress-text">0 of 6 tasks completed</p>
-
-      <div class="item">
-        <label>
-          <input type="checkbox" data-task="assignments">
-          <span>Complete & compile Semester 1 assignments (5 courses)</span>
-        </label>
-      </div>
-      <div class="item">
-        <label>
-          <input type="checkbox" data-task="submit_assignments">
-          <span>Submit assignments to LSC 0400 before 31 October 2026</span>
-        </label>
-      </div>
-      <div class="item">
-        <label>
-          <input type="checkbox" data-task="practical_track">
-          <span>Track BCSL-013 practical lab counselling & attend sessions</span>
-        </label>
-      </div>
-      <div class="item">
-        <label>
-          <input type="checkbox" data-task="rc_notices">
-          <span>Check RC Guwahati notices for induction schedule & practical batches</span>
-        </label>
-      </div>
-      <div class="item">
-        <label>
-          <input type="checkbox" data-task="tee_exam">
-          <span>Fill December 2026 TEE Exam form & pay fees on portal</span>
-        </label>
-      </div>
-      <div class="item">
-        <label>
-          <input type="checkbox" data-task="id_docs">
-          <span>Keep physical & digital copies of IGNOU ID card saved safely</span>
-        </label>
-      </div>
-      <p class="small" style="margin-top:10px;margin-bottom:0">Checklist status is automatically saved in your browser.</p>
-    </div>
-  </section>
-
-  <!-- STUDENT ID CARD -->
-  <section class="card pink">
-    <h2>🪪 My IGNOU ID Card</h2>
-    <p>Keep your ID card accessible during all examinations, practical lab sessions, and regional centre visits.</p>
-    <img class="idcard" src="ignou-student-id-card.png" alt="IGNOU Student ID Card for Digbijoy Das" loading="lazy">
-  </section>
-
-  <!-- SEMESTER 1 COURSES & ASSIGNMENTS TABLE -->
-  <section class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
-      <h2 style="margin:0">📚 Semester 1 Curriculum & Assignment Papers (20 Credits)</h2>
-      <span class="badge">Target Date: 31 October 2026</span>
-    </div>
-    
-    <div class="table-responsive">
+    <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>Course Code</th>
-            <th>Course Title</th>
+            <th>Course</th>
+            <th>Title</th>
             <th>Credits</th>
-            <th>Assignment PDF</th>
+            <th>Assignment Paper</th>
+            <th>Personal Status</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td><strong>BCS-111</strong></td>
-            <td>Computer Basics and PC Software</td>
-            <td>4</td>
-            <td><a href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">Download PDF</a></td>
+        <tbody id="course-tbody">
+          <tr data-search="BCS-111 Computer Basics PC Software">
+            <td><span class="course-code">BCS-111</span></td>
+            <td><div class="course-name">Computer Basics and PC Software</div></td>
+            <td><span class="course-credits">4 Credits</span></td>
+            <td>
+              <a class="pdf-link" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                PDF (2026-27)
+              </a>
+            </td>
+            <td>
+              <select class="status-badge" data-course="bcs111" onchange="updateCourseStatus(this)">
+                <option value="pending">Pending</option>
+                <option value="writing">In Progress</option>
+                <option value="done">Completed</option>
+              </select>
+            </td>
           </tr>
-          <tr>
-            <td><strong>BCS-012</strong></td>
-            <td>Mathematics / Basic Mathematics</td>
-            <td>4</td>
-            <td><a href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-012-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">Download PDF</a></td>
+
+          <tr data-search="BCS-012 Mathematics Basic Mathematics">
+            <td><span class="course-code">BCS-012</span></td>
+            <td><div class="course-name">Basic Mathematics</div></td>
+            <td><span class="course-credits">4 Credits</span></td>
+            <td>
+              <a class="pdf-link" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-012-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                PDF (2026-27)
+              </a>
+            </td>
+            <td>
+              <select class="status-badge" data-course="bcs012" onchange="updateCourseStatus(this)">
+                <option value="pending">Pending</option>
+                <option value="writing">In Progress</option>
+                <option value="done">Completed</option>
+              </select>
+            </td>
           </tr>
-          <tr>
-            <td><strong>BCSL-013</strong></td>
-            <td>Computer Basics and PC Software Lab</td>
-            <td>2</td>
-            <td><a href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCSL-013-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">Download PDF</a></td>
+
+          <tr data-search="BCSL-013 Computer Basics PC Software Lab practical">
+            <td><span class="course-code">BCSL-013</span></td>
+            <td><div class="course-name">Computer Basics and PC Software Lab</div></td>
+            <td><span class="course-credits">2 Credits</span></td>
+            <td>
+              <a class="pdf-link" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCSL-013-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                PDF (2026-27)
+              </a>
+            </td>
+            <td>
+              <select class="status-badge" data-course="bcsl013" onchange="updateCourseStatus(this)">
+                <option value="pending">Pending</option>
+                <option value="writing">In Progress</option>
+                <option value="done">Completed</option>
+              </select>
+            </td>
           </tr>
-          <tr>
-            <td><strong>BEGLA-136</strong></td>
-            <td>English at the Work Place</td>
-            <td>6</td>
-            <td><a href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEGLA-136-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">Download PDF</a></td>
+
+          <tr data-search="BEGLA-136 English at the Work Place">
+            <td><span class="course-code">BEGLA-136</span></td>
+            <td><div class="course-name">English at the Work Place</div></td>
+            <td><span class="course-credits">6 Credits</span></td>
+            <td>
+              <a class="pdf-link" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEGLA-136-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                PDF (2026-27)
+              </a>
+            </td>
+            <td>
+              <select class="status-badge" data-course="begla136" onchange="updateCourseStatus(this)">
+                <option value="pending">Pending</option>
+                <option value="writing">In Progress</option>
+                <option value="done">Completed</option>
+              </select>
+            </td>
           </tr>
-          <tr>
-            <td><strong>BEVAE-181</strong></td>
-            <td>Environmental Studies</td>
-            <td>4</td>
-            <td><a href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEVAE-181-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">Download PDF</a></td>
+
+          <tr data-search="BEVAE-181 Environmental Studies">
+            <td><span class="course-code">BEVAE-181</span></td>
+            <td><div class="course-name">Environmental Studies</div></td>
+            <td><span class="course-credits">4 Credits</span></td>
+            <td>
+              <a class="pdf-link" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEVAE-181-BCA-NEW-2026-27.pdf" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                PDF (2026-27)
+              </a>
+            </td>
+            <td>
+              <select class="status-badge" data-course="bevae181" onchange="updateCourseStatus(this)">
+                <option value="pending">Pending</option>
+                <option value="writing">In Progress</option>
+                <option value="done">Completed</option>
+              </select>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
+  </section>
 
-    <div style="margin-top:12px">
-      <a class="btn" href="https://www.ignou.ac.in/pages/43" target="_blank" rel="noopener noreferrer">Official Question Papers Portal</a>
-      <a class="btn" href="https://isms.ignou.ac.in/changeadmdata/AdmissionStatusNew.ASP" target="_blank" rel="noopener noreferrer">Assignment Submission Status</a>
+  <!-- DIRECT ACTION HUBS -->
+  <section class="hub-grid" id="portal-grid">
+    <!-- SAMARTH & ADMISSION -->
+    <div class="portal-card" data-search="Samarth student portal admission status login">
+      <div class="portal-info-row">
+        <div class="portal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <div class="portal-name">Samarth Student Portal</div>
+          <div class="portal-desc">Manage course registration, fee receipts, digital identity, and student profile records.</div>
+        </div>
+      </div>
+      <div class="portal-footer">
+        <span class="badge-tag">PRIMARY SSO</span>
+        <a class="link-action" href="https://ignou.samarth.edu.in/" target="_blank" rel="noopener noreferrer">
+          Open Samarth
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- TEE EXAM PORTAL -->
+    <div class="portal-card" data-search="exam portal TEE form datesheet test centre fee">
+      <div class="portal-info-row">
+        <div class="portal-icon" style="color:var(--accent-amber)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div>
+          <div class="portal-name">Term-End Examination (TEE)</div>
+          <div class="portal-desc">Fill examination forms, select test centres, check fee status, and download hall tickets.</div>
+        </div>
+      </div>
+      <div class="portal-footer">
+        <span class="badge-tag">DECEMBER 2026</span>
+        <a class="link-action" href="https://exam.ignou.ac.in/" target="_blank" rel="noopener noreferrer">
+          Exam Portal
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- GRADE CARD & RESULTS -->
+    <div class="portal-card" data-search="grade card results assignment marks provisional marksheet">
+      <div class="portal-info-row">
+        <div class="portal-icon" style="color:var(--accent-emerald)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+        </div>
+        <div>
+          <div class="portal-name">Official Grade Card</div>
+          <div class="portal-desc">Live marksheet tracking assignment evaluation, theory marks, lab viva scores, and course completion.</div>
+        </div>
+      </div>
+      <div class="portal-footer">
+        <span class="badge-tag">RESULTS</span>
+        <a class="link-action" href="https://gradecard.ignou.ac.in/" target="_blank" rel="noopener noreferrer">
+          Check Grade Card
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- ASSIGNMENT SUBMISSION STATUS -->
+    <div class="portal-card" data-search="admission status assignment submission check isms">
+      <div class="portal-info-row">
+        <div class="portal-icon" style="color:var(--accent-indigo)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <div>
+          <div class="portal-name">Assignment Status Enquiry</div>
+          <div class="portal-desc">Verify whether your physical assignments submitted at LSC 0400 have been logged by the evaluation centre.</div>
+        </div>
+      </div>
+      <div class="portal-footer">
+        <span class="badge-tag">ISMS IGNOU</span>
+        <a class="link-action" href="https://isms.ignou.ac.in/changeadmdata/AdmissionStatusNew.ASP" target="_blank" rel="noopener noreferrer">
+          Check Status
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- REGIONAL CENTRE GUWAHATI -->
+    <div class="portal-card" data-search="RC Guwahati regional centre 04 induction practical counselling TLC">
+      <div class="portal-info-row">
+        <div class="portal-icon" style="color:var(--accent-cyan)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div>
+          <div class="portal-name">RC Guwahati (Code 04)</div>
+          <div class="portal-desc">Regional announcements, induction schedules, practical lab counselling dates, and coordinator contacts.</div>
+        </div>
+      </div>
+      <div class="portal-footer">
+        <span class="badge-tag">REGIONAL OFFICE</span>
+        <a class="link-action" href="https://rcguwahati.ignou.ac.in/" target="_blank" rel="noopener noreferrer">
+          RC Website
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- EGYANKOSH STUDY MATERIALS -->
+    <div class="portal-card" data-search="eGyanKosh books pdf study materials download modules">
+      <div class="portal-info-row">
+        <div class="portal-icon" style="color:var(--accent-rose)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div>
+          <div class="portal-name">eGyanKosh Digital Books</div>
+          <div class="portal-desc">Official digital repository for all BCA_NEW textbook blocks, unit guides, and self-learning materials.</div>
+        </div>
+      </div>
+      <div class="portal-footer">
+        <span class="badge-tag">FREE TEXTBOOKS</span>
+        <a class="link-action" href="https://egyankosh.ac.in/" target="_blank" rel="noopener noreferrer">
+          eGyanKosh
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- PREVIOUS YEAR PAPERS -->
+    <div class="portal-card" data-search="previous papers pyq question papers old papers SOCIS">
+      <div class="portal-info-row">
+        <div class="portal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        </div>
+        <div>
+          <div class="portal-name">Previous Examination Papers</div>
+          <div class="portal-desc">Past 10 years of question papers from School of Computer and Information Sciences (SOCIS).</div>
+        </div>
+      </div>
+      <div class="portal-footer">
+        <span class="badge-tag">ARCHIVES</span>
+        <a class="link-action" href="https://www.ignou.ac.in/pages/60" target="_blank" rel="noopener noreferrer">
+          Download PYQs
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- PROGRAMME GUIDE & SYLLABUS -->
+    <div class="portal-card" data-search="programme guide syllabus rules passing marks credit system">
+      <div class="portal-info-row">
+        <div class="portal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div>
+          <div class="portal-name">BCA_NEW Programme Guide</div>
+          <div class="portal-desc">Comprehensive rulebook detailing course passing criteria, lab exam policies, and credit requirements.</div>
+        </div>
+      </div>
+      <div class="portal-footer">
+        <span class="badge-tag">OFFICIAL PDF</span>
+        <a class="link-action" href="https://www.ignou.ac.in/viewFile/SOCIS/programmeguide/BCA_NEW-May-2026.pdf" target="_blank" rel="noopener noreferrer">
+          View Guide (PDF)
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- RE-REGISTRATION -->
+    <div class="portal-card" data-search="re-registration semester 2 fee payment admission renewal">
+      <div class="portal-info-row">
+        <div class="portal-icon" style="color:var(--accent-indigo)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+        </div>
+        <div>
+          <div class="portal-name">Online Re-Registration</div>
+          <div class="portal-desc">Register for Semester 2 (January cycle) and subsequent semesters before university cut-off deadlines.</div>
+        </div>
+      </div>
+      <div class="portal-footer">
+        <span class="badge-tag">SEMESTER RENEWAL</span>
+        <a class="link-action" href="https://onlinerr.ignou.ac.in/" target="_blank" rel="noopener noreferrer">
+          Re-Registration
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- KEY ACTIVITY PANELS (CONSOLIDATED & NON-DUPLICATIVE) -->
-  <section class="grid">
-    <div class="card yellow">
-      <h2>🧪 Practical & Lab (BCSL-013)</h2>
-      <p>BCSL-013 requires mandatory practical counselling sessions, lab record maintenance, and an in-person term-end lab exam/viva.</p>
-      <a class="btn" href="https://rcguwahati.ignou.ac.in/" target="_blank" rel="noopener noreferrer">RC Guwahati Portal</a>
-      <a class="btn" href="https://rcguwahati.ignou.ac.in/Ignou-RC-Guwahati/userfiles/file/SCLIST.pdf" target="_blank" rel="noopener noreferrer">Study Centre (LSC) List</a>
+  <!-- ID CARD MODAL -->
+  <div class="modal-backdrop" id="id-modal" onclick="closeIdModalOnBackdrop(event)">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">Official IGNOU Identity Card</div>
+        <button class="modal-close" onclick="closeIdModal()" title="Close modal">✕</button>
+      </div>
+      <img class="modal-img" src="ignou-student-id-card.png" alt="IGNOU Student Identity Card for Digbijoy Das (2650982050)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12px;color:var(--text-dim)">
+        <span>Enrolment: 2650982050 • Regional Centre 04 Guwahati</span>
+        <a href="ignou-student-id-card.png" download="ignou-student-id-card-digbijoy-das.png" class="pdf-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PNG
+        </a>
+      </div>
     </div>
+  </div>
 
-    <div class="card blue">
-      <h2>🎓 December 2026 TEE Exam</h2>
-      <p>Fill exam registration forms on the online exam portal, select preferred examination centre, and pay the per-course exam fees.</p>
-      <a class="btn" href="https://exam.ignou.ac.in/" target="_blank" rel="noopener noreferrer">TEE Exam Portal</a>
-      <a class="btn" href="https://www.ignou.ac.in/pages/60" target="_blank" rel="noopener noreferrer">Previous Year Question Papers</a>
-    </div>
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast-notify">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:var(--accent-emerald)"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toast-msg">Copied!</span>
+  </div>
 
-    <div class="card green">
-      <h2>📖 Study Material & Guides</h2>
-      <p>Access digitized e-books, syllabus breakdowns, course credit requirements, and official SOCIS programme guidelines.</p>
-      <a class="btn" href="https://egyankosh.ac.in/" target="_blank" rel="noopener noreferrer">eGyanKosh Study Material</a>
-      <a class="btn" href="https://www.ignou.ac.in/viewFile/SOCIS/programmeguide/BCA_NEW-May-2026.pdf" target="_blank" rel="noopener noreferrer">BCA_NEW Programme Guide</a>
-    </div>
-  </section>
-
-  <!-- ESSENTIAL DIRECT OFFICIAL LINKS -->
-  <section class="card">
-    <h2>🌐 Official IGNOU Quick Navigation Directory</h2>
-    <div class="link-grid">
-      <a href="https://ignou.samarth.edu.in/" target="_blank" rel="noopener noreferrer">Samarth Student Portal ↗</a>
-      <a href="https://isms.ignou.ac.in/changeadmdata/AdmissionStatusNew.ASP" target="_blank" rel="noopener noreferrer">Admission & Registration Status ↗</a>
-      <a href="https://gradecard.ignou.ac.in/" target="_blank" rel="noopener noreferrer">Official Grade Card ↗</a>
-      <a href="https://www.ignou.ac.in/pages/7" target="_blank" rel="noopener noreferrer">Term-End Exam Results ↗</a>
-      <a href="https://onlinerr.ignou.ac.in/" target="_blank" rel="noopener noreferrer">Online Re-Registration Portal ↗</a>
-      <a href="https://www.ignou.ac.in/schools/programme/BCA_NEW" target="_blank" rel="noopener noreferrer">BCA_NEW Official Page ↗</a>
-      <a href="https://www.ignou.ac.in/pages/54" target="_blank" rel="noopener noreferrer">Student Services Directory ↗</a>
-    </div>
-  </section>
-</main>
-
-<footer>
-  IGNOU BCA CONTROL CENTRE • Student Dashboard for Digbijoy Das (Enrolment: 2650982050) • Built with offline-first local storage
-</footer>
+  <!-- FOOTER -->
+  <footer>
+    <p>IGNOU BCA Control Centre • Crafted for Digbijoy Das • All academic records persist locally in your browser.</p>
+    <p style="margin-top:4px">Always confirm schedule dates and circulars on <a href="https://www.ignou.ac.in" target="_blank" rel="noopener noreferrer">ignou.ac.in</a>.</p>
+  </footer>
+</div>
 
 <script>
+// TASK PROGRESS & STORAGE
 (function() {
   const checkboxes = document.querySelectorAll('input[type="checkbox"][data-task]');
-  const progressFill = document.getElementById('task-progress');
-  const progressText = document.getElementById('progress-text');
+  const progressBar = document.getElementById('progress-bar');
+  const progressCount = document.getElementById('progress-count');
+  const progressPercent = document.getElementById('progress-percent');
 
-  function updateProgress() {
+  function updateMilestones() {
     let completed = 0;
-    checkboxes.forEach(box => {
-      if (box.checked) completed++;
+    checkboxes.forEach(cb => {
+      if (cb.checked) completed++;
     });
     const total = checkboxes.length;
     const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
-    if (progressFill) progressFill.style.width = pct + '%';
-    if (progressText) progressText.textContent = `${completed} of ${total} tasks completed (${pct}%)`;
+    if (progressBar) progressBar.style.width = pct + '%';
+    if (progressCount) progressCount.textContent = `${completed} of ${total} done`;
+    if (progressPercent) progressPercent.textContent = `${pct}% COMPLETED`;
   }
 
-  checkboxes.forEach(box => {
-    const key = 'ignou_control_' + box.dataset.task;
+  checkboxes.forEach(cb => {
+    const storageKey = 'ignou_task_' + cb.dataset.task;
     try {
-      box.checked = localStorage.getItem(key) === '1';
-    } catch (e) {
-      console.warn('localStorage read unavailable:', e);
-    }
+      cb.checked = localStorage.getItem(storageKey) === '1';
+    } catch(e) {}
 
-    box.addEventListener('change', () => {
+    cb.addEventListener('change', () => {
       try {
-        localStorage.setItem(key, box.checked ? '1' : '0');
-      } catch (e) {
-        console.warn('localStorage write unavailable:', e);
-      }
-      updateProgress();
+        localStorage.setItem(storageKey, cb.checked ? '1' : '0');
+      } catch(e) {}
+      updateMilestones();
     });
   });
 
-  updateProgress();
+  updateMilestones();
 })();
+
+// COURSE ASSIGNMENT STATUSES
+function initCourseStatuses() {
+  document.querySelectorAll('select[data-course]').forEach(select => {
+    const key = 'ignou_course_status_' + select.dataset.course;
+    try {
+      const saved = localStorage.getItem(key);
+      if (saved) {
+        select.value = saved;
+        select.setAttribute('data-state', saved);
+      } else {
+        select.setAttribute('data-state', select.value);
+      }
+    } catch(e) {}
+  });
+}
+function updateCourseStatus(select) {
+  const val = select.value;
+  select.setAttribute('data-state', val);
+  try {
+    localStorage.setItem('ignou_course_status_' + select.dataset.course, val);
+  } catch(e) {}
+  showToast('Updated course status to ' + select.options[select.selectedIndex].text);
+}
+initCourseStatuses();
+
+// COPY TO CLIPBOARD HELPER
+function copyText(text, successMsg) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast(successMsg);
+    }).catch(() => {
+      fallbackCopy(text, successMsg);
+    });
+  } else {
+    fallbackCopy(text, successMsg);
+  }
+}
+function fallbackCopy(text, successMsg) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showToast(successMsg);
+  } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+// TOAST DISPLAY
+let toastTimer = null;
+function showToast(msg) {
+  const toast = document.getElementById('toast-notify');
+  const msgEl = document.getElementById('toast-msg');
+  if (!toast || !msgEl) return;
+  msgEl.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2200);
+}
+
+// MODAL CONTROLS
+function openIdModal() {
+  document.getElementById('id-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeIdModal() {
+  document.getElementById('id-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeIdModalOnBackdrop(e) {
+  if (e.target.id === 'id-modal') {
+    closeIdModal();
+  }
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeIdModal();
+  if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+    e.preventDefault();
+    const filterInput = document.getElementById('portal-filter');
+    if (filterInput) filterInput.focus();
+  }
+});
+
+// INSTANT SEARCH / FILTER
+document.getElementById('portal-filter').addEventListener('input', function(e) {
+  const query = e.target.value.toLowerCase().trim();
+  
+  // Filter courses in table
+  document.querySelectorAll('#course-tbody tr').forEach(row => {
+    const text = (row.getAttribute('data-search') || row.textContent).toLowerCase();
+    row.style.display = text.includes(query) ? '' : 'none';
+  });
+
+  // Filter portal cards
+  document.querySelectorAll('#portal-grid .portal-card').forEach(card => {
+    const text = (card.getAttribute('data-search') || card.textContent).toLowerCase();
+    card.style.display = text.includes(query) ? '' : 'none';
+  });
+});
 </script>
 </body>
 </html>
