@@ -26,7 +26,7 @@ jobs:
         run: |
           git config user.name "IGNOU Monitor"
           git config user.email "actions@users.noreply.github.com"
-          git add public/monitor.json monitor.json
+          git add public/monitor.json public/monitor.js monitor.json
           git diff --cached --quiet && exit 0
           git commit -m "Update IGNOU automatic monitor snapshot"
           git push
