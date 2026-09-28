@@ -96,6 +96,9 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 @media(max-width:900px){.academic-summary{grid-template-columns:1fr 1fr}.roadmap{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.academic-summary{grid-template-columns:1fr}.roadmap{grid-template-columns:1fr 1fr}}
 
+
+/* AUTOMATIC MONITORING */
+.auto-brief{background:#111;color:#fff;border:3px solid #111;box-shadow:var(--shadow);padding:18px;margin-bottom:20px}.auto-brief-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}.auto-brief h2{margin:0;font-size:25px}.auto-brief .muted{color:#ccc}.auto-status{display:inline-block;border:2px solid #fff;padding:5px 8px;font-size:11px;font-weight:1000}.auto-status.live{background:var(--green);color:#111;border-color:#111}.auto-status.wait{background:var(--yellow);color:#111;border-color:#111}.auto-events{display:grid;gap:9px;margin-top:14px}.auto-event{background:#fff;color:#111;border:3px solid #111;padding:12px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start}.auto-event.action{background:#ffb4b4}.auto-event.important{background:#ffdca0}.auto-event.watch{background:#fffbe6}.auto-event.info{background:#fff}.auto-badge{border:2px solid #111;padding:4px 6px;font-size:10px;font-weight:1000;white-space:nowrap}.auto-event h3{margin:0 0 4px;font-size:15px}.auto-event p{margin:0;font-weight:700;font-size:13px}.auto-event a{border:2px solid #111;background:#fff;color:#111;text-decoration:none;padding:6px 8px;font-weight:1000;white-space:nowrap}.auto-empty{background:#7bea8a;color:#111;border:3px solid #111;padding:15px;font-weight:1000}.auto-foot{margin-top:10px;font-size:11px;font-weight:800;color:#ccc}.auto-source-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:12px}.auto-source-chip{border:2px solid #fff;padding:8px;font-size:11px;font-weight:900}.auto-source-chip b{display:block;font-size:16px}@media(max-width:850px){.auto-source-strip{grid-template-columns:repeat(2,1fr)}.auto-event{grid-template-columns:1fr}.auto-event a{justify-self:start}}@media(max-width:500px){.auto-source-strip{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -113,15 +116,12 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 </div>
 </header>
 
-<main class="wrap">
+<main class="wrap"><section class="auto-brief" id="todayBrief"><div class="auto-brief-head"><div><div class="muted">AUTOMATIC OFFICIAL-SOURCE MONITOR</div><h2>🚨 WHAT CHANGED SINCE YOUR LAST VISIT?</h2></div><span class="auto-status wait" id="autoMonitorStatus">CHECKING…</span></div><div id="autoEvents" class="auto-events"><div class="note">Checking the latest official-source snapshot…</div></div><div class="auto-source-strip" id="autoSourceStrip"></div><div class="auto-foot" id="autoMonitorMeta">The dashboard will show only detected changes and relevant official information. It does not invent updates.</div></section>
+
 
 <div class="section-title" id="official-monitor">📡 OFFICIAL SOURCE MONITOR</div>
 <section class="panel">
-  <div class="note info">
-    <b>HOW THIS WORKS:</b> This is a local monitoring console, not a live IGNOU scraper.
-    Open each official source, check for relevant changes, then mark that source checked.
-    The browser stores your check history locally.
-  </div>
+  <div class="note success"><b>AUTOMATIC MODE:</b> Official sources are checked by the scheduled repository monitor. This panel is now your monitoring history and manual notice log; it is no longer asking you to perform the five-source check every day.</div>
 
   <div class="monitor-summary">
     <div class="monitor-stat"><span class="muted">Sources checked today</span><b id="monitorChecked">0/5</b></div>
@@ -131,13 +131,6 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
   </div>
 
   <div class="source-monitor" id="sourceMonitor"></div>
-
-  <div class="daily-check">
-    <h2>✅ DAILY 5-SOURCE CHECK</h2>
-    <p class="muted">Use this after checking the five official sources. This does not claim that IGNOU was checked automatically.</p>
-    <div class="daily-check-list" id="dailyCheckList"></div>
-    <button class="btn" onclick="completeDailyCheck()">MARK DAILY CHECK COMPLETE</button>
-  </div>
 
   <div class="notice-log">
     <h2>📰 OFFICIAL NOTICE LOG</h2>
@@ -171,10 +164,7 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
     <input id="importData" type="file" accept=".json" style="display:none" onchange="importControlData(event)">
   </div>
 
-  <div class="monitor-help">
-    <b>RULE:</b> A source being marked “checked” only means you personally opened and reviewed it.
-    The control centre never pretends that a live official page was automatically monitored.
-  </div>
+  <div class="monitor-help"><b>RULE:</b> Automatic monitoring means the scheduled scanner fetched the public official source. It does not mean your authenticated Samarth/TEE account was accessed, and important actions must still be verified on the original official page.</div>
 </section>
 
 <section id="notifications" class="panel">
@@ -519,10 +509,7 @@ function renderMonitor(){
         <div><div class="source-name">${esc(s.name)}</div><div class="source-purpose">${esc(s.purpose)}</div></div>
         <span class="source-status ${isToday?"checked":"due"}">${status}</span>
       </div>
-      <div class="source-actions">
-        <a target="_blank" href="${s.url}">OPEN OFFICIAL ↗</a>
-        <button onclick="markSourceChecked('${s.id}')">✓ MARK CHECKED</button>
-      </div>
+      <div class="source-actions"><a target="_blank" href="${s.url}">OPEN OFFICIAL ↗</a></div>
       <div class="source-last">Last checked: ${esc(fmtDateTime(r.lastChecked))}</div>
       <div class="source-note"><input value="${esc(r.note||"")}" placeholder="Optional note from this check..." onchange="saveSourceNote('${s.id}',this.value)"></div>
     </div>`;
@@ -704,9 +691,28 @@ function saveAcademic(){
   alert("Semester 1 academic record saved locally.");
 }
 
+
+/* AUTOMATIC MONITOR INBOX */
+const MONITOR_SNAPSHOT_URL="https://raw.githubusercontent.com/digbijoy123/IGNOU-BCA-CONTROL-CENTRE/main/public/monitor.json";
+function autoPriorityClass(p){return p==="ACTION"?"action":p==="IMPORTANT"?"important":p==="WATCH"?"watch":"info"}
+function autoPriorityLabel(p){return p==="ACTION"?"ACTION REQUIRED":p==="IMPORTANT"?"IMPORTANT":p==="WATCH"?"WATCH":"INFO"}
+function renderAutoMonitor(data){
+ const eventsEl=document.getElementById("autoEvents"),statusEl=document.getElementById("autoMonitorStatus"),strip=document.getElementById("autoSourceStrip"),meta=document.getElementById("autoMonitorMeta"); if(!eventsEl)return;
+ const events=(data.events||[]).slice().sort((a,b)=>new Date(b.detectedAt)-new Date(a.detectedAt));
+ const seenKey="ignou_auto_seen_events_v1",seen=JSON.parse(localStorage.getItem(seenKey)||"{}");
+ const relevant=events.filter(e=>e.type!=="BASELINE"),unread=relevant.filter(e=>!seen[e.id]),display=(unread.length?unread:relevant).slice(0,8);
+ statusEl.textContent="AUTOMATIC MONITOR ONLINE";statusEl.className="auto-status live";
+ eventsEl.innerHTML=display.length?display.map(e=>'<article class="auto-event '+autoPriorityClass(e.priority)+'"><span class="auto-badge">'+esc(autoPriorityLabel(e.priority))+'</span><div><h3>'+esc(e.title)+'</h3><p>'+esc(e.text||"")+'</p><div class="muted" style="margin-top:5px">'+esc(e.source||"")+' · '+esc(fmtDateTime(e.detectedAt))+'</div></div>'+(e.url?'<a target="_blank" href="'+esc(e.url)+'" onclick="markAutoSeen(\\''+esc(e.id)+'\\')">VERIFY ↗</a>':'')+'</article>').join(""):'<div class="auto-empty">🟢 Nothing new or important has been detected. The monitor is watching the official sources.</div>';
+ const names={hq:"IGNOU HQ",bca:"BCA_NEW",assign:"Assignments",rc:"RC Guwahati",tee:"TEE"};strip.innerHTML=Object.entries(data.sources||{}).map(([id,s])=>'<div class="auto-source-chip"><b>✓</b>'+esc(names[id]||s.title||id)+'</div>').join("");
+ meta.textContent="Last automatic scan: "+(data.generatedAt?fmtDateTime(data.generatedAt):"not yet recorded")+" · "+(unread.length?unread.length+" new item(s) since your last visit":"no unread detected items");
+}
+function markAutoSeen(id){const key="ignou_auto_seen_events_v1",seen=JSON.parse(localStorage.getItem(key)||"{}");seen[id]=new Date().toISOString();localStorage.setItem(key,JSON.stringify(seen));}
+async function loadAutoMonitor(){try{const response=await fetch(MONITOR_SNAPSHOT_URL+"?t="+Date.now(),{cache:"no-store"});if(!response.ok)throw new Error("snapshot "+response.status);renderAutoMonitor(await response.json());}catch(error){const status=document.getElementById("autoMonitorStatus"),events=document.getElementById("autoEvents");if(status){status.textContent="MONITOR SNAPSHOT UNAVAILABLE";status.className="auto-status wait"}if(events)events.innerHTML='<div class="note warning"><b>Automatic monitor could not be loaded.</b> The personal dashboard still works, but do not assume that official-source updates were checked.</div>';}}
+
 function init(){
   renderAcademic();
   updateToday();
+  loadAutoMonitor();
   const ld=document.getElementById("logDate"); if(ld)ld.value=todayKey();
   renderMonitor();
   renderCourses();
