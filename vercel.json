@@ -4,24 +4,15 @@
     {
       "src": "index.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/monitor\\.js",
-      "headers": {
-        "Content-Type": "application/javascript; charset=utf-8",
-        "Cache-Control": "no-store"
-      },
-      "dest": "https://raw.githubusercontent.com/digbijoy123/IGNOU-BCA-CONTROL-CENTRE/main/public/monitor.js"
-    },
-    {
-      "src": "/monitor\\.json",
-      "headers": {
-        "Content-Type": "application/json; charset=utf-8",
-        "Cache-Control": "no-store"
-      },
-      "dest": "https://raw.githubusercontent.com/digbijoy123/IGNOU-BCA-CONTROL-CENTRE/main/public/monitor.json"
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
