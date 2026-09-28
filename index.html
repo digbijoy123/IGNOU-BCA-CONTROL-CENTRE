@@ -83,6 +83,47 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 .quick-access{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.quick-access-btn{display:inline-block;border:3px solid #111;background:#111;color:#fff;text-decoration:none;padding:9px 13px;font-weight:1000;box-shadow:4px 4px 0 #111}.quick-access-btn:hover{transform:translate(-1px,-1px)}
 .notification-panel{scroll-margin-top:12px}.notification-list{display:grid;gap:10px;margin-top:14px}.notification{background:#fff;border:2px solid #111;padding:12px}.notification p{margin:7px 0;line-height:1.45}.notification .item{display:inline-block;margin-top:4px}.id-card img{max-height:420px;object-fit:contain;object-position:left top;background:#fff}.details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.detail{border:2px solid #111;background:#fff;padding:10px}.detail .label{font-size:11px;font-weight:900;text-transform:uppercase}.detail .value{font-weight:900;margin-top:4px}.pdf-btn{display:inline-block;border:3px solid #111;background:var(--yellow);color:#111;text-decoration:none;padding:8px 11px;font-weight:1000;box-shadow:3px 3px #111;white-space:nowrap}.pdf-btn:hover{transform:translate(-1px,-1px)}
 @media(max-width:650px){.details{grid-template-columns:1fr}.quick-access-btn{width:100%;text-align:center}.notification .notice-meta{align-items:flex-start}}
+@media(max-width:650px){
+  .wrap{padding-left:12px;padding-right:12px}
+  header{padding:16px 0}
+  h1{font-size:clamp(28px,10vw,40px);letter-spacing:-1px}
+  header p{font-size:13px}
+  .nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .nav a,.nav button{text-align:center;padding:9px 6px;min-height:40px;display:flex;align-items:center;justify-content:center}
+  main{padding-top:16px}
+  .panel,.card{padding:12px;margin-bottom:14px;box-shadow:4px 4px 0 #111}
+  .section-title{font-size:15px;padding:7px 9px;margin:10px 0 12px}
+  .grid{grid-template-columns:1fr;gap:12px}
+  #courseGrid{grid-template-columns:1fr!important;gap:12px}
+  #courseGrid>.panel{width:100%;overflow:hidden}
+  .course-head{gap:8px}
+  .course-head h2{font-size:20px}
+  .pdf-btn{max-width:100%;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}
+  .task{padding:9px 0;gap:8px}
+  .action-grid,.academic-summary,.quick-row{grid-template-columns:1fr}
+  .academic-course-table{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .academic-course-table table{min-width:700px}
+  .deadline-item{grid-template-columns:1fr}
+  .deadline-days{justify-self:start}
+  .auto-event{grid-template-columns:1fr}
+  .auto-event a{justify-self:start}
+  .auto-source-strip{grid-template-columns:1fr 1fr}
+  .quick-access{display:grid;grid-template-columns:1fr;gap:8px}
+  .quick-access-btn{width:100%;text-align:center;min-height:44px;display:flex;align-items:center;justify-content:center}
+  .notification .notice-meta{align-items:flex-start}
+  .id-card img{max-width:100%;height:auto}
+  .backup-row{display:grid;grid-template-columns:1fr}
+  .backup-row button{width:100%;min-height:44px}
+  .footer{padding:20px 10px;font-size:12px}
+}
+@media(max-width:380px){
+  .nav{grid-template-columns:1fr}
+  .auto-source-strip{grid-template-columns:1fr}
+  .pdf-btn{white-space:normal;text-align:center}
+  .details{grid-template-columns:1fr}
+  .mini-grid{grid-template-columns:1fr}
+  #courseGrid .mini-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
+}
 </style>
 </head>
 <body>
