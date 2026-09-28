@@ -435,167 +435,56 @@ function updateToday(){
 }
 
 
-/* OFFICIAL SOURCE MONITOR */
-const officialSources=[
-  {id:"hq",name:"IGNOU Announcements",purpose:"HQ notices and university-wide announcements",url:"https://www.ignou.ac.in/announcements/0"},
-  {id:"bca",name:"BCA_NEW Programme",purpose:"Programme-level BCA_NEW information",url:"https://www.ignou.ac.in/schools/programme/BCA_NEW"},
-  {id:"assign",name:"Current Assignments",purpose:"Assignment PDFs, dates and instructions",url:"https://www.ignou.ac.in/pages/43"},
-  {id:"rc",name:"RC Guwahati",purpose:"Local practical, counselling and regional notices",url:"https://rcguwahati.ignou.ac.in/"},
-  {id:"tee",name:"TEE Exam Portal",purpose:"TEE forms, exam notices and eligibility checks",url:"https://exam.ignou.ac.in/"}
-];
-const MONITOR_KEY="ignou_bca_monitor_v1";
-let monitorData=JSON.parse(localStorage.getItem(MONITOR_KEY)||'{"sources":{},"daily":{},"logs":[]}');
+/* PERSONAL NOTICE LOG + BACKUP */
+const MONITOR_KEY="ignou_bca_monitor_v2";
+let monitorData=JSON.parse(localStorage.getItem(MONITOR_KEY)||'{"logs":[]}');
+if(!monitorData || typeof monitorData!=="object") monitorData={logs:[]};
+monitorData.logs=Array.isArray(monitorData.logs)?monitorData.logs:[];
 
-function saveMonitor(){
-  localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));
-  renderMonitor();
-}
-function todayKey(){
-  return new Date().toLocaleDateString("en-CA");
-}
-function fmtDateTime(iso){
-  if(!iso)return "Never";
-  return new Date(iso).toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"});
-}
-function sourceRecord(id){
-  return monitorData.sources[id]||{lastChecked:"",note:""};
-}
-function renderMonitor(){
-  const now=new Date(), today=todayKey();
-  const checked=officialSources.filter(s=>sourceRecord(s.id).lastChecked &&
-    new Date(sourceRecord(s.id).lastChecked).toLocaleDateString("en-CA")===today).length;
-  const due=officialSources.length-checked;
-  const open=(monitorData.logs||[]).filter(x=>x.status==="OPEN").length;
-  const last=[...officialSources.map(s=>sourceRecord(s.id).lastChecked),...(monitorData.logs||[]).map(x=>x.createdAt)]
-    .filter(Boolean).sort().pop();
-
-  const a=document.getElementById("monitorChecked"); if(a)a.textContent=checked+"/5";
-  const b=document.getElementById("monitorDue"); if(b)b.textContent=due;
-  const c=document.getElementById("monitorOpen"); if(c)c.textContent=open;
-  const d=document.getElementById("monitorLast"); if(d)d.textContent=last?new Date(last).toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"}):"—";
-
-  const grid=document.getElementById("sourceMonitor");
-  if(grid)grid.innerHTML=officialSources.map(s=>{
-    const r=sourceRecord(s.id);
-    const isToday=r.lastChecked && new Date(r.lastChecked).toLocaleDateString("en-CA")===today;
-    const status=isToday?"CHECKED":"DUE";
-    return `<div class="source-row">
-      <div class="source-top">
-        <div><div class="source-name">${esc(s.name)}</div><div class="source-purpose">${esc(s.purpose)}</div></div>
-        <span class="source-status ${isToday?"checked":"due"}">${status}</span>
-      </div>
-      <div class="source-actions"><a target="_blank" href="${s.url}">OPEN OFFICIAL ↗</a></div>
-      <div class="source-last">Last checked: ${esc(fmtDateTime(r.lastChecked))}</div>
-      <div class="source-note"><input value="${esc(r.note||"")}" placeholder="Optional note from this check..." onchange="saveSourceNote('${s.id}',this.value)"></div>
-    </div>`;
-  }).join("");
-
-  const dl=document.getElementById("dailyCheckList");
-  if(dl)dl.innerHTML=officialSources.map(s=>{
-    const r=sourceRecord(s.id);
-    const isToday=r.lastChecked && new Date(r.lastChecked).toLocaleDateString("en-CA")===today;
-    return `<label><input type="checkbox" ${isToday?"checked":""} disabled> ${esc(s.name)}</label>`;
-  }).join("");
-
-  const ll=document.getElementById("noticeLogList");
-  if(ll){
-    const logs=[...(monitorData.logs||[])].sort((x,y)=>y.createdAt.localeCompare(x.createdAt));
-    ll.innerHTML=logs.length?logs.map((x,i)=>`
-      <div class="log-entry">
-        <div class="log-entry-head"><b>${esc(x.title)}</b><span class="log-action">${esc(x.status)}</span></div>
-        <div class="muted">${esc(x.date)} · ${esc(x.source)}</div>
-        ${x.why?`<p>${esc(x.why)}</p>`:""}
-        ${x.url?`<a target="_blank" href="${esc(x.url)}">Open official notice ↗</a>`:""}
-        <button class="btn" style="margin-top:8px" onclick="deleteNoticeLog(${i})">DELETE LOG</button>
-      </div>`).join(""):'<div class="note">No official notices recorded yet.</div>';
-  }
-}
-function markSourceChecked(id){
-  const s=sourceRecord(id);
-  s.lastChecked=new Date().toISOString();
-  monitorData.sources[id]=s;
-  saveMonitor();
-}
-function saveSourceNote(id,value){
-  const s=sourceRecord(id);
-  s.note=value;
-  monitorData.sources[id]=s;
-  localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));
-}
-function completeDailyCheck(){
-  const checked=officialSources.filter(s=>{
-    const r=sourceRecord(s.id);
-    return r.lastChecked && new Date(r.lastChecked).toLocaleDateString("en-CA")===todayKey();
-  }).length;
-  if(checked<5){
-    alert("Check all five official sources first, then mark the daily check complete.");
-    return;
-  }
-  monitorData.daily[todayKey()]={completedAt:new Date().toISOString()};
-  saveMonitor();
-  alert("Daily official-source check recorded.");
+function todayKey(){return new Date().toLocaleDateString("en-CA",{timeZone:"Asia/Kolkata"});}
+function fmtDateTime(iso){if(!iso)return "Never";const d=new Date(iso);return Number.isNaN(d.getTime())?"Unknown":d.toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short",timeZone:"Asia/Kolkata"});}
+function saveMonitor(){localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));renderNoticeLog();updateOpenNoticeCount();}
+function updateOpenNoticeCount(){const el=document.getElementById("monitorOpen");if(el)el.textContent=(monitorData.logs||[]).filter(x=>x.status==="OPEN").length;}
+function renderNoticeLog(){
+  const ll=document.getElementById("noticeLogList");if(!ll)return;
+  const logs=[...(monitorData.logs||[])].sort((x,y)=>String(y.createdAt).localeCompare(String(x.createdAt)));
+  ll.innerHTML=logs.length?logs.map((x,i)=>`
+    <div class="log-entry">
+      <div class="log-entry-head"><b>${esc(x.title)}</b><span class="log-action">${esc(x.status)}</span></div>
+      <div class="muted">${esc(x.date)} · ${esc(x.source)}</div>
+      ${x.why?`<p>${esc(x.why)}</p>`:""}
+      ${x.url?`<a target="_blank" rel="noopener" href="${esc(x.url)}">Open official notice ↗</a>`:""}
+      <button class="btn" style="margin-top:8px" onclick="deleteNoticeLog(${i})">DELETE LOG</button>
+    </div>`).join(""):'<div class="note">No personal notice log entries yet.</div>';
+  updateOpenNoticeCount();
 }
 function addNoticeLog(){
-  const title=document.getElementById("logTitle").value.trim();
+  const title=(document.getElementById("logTitle")?.value||"").trim();
   if(!title){alert("Add the official notice title first.");return;}
-  monitorData.logs=monitorData.logs||[];
-  monitorData.logs.push({
-    date:document.getElementById("logDate").value||todayKey(),
-    source:document.getElementById("logSource").value,
-    title:title,
-    url:document.getElementById("logUrl").value.trim(),
-    why:document.getElementById("logWhy").value.trim(),
-    status:document.getElementById("logStatus").value,
-    createdAt:new Date().toISOString()
-  });
-  document.getElementById("logTitle").value="";
-  document.getElementById("logUrl").value="";
-  document.getElementById("logWhy").value="";
+  monitorData.logs.push({date:document.getElementById("logDate")?.value||todayKey(),source:document.getElementById("logSource")?.value||"Other official IGNOU source",title,url:(document.getElementById("logUrl")?.value||"").trim(),why:(document.getElementById("logWhy")?.value||"").trim(),status:document.getElementById("logStatus")?.value||"OPEN",createdAt:new Date().toISOString()});
+  ["logTitle","logUrl","logWhy"].forEach(id=>{const el=document.getElementById(id);if(el)el.value=""});
   saveMonitor();
 }
 function deleteNoticeLog(index){
-  const logs=[...(monitorData.logs||[])].sort((x,y)=>y.createdAt.localeCompare(x.createdAt));
-  const target=logs[index];
-  if(!target)return;
-  monitorData.logs=(monitorData.logs||[]).filter(x=>x.createdAt!==target.createdAt);
-  saveMonitor();
+  const logs=[...(monitorData.logs||[])].sort((x,y)=>String(y.createdAt).localeCompare(String(x.createdAt)));
+  const target=logs[index];if(!target)return;
+  monitorData.logs=monitorData.logs.filter(x=>x.createdAt!==target.createdAt);saveMonitor();
 }
 function exportControlData(){
-  const payload={
-    exportedAt:new Date().toISOString(),
-    version:1,
-    personal:rows,
-    monitoring:monitorData
-  };
-  const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
-  a.download="ignou-control-centre-backup-"+todayKey()+".json";
-  a.click();
-  URL.revokeObjectURL(a.href);
+  const payload={exportedAt:new Date().toISOString(),version:2,personal:rows,monitoring:monitorData,academic:academicData};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download="ignou-control-centre-backup-"+todayKey()+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
 function importControlData(event){
-  const file=event.target.files[0];
-  if(!file)return;
-  const reader=new FileReader();
-  reader.onload=()=>{
-    try{
-      const data=JSON.parse(reader.result);
-      if(data.personal && typeof data.personal==="object"){
-        rows=data.personal;
-        localStorage.setItem(STORAGE_KEY,JSON.stringify(rows));
-      }
-      if(data.monitoring && typeof data.monitoring==="object"){
-        monitorData=data.monitoring;
-        localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));
-      }
-      renderCourses(); bindPersonal(); updateUrgent(); updateDeadline(); renderNotifications(); updateActionCentre(); renderMonitor();
-      alert("Backup imported successfully.");
-    }catch(e){alert("This backup file could not be read.");}
-  };
-  reader.readAsText(file);
+  const file=event.target.files?.[0];if(!file)return;const reader=new FileReader();
+  reader.onload=()=>{try{
+    const data=JSON.parse(reader.result);
+    if(data.personal&&typeof data.personal==="object"){rows=data.personal;localStorage.setItem(STORAGE_KEY,JSON.stringify(rows));}
+    if(data.monitoring&&typeof data.monitoring==="object"){monitorData=data.monitoring;monitorData.logs=Array.isArray(monitorData.logs)?monitorData.logs:[];localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));}
+    if(data.academic&&typeof data.academic==="object"){academicData=data.academic;localStorage.setItem(ACADEMIC_KEY,JSON.stringify(academicData));}
+    renderCourses();bindPersonal();updateUrgent();updateDeadline();updateActionCentre();renderAcademic();renderNoticeLog();renderNotifications();alert("Backup imported successfully.");
+  }catch(e){alert("This backup file could not be read.");}event.target.value="";};reader.readAsText(file);
 }
-
 
 /* PHASE 2A — ACADEMIC RECORD */
 const academicCourses=[
