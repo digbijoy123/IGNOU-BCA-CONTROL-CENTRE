@@ -6,7 +6,7 @@ on:
       - "scripts/monitor.mjs"
       - ".github/workflows/ignou-monitor.yml"
   schedule:
-    - cron: "7 */6 * * *"
+    - cron: "7 * * * *"
   workflow_dispatch:
 
 permissions:
