@@ -28,7 +28,7 @@ async function fetchSource(source){
     const relevant=source.keywords.filter(k=>lower.includes(k));
     const links=[];
     if(contentType.includes("text/html") || body.includes("<html") || body.includes("<a ")){
-      const re=/<a\\b[^>]*href=["']([^"']+)["'][^>]*>([\\s\\S]*?)<\\/a>/gi;
+      const re=/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\\s\\S]*?)<\\/a>/gi;
       let m;
       while((m=re.exec(body)) && links.length<250){
         const label=stripHtml(m[2]);
@@ -72,6 +72,6 @@ for(const source of sources){
 }
 result.events=[...(previous.events||[]),...result.events].slice(-150);
 await fs.mkdir("public",{recursive:true});
-await fs.writeFile("public/monitor.json",JSON.stringify(result,null,2)+"\\n");
+await fs.writeFile("public/monitor.json",JSON.stringify(result,null,2)+"\n");
 function priorityFor(id){ return id==="tee"||id==="assign"?"ACTION":id==="rc"||id==="bca"?"IMPORTANT":"WATCH"; }
 async function readJson(path,fallback){ try{return JSON.parse(await fs.readFile(path,"utf8"));}catch{return fallback;} }
