@@ -267,7 +267,7 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <div class="panel"><h2>IGNOU HQ</h2><a class="item" target="_blank" href="https://www.ignou.ac.in/">Main Website</a><a class="item" target="_blank" href="https://www.ignou.ac.in/announcements/0?nav=6">Announcements</a><a class="item" target="_blank" href="https://www.ignou.ac.in/studentService/download/assignments">Current Assignments</a><a class="item" target="_blank" href="https://www.ignou.ac.in/pages/54">Student Services</a></div>
 <div class="panel"><h2>🏫 RC Guwahati</h2><a class="item" target="_blank" href="http://rcguwahati.ignou.ac.in/">RC Guwahati</a><a class="item" target="_blank" href="https://rcguwahati.ignou.ac.in/Ignou-RC-Guwahati/userfiles/file/SCLIST.pdf">Official LSC List</a></div>
 <div class="panel"><h2>📚 Study</h2><a class="item" target="_blank" href="https://egyankosh.ac.in/">eGyanKosh</a><a class="item" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/programmeguide/BCA_NEW-May-2026.pdf">BCA_NEW Programme Guide</a><a class="item" target="_blank" href="https://www.ignou.ac.in/pages/60">Previous Papers</a></div>
-<div class="backup-row"><button class="btn" onclick="exportControlData()">⬇ EXPORT MY DATA</button><button class="btn" onclick="document.getElementById('importData').click()">⬆ IMPORT BACKUP</button><input id="importData" type="file" accept=".json" style="display:none" onchange="importControlData(event)"></div>
+<div class="backup-row"><button class="btn" onclick="exportControlData()">⬇ EXPORT MY DATA</button><button class="btn" onclick="document.getElementById('importData').click()">⬆ IMPORT BACKUP</button><span id="backupStatus" class="muted">Local backup recommended.</span><input id="importData" type="file" accept=".json" style="display:none" onchange="importControlData(event)"></div>
 </section>
 </main>
 <footer class="footer">IGNOU BCA Full Control Centre · Personal progress is saved locally in this browser. Official information should always be verified against IGNOU.</footer>
@@ -310,8 +310,15 @@ function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&l
 function state(key){return rows[key]||{checked:false,value:""}}
 function saveState(key,checked,value){
   rows[key]={checked:!!checked,value:value??"",updated_at:new Date().toISOString()};
+  if(key.endsWith("_submitted")){
+    const code=key.slice(0,-"_submitted".length);
+    todoDone["assignment_"+code]=!!checked;
+    localStorage.setItem(TODO_KEY,JSON.stringify(todoDone));
+  }
   localStorage.setItem(STORAGE_KEY,JSON.stringify(rows));
+  markSaved();
   updateUrgent();
+  renderTodo();
   updateActionCentre();
   renderCourses();
   bindPersonal();
@@ -646,6 +653,8 @@ function exportControlData(){
   a.click();
   URL.revokeObjectURL(a.href);
   localStorage.setItem("ignou_bca_last_backup",new Date().toISOString());
+  const backupStatus=document.getElementById("backupStatus");
+  if(backupStatus)backupStatus.textContent="✓ Backup exported just now";
   markSaved();
 }
 function importControlData(event){
@@ -662,6 +671,8 @@ function importControlData(event){
       localStorage.setItem(STORAGE_KEY,JSON.stringify(rows));
       localStorage.setItem(ACADEMIC_KEY,JSON.stringify(academicData));
       localStorage.setItem(TODO_KEY,JSON.stringify(todoDone));
+      const backupStatus=document.getElementById("backupStatus");
+      if(backupStatus)backupStatus.textContent="✓ Backup imported";
       markSaved();
       renderTodo();renderCourses();bindPersonal();updateUrgent();updateDeadline();updateActionCentre();renderAcademic();
     }catch(err){alert("Backup could not be imported. Please select a valid IGNOU BCA Control Centre backup.");}
