@@ -26,7 +26,7 @@ function relevantLink(source,title,url){
       (/assign|assignment|\.pdf/i.test(t));
   }
   if(source.id==="bca"){
-    return /(bca[_ -]?new|bcs[- ]?111|bcs[- ]?012|bcsl[- ]?013|begla[- ]?136|bevae[- ]?181|programme guide)/i.test(t);
+    return /programme guide/i.test(t) || /(bcs[- ]?111|bcs[- ]?012|bcsl[- ]?013|begla[- ]?136|bevae[- ]?181)/i.test(t);
   }
   if(source.id==="tee"){
     return /(december|dec-?2026|tee|exam form|hall ticket|date sheet|bca)/i.test(t);
@@ -81,5 +81,6 @@ for(const source of sources){
 result.events=[...(previous.events||[]),...result.events].slice(-100);
 await fs.mkdir("public",{recursive:true});
 await fs.writeFile("public/monitor.json",JSON.stringify(result,null,2)+"\n");
+await fs.writeFile("monitor.json",JSON.stringify(result,null,2)+"\n");
 
 async function readJson(path,fallback){try{return JSON.parse(await fs.readFile(path,"utf8"));}catch{return fallback;}}
