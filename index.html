@@ -17,7 +17,6 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 .task{display:flex;gap:10px;align-items:flex-start;border-top:2px solid #111;padding:11px 0;font-weight:800}.task input{width:18px;height:18px;flex:0 0 auto}.course-head{display:flex;justify-content:space-between;gap:12px}.status{display:inline-block;border:2px solid #111;padding:3px 7px;font-size:11px;font-weight:1000;background:#eee}.todo{background:var(--yellow)}.done{background:var(--green)}.unknown{background:var(--red)}
 .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mini{border:2px solid #111;background:#fff;padding:10px}.mini input,.editor input,.editor textarea{width:100%;padding:9px;border:2px solid #111;margin-top:6px}.muted{font-size:12px;font-weight:700;color:#555}.btn{border:3px solid #111;background:var(--yellow);padding:9px 14px;font-weight:900;cursor:pointer}.btn:hover{transform:translate(-1px,-1px)}
 .cloud-login{position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px}.cloud-box{max-width:460px;width:100%;background:var(--paper);border:var(--border);box-shadow:var(--shadow);padding:24px}.cloud-box input{width:100%;padding:11px;border:2px solid #111;margin:6px 0 12px}
-#notifications{background:var(--blue)}.notification{background:#fff;border:2px solid #111;padding:12px;margin:9px 0}.notification.unread{background:#fffbe6}.notification button{margin-top:8px}.notice-course{display:inline-block;border:2px solid #111;padding:3px 6px;margin:5px 4px 0 0;font-size:11px;font-weight:900;background:var(--yellow)}
 .bar{height:18px;border:2px solid #111;background:#fff;margin-top:8px}.bar span{display:block;height:100%;background:#111;width:0}
 .id-card img{display:block;width:100%;max-width:700px;height:auto;border:2px solid #111}.footer{text-align:center;padding:30px;font-weight:700}
 @media(max-width:700px){.headerbox{display:block}.mini-grid{grid-template-columns:1fr}.card{box-shadow:4px 4px #111}}
@@ -38,58 +37,6 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 
 /* CONTROL CENTRE V2 */
 .action-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}.action-card{border:3px solid #111;padding:13px;background:#fff;min-width:0}.action-card h3{margin:0 0 7px;font-size:16px}.action-card .action-big{font-size:24px;font-weight:1000}.notice-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.notice-filter{border:2px solid #111;background:#fff;padding:7px 10px;font-weight:1000;cursor:pointer}.notice-filter.active{background:var(--yellow);box-shadow:3px 3px #111}.notice-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}.quick-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.quick-row a{border:2px solid #111;background:#fff;padding:10px;text-decoration:none;color:#111;font-weight:1000}.quick-row a:hover{background:var(--yellow)}@media(max-width:900px){.action-grid{grid-template-columns:1fr 1fr}.quick-row{grid-template-columns:1fr 1fr}}@media(max-width:600px){.action-grid,.quick-row{grid-template-columns:1fr}}
-
-/* PERSONAL NOTICE LOG + BACKUP */
-const MONITOR_KEY="ignou_bca_monitor_v2";
-let monitorData=JSON.parse(localStorage.getItem(MONITOR_KEY)||'{"logs":[]}');
-function todayKey(){return new Date().toLocaleDateString("en-CA",{timeZone:"Asia/Kolkata"});}
-function fmtDateTime(iso){if(!iso)return "Never";const d=new Date(iso);return Number.isNaN(d.getTime())?"Unknown":d.toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short",timeZone:"Asia/Kolkata"});}
-
-if(!monitorData || typeof monitorData!=="object") monitorData={logs:[]};
-monitorData.logs=Array.isArray(monitorData.logs)?monitorData.logs:[];
-
-function saveMonitor(){localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));renderNoticeLog();updateOpenNoticeCount();}
-function updateOpenNoticeCount(){const el=document.getElementById("monitorOpen");if(el)el.textContent=(monitorData.logs||[]).filter(x=>x.status==="OPEN").length;}
-function renderNoticeLog(){
-  const ll=document.getElementById("noticeLogList");if(!ll)return;
-  const logs=[...(monitorData.logs||[])].sort((x,y)=>String(y.createdAt).localeCompare(String(x.createdAt)));
-  ll.innerHTML=logs.length?logs.map((x,i)=>`
-    <div class="log-entry">
-      <div class="log-entry-head"><b>${esc(x.title)}</b><span class="log-action">${esc(x.status)}</span></div>
-      <div class="muted">${esc(x.date)} · ${esc(x.source)}</div>
-      ${x.why?`<p>${esc(x.why)}</p>`:""}
-      ${x.url?`<a target="_blank" rel="noopener" href="${esc(x.url)}">Open official notice ↗</a>`:""}
-      <button class="btn" style="margin-top:8px" onclick="deleteNoticeLog(${i})">DELETE LOG</button>
-    </div>`).join(""):'<div class="note">No personal notice log entries yet.</div>';
-  updateOpenNoticeCount();
-}
-function addNoticeLog(){
-  const title=(document.getElementById("logTitle")?.value||"").trim();
-  if(!title){alert("Add the official notice title first.");return;}
-  monitorData.logs.push({date:document.getElementById("logDate")?.value||todayKey(),source:document.getElementById("logSource")?.value||"Other official IGNOU source",title,url:(document.getElementById("logUrl")?.value||"").trim(),why:(document.getElementById("logWhy")?.value||"").trim(),status:document.getElementById("logStatus")?.value||"OPEN",createdAt:new Date().toISOString()});
-  ["logTitle","logUrl","logWhy"].forEach(id=>{const el=document.getElementById(id);if(el)el.value=""});
-  saveMonitor();
-}
-function deleteNoticeLog(index){
-  const logs=[...(monitorData.logs||[])].sort((x,y)=>String(y.createdAt).localeCompare(String(x.createdAt)));
-  const target=logs[index];if(!target)return;
-  monitorData.logs=monitorData.logs.filter(x=>x.createdAt!==target.createdAt);saveMonitor();
-}
-function exportControlData(){
-  const payload={exportedAt:new Date().toISOString(),version:2,personal:rows,monitoring:monitorData,academic:academicData};
-  const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);a.download="ignou-control-centre-backup-"+todayKey()+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
-}
-function importControlData(event){
-  const file=event.target.files?.[0];if(!file)return;const reader=new FileReader();
-  reader.onload=()=>{try{
-    const data=JSON.parse(reader.result);
-    if(data.personal&&typeof data.personal==="object"){rows=data.personal;localStorage.setItem(STORAGE_KEY,JSON.stringify(rows));}
-    if(data.monitoring&&typeof data.monitoring==="object"){monitorData=data.monitoring;monitorData.logs=Array.isArray(monitorData.logs)?monitorData.logs:[];localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));}
-    if(data.academic&&typeof data.academic==="object"){academicData=data.academic;localStorage.setItem(ACADEMIC_KEY,JSON.stringify(academicData));}
-    renderCourses();bindPersonal();updateUrgent();updateDeadline();updateActionCentre();renderAcademic();renderNoticeLog();renderNotifications();alert("Backup imported successfully.");
-  }catch(e){alert("This backup file could not be read.");}event.target.value="";};reader.readAsText(file);
-}
 
 /* PHASE 2A — SEMESTER 1 ACADEMIC CONTROL */
 .academic-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}
@@ -115,7 +62,7 @@ function importControlData(event){
 /* AUTOMATIC MONITORING */
 .auto-brief{background:#111;color:#fff;border:3px solid #111;box-shadow:var(--shadow);padding:18px;margin-bottom:20px}.auto-brief-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}.auto-brief h2{margin:0;font-size:25px}.auto-brief .muted{color:#ccc}.auto-status{display:inline-block;border:2px solid #fff;padding:5px 8px;font-size:11px;font-weight:1000}.auto-status.live{background:var(--green);color:#111;border-color:#111}.auto-status.wait{background:var(--yellow);color:#111;border-color:#111}.auto-events{display:grid;gap:9px;margin-top:14px}.auto-event{background:#fff;color:#111;border:3px solid #111;padding:12px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start}.auto-event.action{background:#ffb4b4}.auto-event.important{background:#ffdca0}.auto-event.watch{background:#fffbe6}.auto-event.info{background:#fff}.auto-badge{border:2px solid #111;padding:4px 6px;font-size:10px;font-weight:1000;white-space:nowrap}.auto-event h3{margin:0 0 4px;font-size:15px}.auto-event p{margin:0;font-weight:700;font-size:13px}.auto-event a{border:2px solid #111;background:#fff;color:#111;text-decoration:none;padding:6px 8px;font-weight:1000;white-space:nowrap}.auto-empty{background:#7bea8a;color:#111;border:3px solid #111;padding:15px;font-weight:1000}.auto-foot{margin-top:10px;font-size:11px;font-weight:800;color:#ccc}.auto-source-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:12px}.auto-source-chip{border:2px solid #fff;padding:8px;font-size:11px;font-weight:900}.auto-source-chip b{display:block;font-size:16px}@media(max-width:850px){.auto-source-strip{grid-template-columns:repeat(2,1fr)}.auto-event{grid-template-columns:1fr}.auto-event a{justify-self:start}}@media(max-width:500px){.auto-source-strip{grid-template-columns:1fr}}
  .auto-verify{border:2px solid #111;background:#fff;color:#111;text-decoration:none;padding:6px 8px;font-weight:1000;white-space:nowrap}.auto-verify:hover{background:var(--yellow)}
-</style>
+.backup-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.backup-row button{margin:0}@media(max-width:600px){.backup-row button{width:100%}}\n</style>
 </head>
 <body>
 <header>
@@ -125,77 +72,22 @@ function importControlData(event){
 <h1>IGNOU BCA<br>FULL CONTROL CENTRE</h1>
 <p>BCA_NEW · July 2026 · RC Guwahati · LSC 0400</p>
 <nav class="nav">
-<a href="#official-monitor">📡 SOURCE MONITOR</a><a href="#notifications">🔔 NOTIFICATIONS</a><a href="#action-centre">⚡ ACTION CENTRE</a><a href="#details">MY DETAILS</a><a href="#academic">ACADEMIC</a><a href="#semester">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">SOURCES</a>
-
+<a href="#today">TODAY</a><a href="#action-centre">ACTION CENTRE</a><a href="#details">MY DETAILS</a><a href="#academic">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">OFFICIAL LINKS</a>
 </nav>
 </div>
 </div>
 </header>
 
-<main class="wrap"><section class="auto-brief" id="todayBrief"><div class="auto-brief-head"><div><div class="muted">AUTOMATIC OFFICIAL-SOURCE MONITOR</div><h2>🚨 WHAT CHANGED SINCE YOUR LAST VISIT?</h2></div><span class="auto-status wait" id="autoMonitorStatus">STARTING…</span></div><div id="autoEvents" class="auto-events"><div class="note">Loading the latest official-source snapshot…</div></div><div class="auto-source-strip" id="autoSourceStrip"></div><div class="auto-foot" id="autoMonitorMeta">The dashboard will show only detected changes and relevant official information. It does not invent updates.</div></section>
+<main class="wrap"><section class="auto-brief" id="today"><div class="auto-brief-head"><div><div class="muted">AUTOMATIC OFFICIAL-SOURCE MONITOR</div><h2>🚨 WHAT CHANGED SINCE YOUR LAST VISIT?</h2></div><span class="auto-status wait" id="autoMonitorStatus">STARTING…</span></div><div id="autoEvents" class="auto-events"><div class="note">Loading the latest official-source snapshot…</div></div><div class="auto-source-strip" id="autoSourceStrip"></div><div class="auto-foot" id="autoMonitorMeta">The dashboard will show only detected changes and relevant official information. It does not invent updates.</div></section>
 
 
-<div class="section-title" id="official-monitor">📡 OFFICIAL SOURCE MONITOR</div>
-<section class="panel">
-  <div class="note success"><b>AUTOMATIC MODE:</b> Official sources are checked by the scheduled repository monitor. This panel is now your monitoring history and manual notice log; it is no longer asking you to perform the five-source check every day.</div>
-
-  <div class="note info"><b>AUTOMATIC SOURCE STATUS:</b> The five public official sources are checked by the repository monitor. Their latest scan status is shown above. This section is for your personal notice log and backup only.</div>
-
-  <div class="notice-log">
-    <h2>📰 OFFICIAL NOTICE LOG</h2>
-    <p class="muted">Record only notices you actually saw on an official source. This creates your personal audit trail.</p>
-    <div class="log-form">
-      <input id="logDate" type="date">
-      <select id="logSource">
-        <option>IGNOU Announcements</option>
-        <option>BCA_NEW Programme</option>
-        <option>Current Assignments</option>
-        <option>RC Guwahati</option>
-        <option>TEE Exam Portal</option>
-        <option>Other official IGNOU source</option>
-      </select>
-      <input class="full" id="logTitle" placeholder="Official notice title">
-      <input class="full" id="logUrl" placeholder="Official notice URL">
-      <textarea class="full" id="logWhy" placeholder="Why does this matter to me?"></textarea>
-      <select id="logStatus">
-        <option value="OPEN">ACTION REQUIRED</option>
-        <option value="WATCH">WATCH</option>
-        <option value="DONE">DONE</option>
-      </select>
-      <button class="btn" onclick="addNoticeLog()">+ SAVE NOTICE</button>
-    </div>
-    <div id="noticeLogList"></div>
-  </div>
-
-  <div class="backup-row">
-    <button onclick="exportControlData()">⬇ EXPORT MY CONTROL DATA</button>
-    <button onclick="document.getElementById('importData').click()">⬆ IMPORT BACKUP</button>
-    <input id="importData" type="file" accept=".json" style="display:none" onchange="importControlData(event)">
-  </div>
-
-  <div class="monitor-help"><b>RULE:</b> Automatic monitoring means the scheduled scanner fetched the public official source. It does not mean your authenticated Samarth/TEE account was accessed, and important actions must still be verified on the original official page.</div>
-</section>
-
-<section id="notifications" class="panel">
+<section id="action-centre" class="panel">
 <h2>🔔 DAILY IGNOU NOTIFICATIONS</h2>
 <p class="muted">Relevant BCA_NEW / RC Guwahati control-centre notices are shown here. Verify important information on the original official source.</p>
 <div class="muted">Control-centre notice snapshot. Last checked: <span id="noticeChecked">—</span></div><div class="notice-toolbar"><button class="notice-filter active" data-filter="ALL">ALL</button><button class="notice-filter" data-filter="DEADLINE">DEADLINES</button><button class="notice-filter" data-filter="INFO">INFO</button></div><div class="notice-meta"><span class="muted">Live verification always opens the original official source.</span><span class="muted" id="noticeSnapshotMeta">Loading automatic snapshot…</span></div><div id="noticeList"></div>
 </section>
 
-<section class="panel" id="action-centre"><div class="section-title">⚡ PERSONAL ACTION CENTRE</div><div class="action-grid"><div class="action-card warning"><h3>🔴 TEE CHECK</h3><div class="action-big" id="teeDays">—</div><div class="muted">Until 30 September 2026</div><a class="item" target="_blank" href="https://exam.ignou.ac.in/">Check official exam portal ↗</a></div><div class="action-card"><h3>📝 ASSIGNMENTS</h3><div class="action-big" id="assignmentProgress">0/5</div><div class="muted">courses marked submitted</div><a class="item" href="#assignments">Open assignment control ↓</a></div><div class="action-card success"><h3>📚 SEMESTER PROGRESS</h3><div class="action-big" id="semesterProgress">0%</div><div class="muted">20-credit Semester 1 tracker</div><a class="item" href="#semester">Open Semester 1 ↓</a></div></div><div class="note info"><b>NOW:</b> <span id="nextAction">Calculating your next action…</span></div></section><section class="panel"><h2>🚀 ONE-TAP CONTROL LINKS</h2><div class="quick-row"><a target="_blank" href="https://www.ignou.ac.in/announcements/0">IGNOU ANNOUNCEMENTS ↗</a><a target="_blank" href="https://www.ignou.ac.in/schools/programme/BCA_NEW">BCA_NEW ↗</a><a target="_blank" href="https://rcguwahati.ignou.ac.in/">RC GUWAHATI ↗</a><a target="_blank" href="https://www.ignou.ac.in/pages/43">CURRENT ASSIGNMENTS ↗</a></div></section>
-
-<section class="panel">
-<div class="note warning"><b>🚨 WHAT DO I NEED TO DO NOW?</b><br><span id="urgent">Calculating your current priorities…</span></div>
-<div class="grid">
-<a class="item" target="_blank" href="https://www.ignou.ac.in/announcements/0">📢 IGNOU Announcements</a>
-<a class="item" target="_blank" href="https://ignou.samarth.edu.in/">🎓 Samarth</a>
-<a class="item" target="_blank" href="https://exam.ignou.ac.in/">📝 TEE Exam Portal</a>
-<a class="item" target="_blank" href="https://rcguwahati.ignou.ac.in/">🏫 RC Guwahati</a>
-<a class="item" target="_blank" href="https://egyankosh.ac.in/">📚 eGyanKosh</a>
-</div>
-</section>
-
-<div class="section-title" id="details">👤 OFFICIAL IGNOU DETAILS — LOCKED</div>
+<section class="panel" id="action-centre"><div class="section-title">⚡ PERSONAL ACTION CENTRE</div><div class="action-grid"><div class="action-card warning"><h3>🔴 TEE CHECK</h3><div class="action-big" id="teeDays">—</div><div class="muted">Until 30 September 2026</div><a class="item" target="_blank" href="https://exam.ignou.ac.in/">Check official exam portal ↗</a></div><div class="action-card"><h3>📝 ASSIGNMENTS</h3><div class="action-big" id="assignmentProgress">0/5</div><div class="muted">courses marked submitted</div><a class="item" href="#assignments">Open assignment control ↓</a></div><div class="action-card success"><h3>📚 SEMESTER PROGRESS</h3><div class="action-big" id="semesterProgress">0%</div><div class="muted">20-credit Semester 1 tracker</div><a class="item" href="#semester">Open Semester 1 ↓</a></div></div><div class="note info"><b>NOW:</b> <span id="nextAction">Calculating your next action…</span></div></section><div class="section-title" id="details">👤 OFFICIAL IGNOU DETAILS — LOCKED</div>
 <section class="panel">
 <div class="details">
 <div class="detail"><div class="label">Name</div><div class="value">DIGBIJOY DAS</div></div>
@@ -203,37 +95,17 @@ function importControlData(event){
 <div class="detail"><div class="label">Programme</div><div class="value">BCA_NEW — Bachelor of Computer Applications</div></div>
 <div class="detail"><div class="label">Admission Cycle</div><div class="value">2026-JULY</div></div>
 <div class="detail"><div class="label">Admission Valid Upto</div><div class="value">JUNE 2032</div></div>
-<div class="detail"><div class="label">Medium</div><div class="value">ENGLISH</div></div>
-<div class="detail"><div class="label">Admission Quota</div><div class="value">SC</div></div>
 <div class="detail"><div class="label">Regional Centre</div><div class="value">04 — GUWAHATI</div></div>
 <div class="detail"><div class="label">Study Centre / LSC</div><div class="value">0400 — Regional Centre, TLC</div></div>
-<div class="detail"><div class="label">Delivery Mode</div><div class="value">Open Distance Learning</div></div>
-<div class="detail"><div class="label">Study Material</div><div class="value">Physical Books — received</div></div>
-<div class="detail"><div class="label">Registration Number</div><div class="value"><span class="status unknown">NOT SEPARATELY SHOWN</span></div></div>
+<div class="detail"><div class="label">Medium</div><div class="value">ENGLISH</div></div>
 </div>
 </section>
-
-<div class="section-title">🪪 MY ID CARD</div>
-<section class="panel id-card">
-<img src="https://raw.githubusercontent.com/digbijoy123/IGNOU-BCA-CONTROL-CENTRE/main/ignou-student-id-card.png" alt="IGNOU Student ID Card">
-<p class="muted">You requested the ID card to remain visible on the public deployment.</p>
-</section>
-
 
 <div class="section-title" id="academic">🎓 SEMESTER 1 ACADEMIC CONTROL</div>
 <section class="panel">
   <div class="note info">
     <b>ACADEMIC RULE:</b> This section is your personal record. Enter results only after checking the official IGNOU Grade Card / result source.
     The control centre does not claim to know your academic result automatically.
-  </div>
-
-  <div class="roadmap">
-    <div class="roadmap-item current">SEM 1<br><span class="muted">CURRENT</span></div>
-    <div class="roadmap-item">SEM 2<br><span class="muted">NOT STARTED</span></div>
-    <div class="roadmap-item">SEM 3<br><span class="muted">NOT STARTED</span></div>
-    <div class="roadmap-item">SEM 4<br><span class="muted">NOT STARTED</span></div>
-    <div class="roadmap-item">SEM 5<br><span class="muted">NOT STARTED</span></div>
-    <div class="roadmap-item">SEM 6<br><span class="muted">NOT STARTED</span></div>
   </div>
 
   <div class="academic-summary">
@@ -279,16 +151,6 @@ function importControlData(event){
   </div>
 </section>
 
-<div class="section-title" id="semester">📚 SEMESTER 1 — 20 CREDITS</div>
-<section class="panel">
-<table><thead><tr><th>Code</th><th>Course</th><th>Credits</th><th>Assignment</th></tr></thead><tbody>
-<tr><td>BCS111</td><td>Computer Basics and PC Software</td><td>4</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf">PDF ↗</a></td></tr>
-<tr><td>BCS12 / BCS-012</td><td>Basic Mathematics</td><td>4</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-012-BCA-NEW-2026-27.pdf">PDF ↗</a></td></tr>
-<tr><td>BCSL13 / BCSL-013</td><td>Computer Basics and PC Software Lab</td><td>2</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCSL-013-BCA-NEW-2026-27.pdf">PDF ↗</a></td></tr>
-<tr><td>BEGLA136 / BEGLA-136</td><td>English at the Work Place</td><td>6</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEGLA-136-BCA-NEW-2026-27.pdf">PDF ↗</a></td></tr>
-<tr><td>BEVAE181 / BEVAE-181</td><td>Environmental Studies</td><td>4</td><td class="assignment-cell">31 Oct 2026 <a class="pdf-btn" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEVAE-181-BCA-NEW-2026-27.pdf">PDF ↗</a></td></tr></tbody></table>
-</section>
-
 <div class="section-title" id="assignments">📝 ASSIGNMENT CONTROL — PERSONAL DATA ONLY</div>
 <section class="panel">
 <div class="note warning"><b>JULY 2026 SESSION — DEADLINE: 31 OCTOBER 2026</b><br><span id="daysLeft"></span></div>
@@ -313,6 +175,7 @@ function importControlData(event){
 <div class="panel"><h2>IGNOU HQ</h2><a class="item" target="_blank" href="https://www.ignou.ac.in/">Main Website</a><a class="item" target="_blank" href="https://www.ignou.ac.in/announcements/0">Announcements</a><a class="item" target="_blank" href="https://www.ignou.ac.in/pages/43">Current Assignments</a><a class="item" target="_blank" href="https://www.ignou.ac.in/pages/54">Student Services</a></div>
 <div class="panel"><h2>🏫 RC Guwahati</h2><a class="item" target="_blank" href="https://rcguwahati.ignou.ac.in/">RC Guwahati</a><a class="item" target="_blank" href="https://rcguwahati.ignou.ac.in/Ignou-RC-Guwahati/userfiles/file/SCLIST.pdf">Official LSC List</a></div>
 <div class="panel"><h2>📚 Study</h2><a class="item" target="_blank" href="https://egyankosh.ac.in/">eGyanKosh</a><a class="item" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/programmeguide/BCA_NEW-May-2026.pdf">BCA_NEW Programme Guide</a><a class="item" target="_blank" href="https://www.ignou.ac.in/pages/60">Previous Papers</a></div>
+<div class="backup-row"><button class="btn" onclick="exportControlData()">⬇ EXPORT MY DATA</button><button class="btn" onclick="document.getElementById('importData').click()">⬆ IMPORT BACKUP</button><input id="importData" type="file" accept=".json" style="display:none" onchange="importControlData(event)"></div>
 </section>
 </main>
 <footer class="footer">IGNOU BCA Full Control Centre · Personal progress is saved locally in this browser. Official information should always be verified against IGNOU.</footer>
@@ -435,57 +298,6 @@ function updateToday(){
 }
 
 
-/* PERSONAL NOTICE LOG + BACKUP */
-const MONITOR_KEY="ignou_bca_monitor_v2";
-let monitorData=JSON.parse(localStorage.getItem(MONITOR_KEY)||'{"logs":[]}');
-if(!monitorData || typeof monitorData!=="object") monitorData={logs:[]};
-monitorData.logs=Array.isArray(monitorData.logs)?monitorData.logs:[];
-
-function todayKey(){return new Date().toLocaleDateString("en-CA",{timeZone:"Asia/Kolkata"});}
-function fmtDateTime(iso){if(!iso)return "Never";const d=new Date(iso);return Number.isNaN(d.getTime())?"Unknown":d.toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short",timeZone:"Asia/Kolkata"});}
-function saveMonitor(){localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));renderNoticeLog();updateOpenNoticeCount();}
-function updateOpenNoticeCount(){const el=document.getElementById("monitorOpen");if(el)el.textContent=(monitorData.logs||[]).filter(x=>x.status==="OPEN").length;}
-function renderNoticeLog(){
-  const ll=document.getElementById("noticeLogList");if(!ll)return;
-  const logs=[...(monitorData.logs||[])].sort((x,y)=>String(y.createdAt).localeCompare(String(x.createdAt)));
-  ll.innerHTML=logs.length?logs.map((x,i)=>`
-    <div class="log-entry">
-      <div class="log-entry-head"><b>${esc(x.title)}</b><span class="log-action">${esc(x.status)}</span></div>
-      <div class="muted">${esc(x.date)} · ${esc(x.source)}</div>
-      ${x.why?`<p>${esc(x.why)}</p>`:""}
-      ${x.url?`<a target="_blank" rel="noopener" href="${esc(x.url)}">Open official notice ↗</a>`:""}
-      <button class="btn" style="margin-top:8px" onclick="deleteNoticeLog(${i})">DELETE LOG</button>
-    </div>`).join(""):'<div class="note">No personal notice log entries yet.</div>';
-  updateOpenNoticeCount();
-}
-function addNoticeLog(){
-  const title=(document.getElementById("logTitle")?.value||"").trim();
-  if(!title){alert("Add the official notice title first.");return;}
-  monitorData.logs.push({date:document.getElementById("logDate")?.value||todayKey(),source:document.getElementById("logSource")?.value||"Other official IGNOU source",title,url:(document.getElementById("logUrl")?.value||"").trim(),why:(document.getElementById("logWhy")?.value||"").trim(),status:document.getElementById("logStatus")?.value||"OPEN",createdAt:new Date().toISOString()});
-  ["logTitle","logUrl","logWhy"].forEach(id=>{const el=document.getElementById(id);if(el)el.value=""});
-  saveMonitor();
-}
-function deleteNoticeLog(index){
-  const logs=[...(monitorData.logs||[])].sort((x,y)=>String(y.createdAt).localeCompare(String(x.createdAt)));
-  const target=logs[index];if(!target)return;
-  monitorData.logs=monitorData.logs.filter(x=>x.createdAt!==target.createdAt);saveMonitor();
-}
-function exportControlData(){
-  const payload={exportedAt:new Date().toISOString(),version:2,personal:rows,monitoring:monitorData,academic:academicData};
-  const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);a.download="ignou-control-centre-backup-"+todayKey()+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
-}
-function importControlData(event){
-  const file=event.target.files?.[0];if(!file)return;const reader=new FileReader();
-  reader.onload=()=>{try{
-    const data=JSON.parse(reader.result);
-    if(data.personal&&typeof data.personal==="object"){rows=data.personal;localStorage.setItem(STORAGE_KEY,JSON.stringify(rows));}
-    if(data.monitoring&&typeof data.monitoring==="object"){monitorData=data.monitoring;monitorData.logs=Array.isArray(monitorData.logs)?monitorData.logs:[];localStorage.setItem(MONITOR_KEY,JSON.stringify(monitorData));}
-    if(data.academic&&typeof data.academic==="object"){academicData=data.academic;localStorage.setItem(ACADEMIC_KEY,JSON.stringify(academicData));}
-    renderCourses();bindPersonal();updateUrgent();updateDeadline();updateActionCentre();renderAcademic();renderNoticeLog();renderNotifications();alert("Backup imported successfully.");
-  }catch(e){alert("This backup file could not be read.");}event.target.value="";};reader.readAsText(file);
-}
-
 /* PHASE 2A — ACADEMIC RECORD */
 const academicCourses=[
   ["BCS111","Computer Basics and PC Software",4],
@@ -561,60 +373,12 @@ const MONITOR_SNAPSHOT_URL="https://raw.githubusercontent.com/digbijoy123/IGNOU-
 function autoPriorityClass(p){return p==="ACTION"?"action":p==="IMPORTANT"?"important":p==="WATCH"?"watch":"info"}
 function autoPriorityLabel(p){return p==="ACTION"?"ACTION REQUIRED":p==="IMPORTANT"?"IMPORTANT":p==="WATCH"?"WATCH":"INFO"}
 function sourceHealth(s){return s?.ok?"ONLINE":"UNAVAILABLE"}
-function buildNoticesFromSnapshot(data){
-  const result=[];
-  for(const e of (data.events||[])){
-    if(e.type==="BASELINE")continue;
-    result.push({id:e.id,type:e.priority==="ACTION"?"DEADLINE":"INFO",title:e.title||"Official-source update",source:e.source||"IGNOU",date:e.detectedAt?fmtDateTime(e.detectedAt):"Automatic monitor",courses:[e.sourceId||""].filter(Boolean),text:e.text||"Verify the original source before acting.",url:e.url||""});
-  }
-  return result.length?result.slice(0,20):fallbackNotices;
-}
-function renderAutoMonitor(data){
-  const eventsEl=document.getElementById("autoEvents"),statusEl=document.getElementById("autoMonitorStatus"),strip=document.getElementById("autoSourceStrip"),meta=document.getElementById("autoMonitorMeta");if(!eventsEl)return;
-  if(!data.generatedAt || !Object.keys(data.sources||{}).length){
-    statusEl.textContent="AWAITING FIRST SCAN";statusEl.className="auto-status wait";
-    eventsEl.innerHTML='<div class="note info"><b>Automatic scanner is configured but no repository snapshot has been published yet.</b> Local deadline/source controls remain available below. The dashboard will switch to live automatic status after the first scheduled scan.</div>';
-    strip.innerHTML='<div class="auto-source-chip"><b>…</b>Waiting for first scheduled scan</div>';
-    meta.textContent="No automatic snapshot published yet.";
-    notices=[...fallbackNotices];renderNotifications();
-    const sm=document.getElementById("noticeSnapshotMeta");if(sm)sm.textContent="No automatic snapshot yet · using local fallback notices";
-    return;
-  }
-  const events=Array.isArray(data.events)?data.events.slice().sort((a,b)=>new Date(b.detectedAt)-new Date(a.detectedAt)):[];
-  const seenKey="ignou_auto_seen_events_v2",seen=JSON.parse(localStorage.getItem(seenKey)||"{}");
-  const relevant=events.filter(e=>e.type!=="BASELINE"),unread=relevant.filter(e=>!seen[e.id]),display=(unread.length?unread:relevant).slice(0,8);
-  statusEl.textContent="AUTOMATIC MONITOR ONLINE";statusEl.className="auto-status live";
-  eventsEl.innerHTML=display.length?display.map(e=>`<article class="auto-event ${autoPriorityClass(e.priority)}"><span class="auto-badge">${esc(autoPriorityLabel(e.priority))}</span><div><h3>${esc(e.title||"Official-source update")}</h3><p>${esc(e.text||"")}</p><div class="muted" style="margin-top:5px">${esc(e.source||"")} · ${esc(fmtDateTime(e.detectedAt))}</div></div>${e.url?`<a class="auto-verify" target="_blank" rel="noopener" data-event-id="${esc(e.id)}" href="${esc(e.url)}">VERIFY ↗</a>`:""}</article>`).join(""):'<div class="auto-empty">🟢 No new relevant changes have been detected since the last visit.</div>';
-  const names={hq:"IGNOU HQ",bca:"BCA_NEW",assign:"Assignments",rc:"RC Guwahati",tee:"TEE"};
-  strip.innerHTML=Object.entries(data.sources||{}).map(([id,s])=>`<div class="auto-source-chip"><b>${sourceHealth(s)==="ONLINE"?"✓":"!"}</b>${esc(names[id]||s.title||id)}<span style="display:block;font-size:10px;margin-top:3px">${sourceHealth(s)}</span></div>`).join("");
-  const unavailable=Object.values(data.sources||{}).filter(s=>!s.ok).length;
-  meta.textContent="Last automatic scan: "+(data.generatedAt?fmtDateTime(data.generatedAt):"not yet recorded")+" · "+(unread.length?unread.length+" unread detected item(s)":"no unread detected items")+(unavailable?" · "+unavailable+" source(s) unavailable":"");
-  notices=buildNoticesFromSnapshot(data);renderNotifications();
-  const sm=document.getElementById("noticeSnapshotMeta");if(sm)sm.textContent="Automatic snapshot: "+(data.generatedAt?fmtDateTime(data.generatedAt):"timestamp unavailable");
-  document.querySelectorAll(".auto-verify").forEach(a=>a.addEventListener("click",()=>{const key=a.dataset.eventId;if(key){const seen=JSON.parse(localStorage.getItem(seenKey)||"{}");seen[key]=new Date().toISOString();localStorage.setItem(seenKey,JSON.stringify(seen));}}));
-}
-function markAutoSeen(id){const key="ignou_auto_seen_events_v2",seen=JSON.parse(localStorage.getItem(key)||"{}");seen[id]=new Date().toISOString();localStorage.setItem(key,JSON.stringify(seen));}
-async function loadAutoMonitor(){
-  const status=document.getElementById("autoMonitorStatus"),events=document.getElementById("autoEvents");
-  try{
-    status.textContent="LOADING SNAPSHOT…";status.className="auto-status wait";
-    const response=await fetch(MONITOR_SNAPSHOT_URL+"?t="+Date.now(),{cache:"no-store"});
-    if(!response.ok)throw new Error("snapshot "+response.status);
-    const data=await response.json();renderAutoMonitor(data);
-  }catch(error){
-    console.error("Automatic monitor load failed",error);status.textContent="SNAPSHOT UNAVAILABLE";status.className="auto-status wait";
-    if(events)events.innerHTML='<div class="note warning"><b>Automatic monitor snapshot could not be loaded.</b> The personal dashboard still works. Verify important information on the original official pages.</div>';
-    notices=[...fallbackNotices];renderNotifications();
-    const sm=document.getElementById("noticeSnapshotMeta");if(sm)sm.textContent="Using local fallback notices · live verification required";
-  }
-}
+
 
 
 function init(){
   updateToday();
-  const ld=document.getElementById("logDate");if(ld)ld.value=todayKey();
-  renderCourses();bindPersonal();updateUrgent();updateDeadline();updateActionCentre();renderAcademic();renderNoticeLog();renderNotifications();
-  document.querySelectorAll(".notice-filter").forEach(b=>b.addEventListener("click",()=>{noticeFilter=b.dataset.filter;renderNotifications()}));
+  renderCourses();bindPersonal();updateUrgent();updateDeadline();updateActionCentre();renderAcademic();
   loadAutoMonitor();
 }
 init();
