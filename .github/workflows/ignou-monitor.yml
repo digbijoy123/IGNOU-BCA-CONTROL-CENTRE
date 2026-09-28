@@ -1,6 +1,10 @@
 name: IGNOU Automatic Monitor
 
 on:
+  push:
+    paths:
+      - "scripts/monitor.mjs"
+      - ".github/workflows/ignou-monitor.yml"
   schedule:
     - cron: "7 */6 * * *"
   workflow_dispatch:
