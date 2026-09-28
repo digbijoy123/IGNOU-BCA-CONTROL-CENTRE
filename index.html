@@ -405,13 +405,34 @@ function indiaTodayKey(){
 function renderDeadlines(){
   const el=document.getElementById("deadlineList"); if(!el)return;
   const now=new Date();
-  el.innerHTML=upcomingDeadlines.map(d=>{
-    const due=new Date(d.date);
-    const diff=due-now;
-    const days=Math.ceil(diff/86400000);
-    const state=diff<0?"past":days<=2?"urgent":days<=7?"soon":"future";
+  const submitted=courses.filter(([c])=>state(c+"_submitted").checked).length;
+  const practicalDone=!!todoDone.practical_check;
+  const teeDone=!!todoDone.tee_form;
+  const list=upcomingDeadlines.map(d=>({...d}));
+  list[0].note=teeDone?"ACTION MARKED COMPLETE · "+list[0].note:list[0].note;
+  list[1].note=practicalDone?"ACTION MARKED COMPLETE · "+list[1].note:list[1].note;
+  list[2].note=submitted===courses.length?"ALL 5 ASSIGNMENTS SUBMITTED":submitted+"/5 COURSES SUBMITTED · "+list[2].note;
+  const seen=new Set(list.map(d=>d.id));
+  if(monitorData&&Array.isArray(monitorData.events)){
+    const re=/(?:deadline|last date|due|submit(?:ted)? by|extended to)[^\d]{0,45}(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(2026|2027)/i;
+    monitorData.events.filter(e=>e&&e.type!=="BASELINE").forEach(e=>{
+      const m=(e.title+" "+(e.text||"")).match(re);
+      if(!m)return;
+      const dt=new Date(`${m[1]} ${m[2]} ${m[3]} 23:59:59 GMT+0530`);
+      if(isNaN(dt)||dt<=now)return;
+      const id="dynamic-"+e.id;
+      if(seen.has(id))return;
+      seen.add(id);
+      list.push({id,title:e.title||"New official deadline",date:dt.toISOString(),label:`${m[1]} ${m[2]} ${m[3]}`,note:"Detected from a new official monitored notice · verify source",url:e.url||"https://www.ignou.ac.in/announcements/0?nav=6"});
+    });
+  }
+  el.innerHTML=list.sort((a,b)=>new Date(a.date)-new Date(b.date)).map(d=>{
+    const due=new Date(d.date),diff=due-now,days=Math.ceil(diff/86400000);
+    const complete=(d.id==="tee-form"&&teeDone)||(d.id==="practical-fee"&&practicalDone)||(d.id==="assignments"&&submitted===courses.length);
+    const state=complete?"future":diff<0?"past":days<=2?"urgent":days<=7?"soon":"future";
     let big,label;
-    if(diff<0){big="PASSED";label="";}
+    if(complete){big="DONE";label="";}
+    else if(diff<0){big="PASSED";label="";}
     else if(days===0){big="TODAY";label="";}
     else {big=String(days);label=days===1?"DAY LEFT":"DAYS LEFT";}
     return `<article class="deadline-item ${state}">
@@ -424,6 +445,16 @@ function renderDeadlines(){
 }
 const TODO_KEY="ignou_bca_todo_v1";
 let todoDone=JSON.parse(localStorage.getItem(TODO_KEY)||"{}");
+let monitorData=null;
+function dynamicMonitorTasks(){
+  if(!monitorData||!Array.isArray(monitorData.events))return [];
+  return monitorData.events
+    .filter(e=>e&&e.type!=="BASELINE"&&e.id&&!todoDone["event_"+e.id])
+    .filter(e=>e.priority!=="INFO"||e.type==="NEW_ITEM")
+    .slice(-8)
+    .reverse()
+    .map(e=>({id:"event_"+e.id,priority:e.priority==="HIGH"?0:e.priority==="MEDIUM"?1:2,title:"Review: "+(e.title||"official update"),meta:(e.source||"IGNOU")+" · NEW OFFICIAL UPDATE",url:e.url||"#today"}));
+}
 function setTodoDone(id,done){
   todoDone[id]=!!done;
   if(done && id.startsWith("assignment_")){
@@ -433,7 +464,7 @@ function setTodoDone(id,done){
   }
   localStorage.setItem(TODO_KEY,JSON.stringify(todoDone));
   markSaved();
-  renderTodo();renderCourses();bindPersonal();updateUrgent();updateActionCentre();
+  renderTodo();renderCourses();bindPersonal();updateUrgent();renderDeadlines();updateActionCentre();
 }
 function currentTodoItems(){
   const now=new Date();
@@ -444,7 +475,7 @@ function currentTodoItems(){
     if(!state(code+"_submitted").checked && !todoDone["assignment_"+code]) items.push({id:"assignment_"+code,priority:1,title:"Submit "+code+" assignment",meta:name+" · DUE 31 OCT 2026",url:"#assignments"});
   });
   if(!todoDone.practical_check) items.push({id:"practical_check",priority:2,title:"Check Project / Internship / Practical fee",meta:"IF APPLICABLE · DUE 30 NOV 2026",url:"https://www.ignou.ac.in/announcements/0?nav=6"});
-  return items.sort((a,b)=>a.priority-b.priority);
+  return [...dynamicMonitorTasks(),...items].sort((a,b)=>a.priority-b.priority).slice(0,8);
 }
 function renderTodo(){
   const list=document.getElementById("todoList"),count=document.getElementById("todoCount"),empty=document.getElementById("todoEmpty");
@@ -557,6 +588,9 @@ function autoPriorityLabel(p){return p==="ACTION"?"ACTION REQUIRED":p==="IMPORTA
 function sourceHealth(s){return s?.ok?"ONLINE":"UNAVAILABLE"}
 
 function renderAutoMonitor(data){
+  monitorData=data||null;
+  renderTodo();
+  renderDeadlines();
   const eventsEl=document.getElementById("autoEvents");
   const statusEl=document.getElementById("autoMonitorStatus");
   const strip=document.getElementById("autoSourceStrip");
