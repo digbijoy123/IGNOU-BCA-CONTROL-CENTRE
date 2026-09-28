@@ -267,13 +267,6 @@ function updateDeadline(){
   if(deadlineBarEl)deadlineBarEl.style.width=pct+"%";
 }
 
-const fallbackNotices=[
-  {type:"DEADLINE",title:"December 2026 TEE form deadline",source:"IGNOU Examination",date:"30 September 2026",courses:["TEE"],text:"The official IGNOU announcement says the December 2026 TEE exam form is open and the no-late-fee deadline is 30 September 2026.",url:"https://exam.ignou.ac.in/"},
-  {type:"DEADLINE",title:"Semester 1 July 2026 assignments",source:"IGNOU BCA_NEW assignments",date:"31 October 2026",courses:["BCS111","BCS12","BCSL13","BEGLA136","BEVAE181"],text:"The 2026-27 BCA_NEW assignment cycle uses 31 October 2026 for the July 2026 session. Verify each current PDF before submission.",url:"https://www.ignou.ac.in/pages/43"},
-  {type:"INFO",title:"BCA_NEW official programme page",source:"IGNOU",date:"Live source",courses:["BCA_NEW"],text:"Programme-level information and updates.",url:"https://www.ignou.ac.in/schools/programme/BCA_NEW"},
-  {type:"INFO",title:"RC Guwahati",source:"IGNOU Regional Centre",date:"Live source",courses:["RC GUWAHATI","LSC 0400"],text:"Regional notices, practical and counselling information.",url:"https://rcguwahati.ignou.ac.in/"}
-];
-let notices=[...fallbackNotices];
 function updateActionCentre(){const submitted=courses.filter(([c])=>state(c+"_submitted").checked).length;const completed=courses.filter(([c])=>state(c+"_completed").checked).length;const pct=Math.round(completed/courses.length*100);const now=new Date(),due=new Date("2026-09-30T23:59:59+05:30");const d=Math.max(0,Math.ceil((due-now)/86400000));const t=document.getElementById("teeDays");if(t)t.textContent=d+" days";const a=document.getElementById("assignmentProgress");if(a)a.textContent=submitted+"/5";const s=document.getElementById("semesterProgress");if(s)s.textContent=pct+"%";const n=document.getElementById("nextAction");if(n)n.textContent=now<=due?"Check your December 2026 TEE status/eligibility on the official exam portal. Do not assume eligibility from the dashboard.":submitted<5?"Continue Semester 1 assignments and keep submission proof.":"All assignments are marked submitted. Keep checking BCA_NEW and RC Guwahati for practical/counselling notices."}
 function updateToday(){
   const now=new Date();
@@ -357,7 +350,72 @@ function autoPriorityClass(p){return p==="ACTION"?"action":p==="IMPORTANT"?"impo
 function autoPriorityLabel(p){return p==="ACTION"?"ACTION REQUIRED":p==="IMPORTANT"?"IMPORTANT":p==="WATCH"?"WATCH":"INFO"}
 function sourceHealth(s){return s?.ok?"ONLINE":"UNAVAILABLE"}
 
+function renderAutoMonitor(data){
+  const eventsEl=document.getElementById("autoEvents");
+  const statusEl=document.getElementById("autoMonitorStatus");
+  const strip=document.getElementById("autoSourceStrip");
+  const meta=document.getElementById("autoMonitorMeta");
+  if(!eventsEl)return;
 
+  const sources=data&&data.sources&&typeof data.sources==="object"?data.sources:{};
+  const hasScan=!!(data&&data.generatedAt&&Object.keys(sources).length);
+
+  if(!hasScan){
+    statusEl.textContent="AWAITING FIRST SCAN";
+    statusEl.className="auto-status wait";
+    eventsEl.innerHTML='<div class="auto-empty">Automatic monitoring is configured, but no clean repository snapshot has been published yet. Your personal controls below are ready.</div>';
+    strip.innerHTML="";
+    meta.textContent="No automatic snapshot published yet.";
+    return;
+  }
+
+  const events=Array.isArray(data.events)?data.events.filter(e=>e&&e.type!=="BASELINE").sort((a,b)=>new Date(b.detectedAt||0)-new Date(a.detectedAt||0)):[];
+  const seenKey="ignou_auto_seen_events_v2";
+  let seen={};
+  try{seen=JSON.parse(localStorage.getItem(seenKey)||"{}")||{}}catch(e){seen={}};
+  const unread=events.filter(e=>!seen[e.id]);
+  const display=(unread.length?unread:events).slice(0,5);
+
+  statusEl.textContent="MONITOR ONLINE";
+  statusEl.className="auto-status live";
+  eventsEl.innerHTML=display.length?display.map(e=>`<article class="auto-event ${autoPriorityClass(e.priority)}">
+    <span class="auto-badge">${esc(autoPriorityLabel(e.priority))}</span>
+    <div><h3>${esc(e.title||"Official-source update")}</h3><p>${esc(e.text||"")}</p>
+    <div class="muted" style="margin-top:5px">${esc(e.source||"Official IGNOU source")} · ${esc(fmtDateTime(e.detectedAt))}</div></div>
+    ${e.url?`<a class="auto-verify" target="_blank" rel="noopener" href="${esc(e.url)}" data-event-id="${esc(e.id)}">VERIFY ↗</a>`:""}
+  </article>`).join(""):'<div class="auto-empty">🟢 No new relevant official changes detected.</div>';
+
+  const names={hq:"IGNOU HQ",bca:"BCA_NEW",assign:"Assignments",rc:"RC Guwahati",tee:"TEE"};
+  strip.innerHTML=Object.entries(sources).map(([id,s])=>`<div class="auto-source-chip"><b>${sourceHealth(s)==="ONLINE"?"✓":"!"}</b>${esc(names[id]||s.title||id)}<span style="display:block;font-size:10px;margin-top:3px">${sourceHealth(s)}</span></div>`).join("");
+  const unavailable=Object.values(sources).filter(s=>!s.ok).length;
+  meta.textContent="Last automatic scan: "+fmtDateTime(data.generatedAt)+(unavailable?" · "+unavailable+" source(s) unavailable":"");
+
+  document.querySelectorAll(".auto-verify").forEach(a=>a.addEventListener("click",()=>{
+    const id=a.dataset.eventId;if(!id)return;
+    seen[id]=new Date().toISOString();
+    localStorage.setItem(seenKey,JSON.stringify(seen));
+  }));
+}
+
+async function loadAutoMonitor(){
+  const statusEl=document.getElementById("autoMonitorStatus");
+  const eventsEl=document.getElementById("autoEvents");
+  try{
+    const response=await fetch(MONITOR_SNAPSHOT_URL+"?t="+Date.now(),{cache:"no-store"});
+    if(!response.ok)throw new Error("HTTP "+response.status);
+    const data=await response.json();
+    renderAutoMonitor(data);
+  }catch(error){
+    if(statusEl){
+      statusEl.textContent="SNAPSHOT UNAVAILABLE";
+      statusEl.className="auto-status wait";
+    }
+    if(eventsEl)eventsEl.innerHTML='<div class="note warning"><b>Automatic snapshot could not be loaded.</b> Personal controls remain available. Try a refresh later.</div>';
+    const meta=document.getElementById("autoMonitorMeta");
+    if(meta)meta.textContent="Automatic monitor connection failed; no update is being claimed.";
+    console.error("Automatic monitor:",error);
+  }
+}
 
 function init(){
   updateToday();
