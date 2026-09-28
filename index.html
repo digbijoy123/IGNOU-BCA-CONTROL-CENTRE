@@ -25,9 +25,11 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 #courseGrid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start!important;align-content:start!important;grid-auto-rows:max-content!important}
 #courseGrid>.panel{min-width:0;overflow:hidden;align-self:start!important;height:auto!important;min-height:0!important}
 #courseGrid .course-head h2{min-width:0;overflow-wrap:anywhere}
-#courseGrid .mini-grid{display:flex!important;flex-direction:row;align-items:flex-start!important;align-content:flex-start!important;gap:10px;height:auto!important;min-height:0!important}
-#courseGrid .mini{flex:1 1 0;min-width:0;overflow:hidden;align-self:flex-start!important;height:auto!important;min-height:0!important}
-#courseGrid .mini .task{min-width:0;overflow-wrap:anywhere;height:auto!important;min-height:0!important;align-items:flex-start!important}
+#courseGrid .mini-grid{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;align-items:start!important;align-content:start!important;gap:10px;height:70px!important;min-height:70px!important;max-height:70px!important}
+#courseGrid .mini{display:block!important;min-width:0;overflow:hidden;align-self:start!important;width:100%!important;height:64px!important;min-height:64px!important;max-height:64px!important;padding:7px!important}
+#courseGrid .mini input{height:32px!important;margin-top:4px!important;padding:5px!important}
+#courseGrid .mini .task{min-width:0;overflow-wrap:anywhere;height:32px!important;min-height:32px!important;align-items:center!important;padding:0!important;margin:0!important}
+#courseGrid .mini .task input{height:18px!important;width:18px!important;margin-top:0!important}
 #courseGrid .mini .task input{flex:0 0 auto}
 .pdf-btn{display:inline-block;border:3px solid #111;background:var(--yellow);color:#111;text-decoration:none;padding:7px 10px;font-weight:1000;box-shadow:3px 3px #111;white-space:nowrap}
 .pdf-btn:hover{transform:translate(-1px,-1px)}
