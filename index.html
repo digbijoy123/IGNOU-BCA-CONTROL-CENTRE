@@ -77,6 +77,10 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 .deadline-days span{font-size:10px}
 .deadline-item a{display:inline-block;margin-top:7px;color:#111;font-weight:1000}
 @media(max-width:600px){.deadline-item{grid-template-columns:1fr}.deadline-days{justify-self:start}}
+
+.quick-access{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.quick-access-btn{display:inline-block;border:3px solid #111;background:#111;color:#fff;text-decoration:none;padding:9px 13px;font-weight:1000;box-shadow:4px 4px 0 #111}.quick-access-btn:hover{transform:translate(-1px,-1px)}
+.notification-panel{scroll-margin-top:12px}.notification-list{display:grid;gap:10px;margin-top:14px}.notification{background:#fff;border:2px solid #111;padding:12px}.notification p{margin:7px 0;line-height:1.45}.notification .item{display:inline-block;margin-top:4px}.id-card img{max-height:420px;object-fit:contain;object-position:left top;background:#fff}.details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.detail{border:2px solid #111;background:#fff;padding:10px}.detail .label{font-size:11px;font-weight:900;text-transform:uppercase}.detail .value{font-weight:900;margin-top:4px}.pdf-btn{display:inline-block;border:3px solid #111;background:var(--yellow);color:#111;text-decoration:none;padding:8px 11px;font-weight:1000;box-shadow:3px 3px #111;white-space:nowrap}.pdf-btn:hover{transform:translate(-1px,-1px)}
+@media(max-width:650px){.details{grid-template-columns:1fr}.quick-access-btn{width:100%;text-align:center}.notification .notice-meta{align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -87,8 +91,12 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <h1>IGNOU BCA<br>FULL CONTROL CENTRE</h1>
 <p>BCA_NEW · July 2026 · RC Guwahati · LSC 0400</p>
 <nav class="nav">
-<a href="#today">TODAY</a><a href="#action-centre">ACTION CENTRE</a><a href="#deadlines">DEADLINES</a><a href="#details">MY DETAILS</a><a href="#academic">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">OFFICIAL LINKS</a>
+<a href="#today">TODAY</a><a href="#notifications">NOTIFICATIONS</a><a href="#action-centre">ACTION CENTRE</a><a href="#deadlines">DEADLINES</a><a href="#details">MY DETAILS</a><a href="#academic">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">OFFICIAL LINKS</a>
 </nav>
+<div class="quick-access">
+<a class="quick-access-btn" target="_blank" rel="noopener" href="https://ignou.samarth.edu.in/index.php/dashboard">🎓 SAMARTH PORTAL ↗</a>
+<a class="quick-access-btn" target="_blank" rel="noopener" href="https://www.digilocker.gov.in/">🪪 DIGILOCKER ↗</a>
+</div>
 </div>
 </div>
 </header>
@@ -98,22 +106,41 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 
 <section class="panel" id="action-centre"><div class="section-title">⚡ PERSONAL ACTION CENTRE</div><div class="action-grid"><div class="action-card warning"><h3>🔴 TEE CHECK</h3><div class="action-big" id="teeDays">—</div><div class="muted">Until 30 September 2026</div><a class="item" target="_blank" href="https://exam.ignou.ac.in/">Check official exam portal ↗</a></div><div class="action-card"><h3>📝 ASSIGNMENTS</h3><div class="action-big" id="assignmentProgress">0/5</div><div class="muted">courses marked submitted</div><a class="item" href="#assignments">Open assignment control ↓</a></div><div class="action-card success"><h3>📚 SEMESTER PROGRESS</h3><div class="action-big" id="semesterProgress">0%</div><div class="muted">20-credit Semester 1 tracker</div><a class="item" href="#semester">Open Semester 1 ↓</a></div></div><div class="note info"><b>NOW:</b> <span id="nextAction">Calculating your next action…</span></div></section>
 
+<div class="section-title" id="notifications">🔔 RELEVANT IGNOU NOTIFICATIONS</div>
+<section class="panel notification-panel">
+  <div class="notice-meta">
+    <div><b>STUDENT-RELEVANT ONLY</b><div class="muted">Current official IGNOU notices filtered for your BCA / TEE workflow.</div></div>
+    <a class="pdf-btn" target="_blank" rel="noopener" href="https://www.ignou.ac.in/announcements/0?nav=6">OPEN ALL OFFICIAL NOTICES ↗</a>
+  </div>
+  <div id="notificationList" class="notification-list"></div>
+</section>
+
 <div class="section-title" id="deadlines">⏳ UPCOMING DEADLINES</div>
 <section class="panel deadline-panel">
   <div class="deadline-note">Deadlines are calculated from the current India date/time. Official links are provided so you can verify before acting.</div>
   <div id="deadlineList" class="deadline-list"></div>
-</section><div class="section-title" id="details">👤 OFFICIAL IGNOU DETAILS — LOCKED</div>
-<section class="panel">
-<div class="details">
-<div class="detail"><div class="label">Name</div><div class="value">DIGBIJOY DAS</div></div>
-<div class="detail"><div class="label">Enrolment Number</div><div class="value">2650982050</div></div>
-<div class="detail"><div class="label">Programme</div><div class="value">BCA_NEW — Bachelor of Computer Applications</div></div>
-<div class="detail"><div class="label">Admission Cycle</div><div class="value">2026-JULY</div></div>
-<div class="detail"><div class="label">Admission Valid Upto</div><div class="value">JUNE 2032</div></div>
-<div class="detail"><div class="label">Regional Centre</div><div class="value">04 — GUWAHATI</div></div>
-<div class="detail"><div class="label">Study Centre / LSC</div><div class="value">0400 — Regional Centre, TLC</div></div>
-<div class="detail"><div class="label">Medium</div><div class="value">ENGLISH</div></div>
-</div>
+</section><div class="section-title" id="details">👤 MY DETAILS + ID CARD</div>
+<section class="grid">
+  <div class="panel">
+    <h2>MY IGNOU DETAILS</h2>
+    <div class="details">
+      <div class="detail"><div class="label">Name</div><div class="value">DIGBIJOY DAS</div></div>
+      <div class="detail"><div class="label">Enrolment Number</div><div class="value">2650982050</div></div>
+      <div class="detail"><div class="label">Programme</div><div class="value">BCA_NEW — Bachelor of Computer Applications</div></div>
+      <div class="detail"><div class="label">Admission Cycle</div><div class="value">JULY 2026</div></div>
+      <div class="detail"><div class="label">Admission Valid Upto</div><div class="value">JUNE 2032</div></div>
+      <div class="detail"><div class="label">Regional Centre</div><div class="value">04 — GUWAHATI</div></div>
+      <div class="detail"><div class="label">Study Centre / LSC</div><div class="value">0400 — Regional Centre, TLC</div></div>
+      <div class="detail"><div class="label">Medium</div><div class="value">ENGLISH</div></div>
+      <div class="detail"><div class="label">Mode</div><div class="value">OPEN DISTANCE LEARNING</div></div>
+    </div>
+    <a class="item" target="_blank" rel="noopener" href="https://ignou.samarth.edu.in/index.php/dashboard">OPEN SAMARTH DASHBOARD ↗</a>
+  </div>
+  <div class="panel id-card">
+    <h2>🪪 MY ID CARD</h2>
+    <img src="https://raw.githubusercontent.com/digbijoy123/IGNOU-BCA-CONTROL-CENTRE/main/ignou-student-id-card.png" alt="IGNOU Student ID Card">
+    <p class="muted">Personal ID card image stored with the control centre.</p>
+  </div>
 </section>
 
 <div class="section-title" id="academic">🎓 SEMESTER 1 ACADEMIC CONTROL</div>
@@ -187,8 +214,8 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 
 <div class="section-title" id="sources">📢 OFFICIAL SOURCES</div>
 <section class="grid">
-<div class="panel"><h2>IGNOU HQ</h2><a class="item" target="_blank" href="https://www.ignou.ac.in/">Main Website</a><a class="item" target="_blank" href="https://www.ignou.ac.in/announcements/0">Announcements</a><a class="item" target="_blank" href="https://www.ignou.ac.in/pages/43">Current Assignments</a><a class="item" target="_blank" href="https://www.ignou.ac.in/pages/54">Student Services</a></div>
-<div class="panel"><h2>🏫 RC Guwahati</h2><a class="item" target="_blank" href="https://rcguwahati.ignou.ac.in/">RC Guwahati</a><a class="item" target="_blank" href="https://rcguwahati.ignou.ac.in/Ignou-RC-Guwahati/userfiles/file/SCLIST.pdf">Official LSC List</a></div>
+<div class="panel"><h2>IGNOU HQ</h2><a class="item" target="_blank" href="https://www.ignou.ac.in/">Main Website</a><a class="item" target="_blank" href="https://www.ignou.ac.in/announcements/0?nav=6">Announcements</a><a class="item" target="_blank" href="https://www.ignou.ac.in/studentService/download/assignments">Current Assignments</a><a class="item" target="_blank" href="https://www.ignou.ac.in/pages/54">Student Services</a></div>
+<div class="panel"><h2>🏫 RC Guwahati</h2><a class="item" target="_blank" href="http://rcguwahati.ignou.ac.in/">RC Guwahati</a><a class="item" target="_blank" href="https://rcguwahati.ignou.ac.in/Ignou-RC-Guwahati/userfiles/file/SCLIST.pdf">Official LSC List</a></div>
 <div class="panel"><h2>📚 Study</h2><a class="item" target="_blank" href="https://egyankosh.ac.in/">eGyanKosh</a><a class="item" target="_blank" href="https://www.ignou.ac.in/viewFile/SOCIS/programmeguide/BCA_NEW-May-2026.pdf">BCA_NEW Programme Guide</a><a class="item" target="_blank" href="https://www.ignou.ac.in/pages/60">Previous Papers</a></div>
 <div class="backup-row"><button class="btn" onclick="exportControlData()">⬇ EXPORT MY DATA</button><button class="btn" onclick="document.getElementById('importData').click()">⬆ IMPORT BACKUP</button><input id="importData" type="file" accept=".json" style="display:none" onchange="importControlData(event)"></div>
 </section>
@@ -197,12 +224,33 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 
 
 <script>
+
+const relevantNotifications=[
+  {date:"22 Sep 2026",tag:"TEE",title:"Tentative date sheet for December-2026 TEE",text:"IGNOU published the tentative December 2026 TEE date sheet for ODL and Online modes.",url:"https://www.ignou.ac.in/announcements/0?nav=6"},
+  {date:"18 Sep 2026",tag:"PRACTICAL",title:"Project / Internship / Practical fee — December 2026 TEE",text:"Eligible learners can submit the applicable Project, Internship or Practical course fee through the Samarth Portal. Current last date: 30 November 2026.",url:"https://www.ignou.ac.in/announcements/0?nav=6"},
+  {date:"16 Sep 2026",tag:"RE-REGISTRATION",title:"Extension of July 2026 re-registration",text:"The July 2026 re-registration deadline was extended to 30 September 2026 with the applicable late fee.",url:"https://www.ignou.ac.in/announcements/0?nav=6"},
+  {date:"11 Sep 2026",tag:"TEE ACTION",title:"Exam Form for December-2026 TEE",text:"The official notification states that the exam form deadline is 30 September 2026 without late fees.",url:"https://www.ignou.ac.in/announcements/0?nav=6"},
+  {date:"Current",tag:"SAFETY",title:"Student advisory: use only official IGNOU sources",text:"IGNOU advises learners to rely on the official IGNOU website for authentic notices, examination services, results and academic records.",url:"https://www.ignou.ac.in/announcements/0?nav=6"}
+];
+
+function renderNotifications(){
+  const el=document.getElementById("notificationList");
+  if(!el)return;
+  el.innerHTML=relevantNotifications.map(n=>`
+    <article class="notification">
+      <div class="notice-meta"><b>${esc(n.title)}</b><span class="status todo">${esc(n.tag)}</span></div>
+      <div class="muted">${esc(n.date)}</div>
+      <p>${esc(n.text)}</p>
+      <a class="item" target="_blank" rel="noopener" href="${n.url}">OPEN OFFICIAL NOTICE ↗</a>
+    </article>`).join("");
+}
+
 const courses=[
-  ["BCS111","Computer Basics and PC Software","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf"],
-  ["BCS12","Basic Mathematics","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-012-BCA-NEW-2026-27.pdf"],
-  ["BCSL13","Computer Basics and PC Software Lab","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCSL-013-BCA-NEW-2026-27.pdf"],
-  ["BEGLA136","English at the Work Place","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEGLA-136-BCA-NEW-2026-27.pdf"],
-  ["BEVAE181","Environmental Studies","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEVAE-181-BCA-NEW-2026-27.pdf"]
+  ["BCS111","Computer Basics and PC Software","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf#page=5"],
+  ["BCS12","Basic Mathematics","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf#page=10"],
+  ["BCSL13","Computer Basics and PC Software Lab","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf#page=7"],
+  ["BEGLA136","English at the Work Place","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf#page=4"],
+  ["BEVAE181","Environmental Studies","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf#page=3"]
 ];
 
 const STORAGE_KEY="ignou_bca_control_v2";
@@ -230,7 +278,7 @@ function renderCourses(){
     return `<section class="panel">
       <div class="course-head"><h2>${code}</h2><span class="status ${pct===100?"done":"todo"}">${pct}%</span></div>
       <b>${esc(name)}</b>
-      <a class="item" target="_blank" href="${url}">⬇ Download Assignment PDF</a>
+      <a class="pdf-btn" target="_blank" rel="noopener" href="${url}">⬇ ${code} ASSIGNMENT PDF</a>
       ${["downloaded","started","completed","submitted"].map(x=>`
         <label class="task"><input data-personal="${code}_${x}" type="checkbox" ${state(code+"_"+x).checked?"checked":""}>
         ${x[0].toUpperCase()+x.slice(1)}</label>`).join("")}
@@ -290,7 +338,7 @@ function updateDeadline(){
 
 const upcomingDeadlines=[
   {id:"tee-form",title:"December 2026 TEE exam form",date:"2026-09-30T23:59:59+05:30",label:"30 September 2026",note:"Without late fees",url:"https://exam.ignou.ac.in/"},
-  {id:"practical-fee",title:"Project / Internship / Practical fee submission",date:"2026-10-27T23:59:59+05:30",label:"27 October 2026",note:"Only if applicable to your registered course(s)",url:"https://www.ignou.ac.in/announcements/0"},
+  {id:"practical-fee",title:"Project / Internship / Practical fee submission",date:"2026-11-30T23:59:59+05:30",label:"30 November 2026",note:"Only if applicable to your registered course(s)",url:"https://www.ignou.ac.in/announcements/0?nav=6"},
   {id:"assignments",title:"Semester 1 July 2026 assignments",date:"2026-10-31T23:59:59+05:30",label:"31 October 2026",note:"Verify each current assignment PDF before submission",url:"https://www.ignou.ac.in/pages/43"}
 ];
 
