@@ -83,6 +83,6 @@ await fs.mkdir("public",{recursive:true});
 const monitorJson=JSON.stringify(result,null,2)+"\n";
 await fs.writeFile("public/monitor.json",monitorJson);
 await fs.writeFile("monitor.json",monitorJson);
-await fs.writeFile("public/monitor.js","window.__IGNOU_MONITOR__ = "+JSON.stringify(result)+";\n");
+await fs.writeFile("public/monitor.js","window.__IGNOU_MONITOR__ = "+JSON.stringify(result)+";\nif(document.readyState===\"loading\"){document.addEventListener(\"DOMContentLoaded\",()=>{if(typeof window.renderNotifications===\"function\")window.renderNotifications();});}else if(typeof window.renderNotifications===\"function\"){window.renderNotifications();}\n");
 
 async function readJson(path,fallback){try{return JSON.parse(await fs.readFile(path,"utf8"));}catch{return fallback;}}
