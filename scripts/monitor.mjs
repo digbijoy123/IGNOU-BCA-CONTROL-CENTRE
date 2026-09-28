@@ -80,7 +80,9 @@ for(const source of sources){
 }
 result.events=[...(previous.events||[]),...result.events].slice(-100);
 await fs.mkdir("public",{recursive:true});
-await fs.writeFile("public/monitor.json",JSON.stringify(result,null,2)+"\n");
-await fs.writeFile("monitor.json",JSON.stringify(result,null,2)+"\n");
+const monitorJson=JSON.stringify(result,null,2)+"\n";
+await fs.writeFile("public/monitor.json",monitorJson);
+await fs.writeFile("monitor.json",monitorJson);
+await fs.writeFile("public/monitor.js","window.__IGNOU_MONITOR__ = "+JSON.stringify(result)+";\n");
 
 async function readJson(path,fallback){try{return JSON.parse(await fs.readFile(path,"utf8"));}catch{return fallback;}}
