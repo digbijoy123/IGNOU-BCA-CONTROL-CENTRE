@@ -81,12 +81,6 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <main class="wrap"><section class="auto-brief" id="today"><div class="auto-brief-head"><div><div class="muted">AUTOMATIC OFFICIAL-SOURCE MONITOR</div><h2>🚨 WHAT CHANGED SINCE YOUR LAST VISIT?</h2></div><span class="auto-status wait" id="autoMonitorStatus">STARTING…</span></div><div id="autoEvents" class="auto-events"><div class="note">Loading the latest official-source snapshot…</div></div><div class="auto-source-strip" id="autoSourceStrip"></div><div class="auto-foot" id="autoMonitorMeta">The dashboard will show only detected changes and relevant official information. It does not invent updates.</div></section>
 
 
-<section id="action-centre" class="panel">
-<h2>🔔 DAILY IGNOU NOTIFICATIONS</h2>
-<p class="muted">Relevant BCA_NEW / RC Guwahati control-centre notices are shown here. Verify important information on the original official source.</p>
-<div class="muted">Control-centre notice snapshot. Last checked: <span id="noticeChecked">—</span></div><div class="notice-toolbar"><button class="notice-filter active" data-filter="ALL">ALL</button><button class="notice-filter" data-filter="DEADLINE">DEADLINES</button><button class="notice-filter" data-filter="INFO">INFO</button></div><div class="notice-meta"><span class="muted">Live verification always opens the original official source.</span><span class="muted" id="noticeSnapshotMeta">Loading automatic snapshot…</span></div><div id="noticeList"></div>
-</section>
-
 <section class="panel" id="action-centre"><div class="section-title">⚡ PERSONAL ACTION CENTRE</div><div class="action-grid"><div class="action-card warning"><h3>🔴 TEE CHECK</h3><div class="action-big" id="teeDays">—</div><div class="muted">Until 30 September 2026</div><a class="item" target="_blank" href="https://exam.ignou.ac.in/">Check official exam portal ↗</a></div><div class="action-card"><h3>📝 ASSIGNMENTS</h3><div class="action-big" id="assignmentProgress">0/5</div><div class="muted">courses marked submitted</div><a class="item" href="#assignments">Open assignment control ↓</a></div><div class="action-card success"><h3>📚 SEMESTER PROGRESS</h3><div class="action-big" id="semesterProgress">0%</div><div class="muted">20-credit Semester 1 tracker</div><a class="item" href="#semester">Open Semester 1 ↓</a></div></div><div class="note info"><b>NOW:</b> <span id="nextAction">Calculating your next action…</span></div></section><div class="section-title" id="details">👤 OFFICIAL IGNOU DETAILS — LOCKED</div>
 <section class="panel">
 <div class="details">
@@ -281,22 +275,11 @@ const fallbackNotices=[
 ];
 let notices=[...fallbackNotices];
 function updateActionCentre(){const submitted=courses.filter(([c])=>state(c+"_submitted").checked).length;const completed=courses.filter(([c])=>state(c+"_completed").checked).length;const pct=Math.round(completed/courses.length*100);const now=new Date(),due=new Date("2026-09-30T23:59:59+05:30");const d=Math.max(0,Math.ceil((due-now)/86400000));const t=document.getElementById("teeDays");if(t)t.textContent=d+" days";const a=document.getElementById("assignmentProgress");if(a)a.textContent=submitted+"/5";const s=document.getElementById("semesterProgress");if(s)s.textContent=pct+"%";const n=document.getElementById("nextAction");if(n)n.textContent=now<=due?"Check your December 2026 TEE status/eligibility on the official exam portal. Do not assume eligibility from the dashboard.":submitted<5?"Continue Semester 1 assignments and keep submission proof.":"All assignments are marked submitted. Keep checking BCA_NEW and RC Guwahati for practical/counselling notices."}
-let noticeFilter="ALL";function openOfficialChecks(){["https://www.ignou.ac.in/announcements/0","https://www.ignou.ac.in/schools/programme/BCA_NEW","https://www.ignou.ac.in/pages/43","https://rcguwahati.ignou.ac.in/","https://exam.ignou.ac.in/"].forEach(u=>window.open(u,"_blank"))}
-function renderNotifications(){const el=document.getElementById("noticeList");if(!el)return;const read=state("notice_reads").value?JSON.parse(state("notice_reads").value):{};const list=notices.filter(n=>noticeFilter==="ALL"||n.type===noticeFilter);el.innerHTML=list.map(n=>{const i=notices.indexOf(n),isRead=!!read[i];const cls=n.type==="DEADLINE"?"warning":n.type==="NEW"?"info":"success";return `<div class="notification ${isRead?"":"unread"}"><div class="notice-meta"><span class="status ${cls}">${n.type}</span><b>${esc(n.title)}</b></div><div class="muted">${esc(n.source)} · ${esc(n.date)}</div>${n.courses.map(c=>`<span class="notice-course">${esc(c)}</span>`).join("")}<p>${esc(n.text)}</p><a target="_blank" href="${n.url}">Open official source ↗</a>${isRead?"<span class='muted'> · Read</span>":`<button class="btn" onclick="markRead(${i})">MARK READ</button>`}</div>`}).join("")||'<div class="note">No notices match this filter.</div>';const checked=document.getElementById("noticeChecked");if(checked)checked.textContent=new Date().toLocaleString("en-IN");document.querySelectorAll(".notice-filter").forEach(b=>b.classList.toggle("active",b.dataset.filter===noticeFilter))}
-
-function markRead(i){
-  const read=state("notice_reads").value?JSON.parse(state("notice_reads").value):{};
-  read[String(i)]=true;saveState("notice_reads",false,JSON.stringify(read));renderNotifications();
-}
-
 function updateToday(){
   const now=new Date();
   const dateEl=document.getElementById("currentDate")||document.querySelector("header .date");
   if(dateEl)dateEl.textContent=now.toLocaleDateString("en-IN",{day:"2-digit",month:"long",year:"numeric"}).toUpperCase();
-  const checked=document.getElementById("noticeChecked");
-  if(checked)checked.textContent=now.toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"});
 }
-
 
 /* PHASE 2A — ACADEMIC RECORD */
 const academicCourses=[
