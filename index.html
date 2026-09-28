@@ -132,7 +132,7 @@ function importControlData(event){
 </div>
 </header>
 
-<main class="wrap"><section class="auto-brief" id="todayBrief"><div class="auto-brief-head"><div><div class="muted">AUTOMATIC OFFICIAL-SOURCE MONITOR</div><h2>🚨 WHAT CHANGED SINCE YOUR LAST VISIT?</h2></div><span class="auto-status wait" id="autoMonitorStatus">CHECKING…</span></div><div id="autoEvents" class="auto-events"><div class="note">Loading the latest official-source snapshot…</div></div><div class="auto-source-strip" id="autoSourceStrip"></div><div class="auto-foot" id="autoMonitorMeta">The dashboard will show only detected changes and relevant official information. It does not invent updates.</div></section>
+<main class="wrap"><section class="auto-brief" id="todayBrief"><div class="auto-brief-head"><div><div class="muted">AUTOMATIC OFFICIAL-SOURCE MONITOR</div><h2>🚨 WHAT CHANGED SINCE YOUR LAST VISIT?</h2></div><span class="auto-status wait" id="autoMonitorStatus">STARTING…</span></div><div id="autoEvents" class="auto-events"><div class="note">Loading the latest official-source snapshot…</div></div><div class="auto-source-strip" id="autoSourceStrip"></div><div class="auto-foot" id="autoMonitorMeta">The dashboard will show only detected changes and relevant official information. It does not invent updates.</div></section>
 
 
 <div class="section-title" id="official-monitor">📡 OFFICIAL SOURCE MONITOR</div>
@@ -571,6 +571,15 @@ function buildNoticesFromSnapshot(data){
 }
 function renderAutoMonitor(data){
   const eventsEl=document.getElementById("autoEvents"),statusEl=document.getElementById("autoMonitorStatus"),strip=document.getElementById("autoSourceStrip"),meta=document.getElementById("autoMonitorMeta");if(!eventsEl)return;
+  if(!data.generatedAt || !Object.keys(data.sources||{}).length){
+    statusEl.textContent="AWAITING FIRST SCAN";statusEl.className="auto-status wait";
+    eventsEl.innerHTML='<div class="note info"><b>Automatic scanner is configured but no repository snapshot has been published yet.</b> Local deadline/source controls remain available below. The dashboard will switch to live automatic status after the first scheduled scan.</div>';
+    strip.innerHTML='<div class="auto-source-chip"><b>…</b>Waiting for first scheduled scan</div>';
+    meta.textContent="No automatic snapshot published yet.";
+    notices=[...fallbackNotices];renderNotifications();
+    const sm=document.getElementById("noticeSnapshotMeta");if(sm)sm.textContent="No automatic snapshot yet · using local fallback notices";
+    return;
+  }
   const events=Array.isArray(data.events)?data.events.slice().sort((a,b)=>new Date(b.detectedAt)-new Date(a.detectedAt)):[];
   const seenKey="ignou_auto_seen_events_v2",seen=JSON.parse(localStorage.getItem(seenKey)||"{}");
   const relevant=events.filter(e=>e.type!=="BASELINE"),unread=relevant.filter(e=>!seen[e.id]),display=(unread.length?unread:relevant).slice(0,8);
