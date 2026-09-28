@@ -9,7 +9,8 @@
 <style>
 :root{--bg:#f7f1df;--paper:#fffdf5;--ink:#111;--yellow:#ffd43b;--pink:#ff6b9d;--blue:#67d5ff;--green:#7bea8a;--red:#ff6262;--border:3px solid #111;--shadow:7px 7px 0 #111}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
-.wrap{max-width:1200px;margin:auto;padding:0 18px}header{background:var(--yellow);border-bottom:var(--border);padding:22px 0}.headerbox{display:flex;justify-content:space-between;gap:20px;align-items:end}h1{font-size:clamp(30px,5vw,52px);line-height:.9;margin:8px 0;font-weight:1000;letter-spacing:-2px}header p{margin:8px 0 0;font-weight:800}.date{font-size:12px;border:var(--border);background:var(--paper);padding:7px 9px;box-shadow:4px 4px #111;display:inline-block}
+.wrap{max-width:1200px;margin:auto;padding:0 18px}header{background:var(--yellow);border-bottom:var(--border);padding:22px 0}.headerbox{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.header-main{min-width:0;flex:1}
+.todo-box{width:330px;flex:0 0 330px;background:var(--paper);border:3px solid #111;box-shadow:5px 5px #111;padding:12px;margin-top:2px}.todo-head{display:flex;justify-content:space-between;align-items:center;font-size:16px;border-bottom:2px solid #111;padding-bottom:8px}.todo-head span{background:var(--yellow);border:2px solid #111;padding:2px 7px;font-size:11px}.todo-list{display:grid;gap:7px;margin-top:8px}.todo-item{display:grid;grid-template-columns:20px 1fr;gap:8px;align-items:start;padding:7px 0;border-bottom:1px solid #111;font-size:12px;font-weight:900}.todo-item input{width:17px;height:17px;margin:0}.todo-item small{display:block;font-size:10px;color:#555;margin-top:2px}.todo-empty{display:none;margin-top:9px;font-size:11px;font-weight:1000;background:var(--green);padding:8px;border:2px solid #111}.todo-box:empty{display:none}h1{font-size:clamp(30px,5vw,52px);line-height:.9;margin:8px 0;font-weight:1000;letter-spacing:-2px}header p{margin:8px 0 0;font-weight:800}.date{font-size:12px;border:var(--border);background:var(--paper);padding:7px 9px;box-shadow:4px 4px #111;display:inline-block}
 .nav{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}.nav a,.nav button{color:#111;text-decoration:none;border:2px solid #111;background:#fff;padding:8px 10px;font-weight:1000;box-shadow:3px 3px #111;cursor:pointer}
 main{padding:24px 0 50px}.panel,.card{background:var(--paper);border:var(--border);box-shadow:var(--shadow);padding:18px;margin-bottom:18px}.section-title{display:inline-block;background:#111;color:#fff;padding:8px 12px;margin:12px 0 14px;font-size:18px;font-weight:1000;transform:rotate(-1deg)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}.details{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.detail{border:2px solid #111;background:white;padding:12px}.label{font-size:10px;font-weight:1000;text-transform:uppercase}.value{font-size:16px;font-weight:900;margin-top:4px;word-break:break-word}
@@ -20,7 +21,7 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 .cloud-login{position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px}.cloud-box{max-width:460px;width:100%;background:var(--paper);border:var(--border);box-shadow:var(--shadow);padding:24px}.cloud-box input{width:100%;padding:11px;border:2px solid #111;margin:6px 0 12px}
 .bar{height:18px;border:2px solid #111;background:#fff;margin-top:8px}.bar span{display:block;height:100%;background:#111;width:0}
 .id-card img{display:block;width:100%;max-width:700px;height:auto;border:2px solid #111}.footer{text-align:center;padding:30px;font-weight:700}
-@media(max-width:700px){.headerbox{display:block}.mini-grid{grid-template-columns:1fr}.card{box-shadow:4px 4px #111}}
+@media(max-width:700px){.headerbox{display:block}.todo-box{width:100%;margin-top:14px}.mini-grid{grid-template-columns:1fr}.card{box-shadow:4px 4px #111}}
 
 #courseGrid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start!important;align-content:start!important;grid-auto-rows:max-content!important}
 #courseGrid>.panel{min-width:0;overflow:hidden;align-self:start!important;height:auto!important;min-height:0!important}
@@ -129,7 +130,7 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <body>
 <header>
 <div class="wrap headerbox">
-<div>
+<div class="header-main">
 <div class="date" id="currentDate">Loading date…</div>
 <h1>IGNOU BCA<br>FULL CONTROL CENTRE</h1>
 <p>BCA_NEW · July 2026 · RC Guwahati · LSC 0400</p>
@@ -141,13 +142,18 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <a class="quick-access-btn" target="_blank" rel="noopener" href="https://www.digilocker.gov.in/">🪪 DIGILOCKER ↗</a>
 </div>
 </div>
+<aside class="todo-box" id="topTodo">
+  <div class="todo-head"><b>☑ MY TO-DO</b><span id="todoCount">0</span></div>
+  <div id="todoList" class="todo-list"></div>
+  <div id="todoEmpty" class="todo-empty">ALL CURRENT ACTIONS DONE</div>
+</aside>
 </div>
 </header>
 
 <main class="wrap"><section class="auto-brief" id="today"><div class="auto-brief-head"><div><div class="muted">AUTOMATIC OFFICIAL-SOURCE MONITOR</div><h2>🚨 WHAT CHANGED SINCE YOUR LAST VISIT?</h2></div><span class="auto-status wait" id="autoMonitorStatus">STARTING…</span></div><div id="autoEvents" class="auto-events"><div class="note">Loading the latest official-source snapshot…</div></div><div class="auto-source-strip" id="autoSourceStrip"></div><div class="auto-foot" id="autoMonitorMeta">The dashboard will show only detected changes and relevant official information. It does not invent updates.</div></section>
 
 
-<section class="panel" id="action-centre"><div class="section-title">⚡ PERSONAL ACTION CENTRE</div><div class="action-grid"><div class="action-card warning"><h3>🔴 TEE CHECK</h3><div class="action-big" id="teeDays">—</div><div class="muted">Until 30 September 2026</div><a class="item" target="_blank" href="https://exam.ignou.ac.in/">Check official exam portal ↗</a></div><div class="action-card"><h3>📝 ASSIGNMENTS</h3><div class="action-big" id="assignmentProgress">0/5</div><div class="muted">courses marked submitted</div><a class="item" href="#assignments">Open assignment control ↓</a></div><div class="action-card success"><h3>📚 SEMESTER PROGRESS</h3><div class="action-big" id="semesterProgress">0%</div><div class="muted">20-credit Semester 1 tracker</div><a class="item" href="#semester">Open Semester 1 ↓</a></div></div><div class="note info"><b>NOW:</b> <span id="nextAction">Calculating your next action…</span></div></section>
+<section class="panel" id="action-centre"><div class="section-title">⚡ PERSONAL ACTION CENTRE</div><div id="actionGrid" class="action-grid"></div><div class="note info" id="actionNow"><b>NOW:</b> <span id="nextAction">Calculating your next action…</span></div></section>
 
 <div class="section-title" id="notifications">🔔 RELEVANT IGNOU NOTIFICATIONS</div>
 <section class="panel notification-panel">
@@ -408,7 +414,46 @@ function renderDeadlines(){
     </article>`;
   }).join("");
 }
-function updateActionCentre(){const submitted=courses.filter(([c])=>state(c+"_submitted").checked).length;const completed=courses.filter(([c])=>state(c+"_completed").checked).length;const pct=Math.round(completed/courses.length*100);const now=new Date(),due=new Date("2026-09-30T23:59:59+05:30");const d=Math.max(0,Math.ceil((due-now)/86400000));const t=document.getElementById("teeDays");if(t)t.textContent=d+" days";const a=document.getElementById("assignmentProgress");if(a)a.textContent=submitted+"/5";const s=document.getElementById("semesterProgress");if(s)s.textContent=pct+"%";const n=document.getElementById("nextAction");if(n)n.textContent=now<=due?"Check your December 2026 TEE status/eligibility on the official exam portal. Do not assume eligibility from the dashboard.":submitted<5?"Continue Semester 1 assignments and keep submission proof.":"All assignments are marked submitted. Keep checking BCA_NEW and RC Guwahati for practical/counselling notices."}
+const TODO_KEY="ignou_bca_todo_v1";
+let todoDone=JSON.parse(localStorage.getItem(TODO_KEY)||"{}");
+function setTodoDone(id,done){todoDone[id]=!!done;localStorage.setItem(TODO_KEY,JSON.stringify(todoDone));renderTodo();updateActionCentre();}
+function currentTodoItems(){
+  const now=new Date();
+  const items=[];
+  const teeDue=new Date("2026-09-30T23:59:59+05:30");
+  if(now<=teeDue && !todoDone.tee_form) items.push({id:"tee_form",title:"Submit December 2026 TEE exam form",meta:"Due 30 September 2026",url:"https://exam.ignou.ac.in/"});
+  courses.forEach(([code,name])=>{
+    if(!state(code+"_submitted").checked && !todoDone["assignment_"+code]) items.push({id:"assignment_"+code,title:"Submit "+code+" assignment",meta:name+" · Due 31 October 2026",url:"#assignments"});
+  });
+  if(!todoDone.practical_check) items.push({id:"practical_check",title:"Check whether Project / Internship / Practical fee applies",meta:"If applicable · Due 30 November 2026",url:"https://www.ignou.ac.in/announcements/0?nav=6"});
+  return items;
+}
+function renderTodo(){
+  const list=document.getElementById("todoList"),count=document.getElementById("todoCount"),empty=document.getElementById("todoEmpty");
+  if(!list)return;
+  const items=currentTodoItems();
+  list.innerHTML=items.map(x=>`<label class="todo-item"><input type="checkbox" data-todo="${esc(x.id)}"><span>${esc(x.title)}<small>${esc(x.meta)} · <a target="_blank" rel="noopener" href="${x.url}">OPEN ↗</a></small></span></label>`).join("");
+  list.querySelectorAll("[data-todo]").forEach(el=>{el.onchange=()=>setTodoDone(el.dataset.todo,el.checked);});
+  if(count)count.textContent=items.length;
+  if(empty)empty.style.display=items.length?"none":"block";
+}
+function updateActionCentre(){
+  const submitted=courses.filter(([c])=>state(c+"_submitted").checked).length;
+  const completed=courses.filter(([c])=>state(c+"_completed").checked).length;
+  const pct=Math.round(completed/courses.length*100);
+  const now=new Date(),due=new Date("2026-09-30T23:59:59+05:30");
+  const d=Math.max(0,Math.ceil((due-now)/86400000));
+  const grid=document.getElementById("actionGrid");
+  if(grid){
+    const cards=[];
+    if(now<=due && !todoDone.tee_form) cards.push(`<div class="action-card warning"><h3>🔴 TEE CHECK</h3><div class="action-big">${d} days</div><div class="muted">Until 30 September 2026</div><a class="item" target="_blank" href="https://exam.ignou.ac.in/">Check official exam portal ↗</a></div>`);
+    if(submitted<courses.length) cards.push(`<div class="action-card"><h3>📝 ASSIGNMENTS</h3><div class="action-big">${submitted}/${courses.length}</div><div class="muted">courses marked submitted</div><a class="item" href="#assignments">Open assignment control ↓</a></div>`);
+    if(pct<100) cards.push(`<div class="action-card success"><h3>📚 SEMESTER PROGRESS</h3><div class="action-big">${pct}%</div><div class="muted">20-credit Semester 1 tracker</div><a class="item" href="#academic">Open Semester 1 ↓</a></div>`);
+    grid.innerHTML=cards.join("");
+  }
+  const n=document.getElementById("nextAction");
+  if(n)n.textContent=now<=due&&!todoDone.tee_form?"Submit/check your December 2026 TEE form before the deadline.":submitted<courses.length?"Continue the remaining Semester 1 assignments and keep submission proof.":"All assignment submissions are marked complete. Check only remaining applicable deadlines and official notices.";
+}
 function updateToday(){
   const now=new Date();
   const dateEl=document.getElementById("currentDate")||document.querySelector("header .date");
@@ -575,7 +620,7 @@ async function loadAutoMonitor(){
 function init(){
   updateToday();
   renderDeadlines();
-  renderCourses();bindPersonal();updateUrgent();updateDeadline();updateActionCentre();renderAcademic();
+  renderCourses();bindPersonal();updateUrgent();renderTodo();updateDeadline();updateActionCentre();renderAcademic();
   loadAutoMonitor();
 }
 init();
