@@ -25,8 +25,9 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 #courseGrid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
 #courseGrid>.panel{min-width:0;overflow:hidden}
 #courseGrid .course-head h2{min-width:0;overflow-wrap:anywhere}
-#courseGrid .mini-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
-#courseGrid .mini{min-width:0;overflow:hidden}
+#courseGrid .mini-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+#courseGrid>.panel{align-self:start;height:auto}
+#courseGrid .mini{min-width:0;overflow:hidden;align-self:start}
 #courseGrid .mini .task{min-width:0;overflow-wrap:anywhere}
 #courseGrid .mini .task input{flex:0 0 auto}
 .pdf-btn{display:inline-block;border:3px solid #111;background:var(--yellow);color:#111;text-decoration:none;padding:7px 10px;font-weight:1000;box-shadow:3px 3px #111;white-space:nowrap}
