@@ -15,7 +15,7 @@ const result = {version:1, generatedAt:now, sources:{}, events:[]};
 
 function hash(value){ return crypto.createHash("sha256").update(value).digest("hex"); }
 function normalize(s){ return s.replace(/\s+/g," ").replace(/&nbsp;/gi," ").trim(); }
-function stripHtml(s){ return normalize(s.replace(/<script[\s\\S]*?<\\/script>/gi," ").replace(/<style[\s\\S]*?<\\/style>/gi," ").replace(/<[^>]+>/g," ")); }
+function stripHtml(s){ return normalize(s.replace(/<script[\s\S]*?<\/script>/gi," ").replace(/<style[\s\S]*?<\/style>/gi," ").replace(/<[^>]+>/g," ")); }
 function escText(s){ return s.replace(/\s+/g," ").trim(); }
 
 async function fetchSource(source){
@@ -28,7 +28,7 @@ async function fetchSource(source){
     const relevant=source.keywords.filter(k=>lower.includes(k));
     const links=[];
     if(contentType.includes("text/html") || body.includes("<html") || body.includes("<a ")){
-      const re=/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\\S]*?)<\\/a>/gi;
+      const re=/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
       let m;
       while((m=re.exec(body)) && links.length<250){
         const label=stripHtml(m[2]);
