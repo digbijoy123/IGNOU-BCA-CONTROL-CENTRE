@@ -42,6 +42,9 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 /* PERSONAL NOTICE LOG + BACKUP */
 const MONITOR_KEY="ignou_bca_monitor_v2";
 let monitorData=JSON.parse(localStorage.getItem(MONITOR_KEY)||'{"logs":[]}');
+function todayKey(){return new Date().toLocaleDateString("en-CA",{timeZone:"Asia/Kolkata"});}
+function fmtDateTime(iso){if(!iso)return "Never";const d=new Date(iso);return Number.isNaN(d.getTime())?"Unknown":d.toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short",timeZone:"Asia/Kolkata"});}
+
 if(!monitorData || typeof monitorData!=="object") monitorData={logs:[]};
 monitorData.logs=Array.isArray(monitorData.logs)?monitorData.logs:[];
 
