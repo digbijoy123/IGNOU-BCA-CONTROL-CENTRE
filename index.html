@@ -230,15 +230,15 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
     </div>
     <div class="auto-controls">
       <span class="auto-status live" id="autoMonitorStatus"><span class="source-status-dot"></span> 5 SOURCES ACTIVE</span>
-      <button class="btn-mark-all-read" id="btnMarkAllRead" title="Mark all current notices as reviewed">? Mark All Read</button>
+      <button class="btn-mark-all-read" id="btnMarkAllRead" title="Mark all current notices as reviewed">&#10003; Mark All Read</button>
     </div>
   </div>
   
   <div class="notice-filter-bar" id="noticeFilterBar">
     <button class="feed-filter-btn active" data-filter="all">All Notices (<span id="countAll">0</span>)</button>
-    <button class="feed-filter-btn" data-filter="urgent">?? Action Required (<span id="countUrgent">0</span>)</button>
-    <button class="feed-filter-btn" data-filter="rc">??? RC Guwahati (<span id="countRc">0</span>)</button>
-    <button class="feed-filter-btn" data-filter="exam">?? Exams & Assignments (<span id="countExam">0</span>)</button>
+    <button class="feed-filter-btn" data-filter="urgent">&#128680; Action Required (<span id="countUrgent">0</span>)</button>
+    <button class="feed-filter-btn" data-filter="rc">&#127963; RC Guwahati (<span id="countRc">0</span>)</button>
+    <button class="feed-filter-btn" data-filter="exam">&#128221; Exams & Assignments (<span id="countExam">0</span>)</button>
   </div>
 
   <div id="autoEvents" class="auto-events">
@@ -696,15 +696,15 @@ let showPastNotices = false;
 
 function classifyNotice(e){
   const t = ((e.title||"") + " " + (e.url||"")).toLowerCase();
-  if(/practical|lab|viva|bcsl/i.test(t)) return { tag:"PRACTICAL", pill:"pill-practical", cardClass:"practical", icon:"??" };
-  if(/exam form/i.test(t)) return { tag:"EXAM FORM", pill:"pill-exam", cardClass:"urgent", icon:"??" };
-  if(/date sheet|datesheet|schedule/i.test(t)) return { tag:"DATE SHEET", pill:"pill-exam", cardClass:"exam", icon:"??" };
-  if(/hall ticket|admit card/i.test(t)) return { tag:"HALL TICKET", pill:"pill-exam", cardClass:"urgent", icon:"??" };
-  if(/assignment|assign/i.test(t)) return { tag:"ASSIGNMENT", pill:"pill-assign", cardClass:"assign", icon:"??" };
-  if(/counsel|counselling|induction/i.test(t)) return { tag:"COUNSELLING", pill:"pill-counsel", cardClass:"counsel", icon:"??" };
-  if(/re-reg|admission|registration/i.test(t)) return { tag:"ADMISSION", pill:"pill-exam", cardClass:"action", icon:"??" };
+  if(/practical|lab|viva|bcsl/i.test(t)) return { tag:"PRACTICAL", pill:"pill-practical", cardClass:"practical", icon:"&#128195;" };
+  if(/exam form/i.test(t)) return { tag:"EXAM FORM", pill:"pill-exam", cardClass:"urgent", icon:"&#128195;" };
+  if(/date sheet|datesheet|schedule/i.test(t)) return { tag:"DATE SHEET", pill:"pill-exam", cardClass:"exam", icon:"&#128195;" };
+  if(/hall ticket|admit card/i.test(t)) return { tag:"HALL TICKET", pill:"pill-exam", cardClass:"urgent", icon:"&#128195;" };
+  if(/assignment|assign/i.test(t)) return { tag:"ASSIGNMENT", pill:"pill-assign", cardClass:"assign", icon:"&#128195;" };
+  if(/counsel|counselling|induction/i.test(t)) return { tag:"COUNSELLING", pill:"pill-counsel", cardClass:"counsel", icon:"&#128195;" };
+  if(/re-reg|admission|registration/i.test(t)) return { tag:"ADMISSION", pill:"pill-exam", cardClass:"action", icon:"&#128195;" };
   if(/study centre|sc[0-9]|0400/i.test(t)) return { tag:"STUDY CENTRE", pill:"pill-notice", cardClass:"info", icon:"???" };
-  return { tag:e.tag||"OFFICIAL NOTICE", pill:"pill-notice", cardClass:"info", icon:e.icon||"??" };
+  return { tag:e.tag||"OFFICIAL NOTICE", pill:"pill-notice", cardClass:"info", icon:e.icon||"&#128226;" };
 }
 
 function getNoticeSummary(e){
@@ -781,7 +781,7 @@ function renderAutoMonitor(data){
   if(filtered.length === 0){
     eventsEl.innerHTML = '<div class="feed-empty-state">' +
       '<div class="empty-state-text">' +
-        '<h3>?? ALL CAUGHT UP ? ZERO UNREAD NOTICES</h3>' +
+        '<h3>&#128994; ALL CAUGHT UP &bull; ZERO UNREAD NOTICES</h3>' +
         '<p>All 5 official IGNOU portals are actively synced. No unread changes detected for BCA Semester 1.</p>' +
       '</div>' +
       (events.length ? '<button class="btn-show-history" id="btnToggleHistory">' + (showPastNotices ? 'Hide Past Notices' : 'Browse Verified History (' + events.length + ')') + '</button>' : '') +
@@ -803,9 +803,9 @@ function renderAutoMonitor(data){
         '<div class="notice-card-header">' +
           '<div class="notice-badges">' +
             '<span class="category-pill ' + cat.pill + '">' + cat.icon + ' ' + esc(cat.tag) + '</span>' +
-            '<span class="source-badge">??? ' + esc(sourceName) + '</span>' +
+            '<span class="source-badge">&#127963; ' + esc(sourceName) + '</span>' +
           '</div>' +
-          '<span class="time-badge">? ' + esc(fmtDateTime(e.detectedAt)) + '</span>' +
+          '<span class="time-badge">&#9200; ' + esc(fmtDateTime(e.detectedAt)) + '</span>' +
         '</div>' +
         '<h4 class="notice-card-title">' + esc(e.title || "Official Notice") + '</h4>' +
         '<div class="notice-summary-box">' +
@@ -813,10 +813,10 @@ function renderAutoMonitor(data){
           '<p class="summary-text">' + esc(summary) + '</p>' +
         '</div>' +
         '<div class="notice-card-footer">' +
-          '<span class="doc-type-pill">' + (isPdf ? '?? Official PDF Document' : '?? Official Web Notice') + '</span>' +
+          '<span class="doc-type-pill">' + (isPdf ? '&#128196; Official PDF Document' : '&#127760; Official Web Notice') + '</span>' +
           '<div class="notice-card-btns">' +
-            (e.url ? '<a class="btn-open-notice" target="_blank" rel="noopener" href="' + esc(e.url) + '" data-event-id="' + esc(e.id) + '">OPEN NOTICE ?</a>' : '') +
-            '<button class="btn-dismiss-notice" data-dismiss-id="' + esc(e.id) + '">Dismiss ?</button>' +
+            (e.url ? '<a class="btn-open-notice" target="_blank" rel="noopener" href="' + esc(e.url) + '" data-event-id="' + esc(e.id) + '">OPEN NOTICE &#8599;</a>' : '') +
+            '<button class="btn-dismiss-notice" data-dismiss-id="' + esc(e.id) + '">Dismiss &#10003;</button>' +
           '</div>' +
         '</div>' +
       '</article>';
