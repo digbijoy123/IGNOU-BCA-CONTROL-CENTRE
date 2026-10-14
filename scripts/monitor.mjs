@@ -42,7 +42,7 @@ function relevantLink(source,title,url){
 
 async function fetchSource(source){
   try{
-    const response=await fetch(source.url,{headers:{"User-Agent":"IGNOU-BCA-Control-Centre-Monitor/2.0","Accept":"text/html,application/xhtml+xml"}});
+    const response=await fetch(source.url,{signal:AbortSignal.timeout(20000),headers:{"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36","Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}});
     const body=await response.text();
     const clean=stripHtml(body);
     const lower=clean.toLowerCase();
@@ -66,8 +66,11 @@ async function fetchSource(source){
 }
 
 for(const source of sources){
-  const current=await fetchSource(source);
+  let current=await fetchSource(source);
   const old=previous.sources?.[source.id];
+  if(!current.ok && old && old.hash){
+    current = { ...old, error: current.error, transientFailure: true };
+  }
   const changed=Boolean(old?.hash && current.hash && old.hash!==current.hash);
   const isNew=!old;
   result.sources[source.id]={...current,lastChangedAt:changed||isNew?now:(old?.lastChangedAt||null),checkedAt:now};
