@@ -1,3 +1,6 @@
+// Bypass self-signed or invalid cert chains on Indian educational portals
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 import fs from "node:fs/promises";
 import crypto from "node:crypto";
 
@@ -5,7 +8,7 @@ const sources = [
   { id:"hq", name:"IGNOU Announcements", url:"https://www.ignou.ac.in/announcements/0", priority:"WATCH", keywords:["bca","bca_new","bcs111","bcs12","bcsl13","begla136","bevae181","tee","term-end","exam form","assignment","practical","counselling","guwahati"] },
   { id:"bca", name:"BCA_NEW Programme", url:"https://www.ignou.ac.in/schools/programme/BCA_NEW", priority:"IMPORTANT", keywords:["bca_new","bcs111","bcs12","bcsl13","begla136","bevae181","programme guide"] },
   { id:"assign", name:"Current Assignments", url:"https://www.ignou.ac.in/pages/43", priority:"ACTION", keywords:["bca_new","bcane","bcs111","bcs-111","bcs12","bcs-012","bcsl13","bcsl-013","begla136","begla-136","bevae181","bevae-181","assignment"] },
-  { id:"rc", name:"RC Guwahati", url:"https://rcguwahati.ignou.ac.in/", priority:"IMPORTANT", keywords:["bca","practical","counselling","counseling","tee","exam","0400","bcsl","guwahati"] },
+  { id:"rc", name:"RC Guwahati", url:"http://rcguwahati.ignou.ac.in/", priority:"IMPORTANT", keywords:["bca","practical","counselling","counseling","tee","exam","0400","bcsl","guwahati"] },
   { id:"tee", name:"TEE Exam Portal", url:"https://exam.ignou.ac.in/", priority:"ACTION", keywords:["december 2026","dec-2026","tee","exam form","hall ticket","date sheet","bca"] }
 ];
 
@@ -19,8 +22,8 @@ function stripHtml(s){return normalize(String(s||"").replace(/<script[\s\S]*?<\/
 function dedupe(items){const seen=new Set();return items.filter(x=>{const k=x.url+"|"+x.title;if(seen.has(k))return false;seen.add(k);return true;}).slice(0,40);}
 function relevantLink(source,title,url){
   const t=(title+" "+url).toLowerCase();
-  const generic=/^(home|about us|contact us|login|close|click here|click here for notification|regional network|jobs at ignou|telephone directory|committee against sexual harassment|common prospectus|study material catalogue|news\/announcements)$/i;
-  if(!title || generic.test(title.trim())) return false;
+  const generic=/^(home|about us|contact us|login|close|click here|click here for notification|regional network|jobs at ignou|telephone directory|committee against sexual harassment|common prospectus|study material catalogue|news\/announcements|a|a\+|a\-)$/i;
+  if(!title || title.trim().length<3 || generic.test(title.trim()) || url.endsWith("#") || url.endsWith("#content")) return false;
   if(source.id==="assign"){
     return /(bca[_ -]?new|bcs[- ]?111|bcs[- ]?012|bcsl[- ]?013|begla[- ]?136|bevae[- ]?181)/i.test(t) &&
       (/assign|assignment|\.pdf/i.test(t));

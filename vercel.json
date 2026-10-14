@@ -8,6 +8,10 @@
     {
       "src": "public/**",
       "use": "@vercel/static"
+    },
+    {
+      "src": "*.png",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -26,6 +30,10 @@
         "Cache-Control": "no-store"
       },
       "dest": "/public/monitor.json"
+    },
+    {
+      "src": "/ignou-student-id-card\\.png",
+      "dest": "/public/ignou-student-id-card.png"
     },
     {
       "handle": "filesystem"

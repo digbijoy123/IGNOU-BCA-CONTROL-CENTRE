@@ -188,7 +188,7 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
   </div>
   <div class="panel id-card">
     <h2>🪪 MY ID CARD</h2>
-    <img src="https://raw.githubusercontent.com/digbijoy123/IGNOU-BCA-CONTROL-CENTRE/main/ignou-student-id-card.png" alt="IGNOU Student ID Card">
+    <img src="/ignou-student-id-card.png" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/digbijoy123/IGNOU-BCA-CONTROL-CENTRE/main/ignou-student-id-card.png'" alt="IGNOU Student ID Card">
     <p class="muted">Personal ID card image stored with the control centre.</p>
   </div>
 </section>
@@ -296,16 +296,24 @@ function renderNotifications(){
 }
 
 const courses=[
-  ["BCS111","Computer Basics and PC Software","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf#page=5"],
-  ["BCS12","Basic Mathematics","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf#page=10"],
-  ["BCSL13","Computer Basics and PC Software Lab","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf#page=7"],
-  ["BEGLA136","English at the Work Place","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf#page=4"],
-  ["BEVAE181","Environmental Studies","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf#page=3"]
+  ["BCS111","Computer Basics and PC Software","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-111-BCA-NEW-2026-27.pdf"],
+  ["BCS12","Basic Mathematics","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCS-012-BCA-NEW-2026-27.pdf"],
+  ["BCSL13","Computer Basics and PC Software Lab","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BCSL-013-BCA-NEW-2026-27.pdf"],
+  ["BEGLA136","English at the Work Place","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEGLA-136-BCA-NEW-2026-27.pdf"],
+  ["BEVAE181","Environmental Studies","https://www.ignou.ac.in/viewFile/SOCIS/assignments/BEVAE-181-BCA-NEW-2026-27.pdf"]
 ];
 
 const STORAGE_KEY="ignou_bca_control_v2";
 let rows=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");
 
+function fmtDateTime(iso){
+  if(!iso)return"Unknown";
+  try{
+    const d=new Date(iso);
+    if(isNaN(d))return String(iso);
+    return d.toLocaleString("en-IN",{timeZone:"Asia/Kolkata",day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
+  }catch(e){return String(iso);}
+}
 function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
 function state(key){return rows[key]||{checked:false,value:""}}
 function saveState(key,checked,value){
@@ -457,9 +465,9 @@ function dynamicMonitorTasks(){
 }
 function setTodoDone(id,done){
   todoDone[id]=!!done;
-  if(done && id.startsWith("assignment_")){
+  if(id.startsWith("assignment_")){
     const code=id.replace("assignment_","");
-    rows[code+"_submitted"]={checked:true,value:"",updated_at:new Date().toISOString()};
+    rows[code+"_submitted"]={checked:!!done,value:rows[code+"_submitted"]?.value||"",updated_at:new Date().toISOString()};
     localStorage.setItem(STORAGE_KEY,JSON.stringify(rows));
   }
   localStorage.setItem(TODO_KEY,JSON.stringify(todoDone));
