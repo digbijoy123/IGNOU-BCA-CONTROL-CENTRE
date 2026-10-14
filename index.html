@@ -802,7 +802,7 @@ function renderAutoMonitor(data){
       return '<article class="notice-card ' + cat.cardClass + '">' +
         '<div class="notice-card-header">' +
           '<div class="notice-badges">' +
-            '<span class="category-pill ' + cat.pill + '">' + cat.icon + ' ' + esc(cat.tag) + '</span>' +
+            '<span class="category-pill ' + cat.pill + '">' + ((!cat.icon || cat.icon.indexOf('?') !== -1) ? (cat.tag.indexOf('PDF') !== -1 ? '&#128196;' : '&#128226;') : cat.icon) + ' ' + esc(cat.tag) + '</span>' +
             '<span class="source-badge">&#127963; ' + esc(sourceName) + '</span>' +
           '</div>' +
           '<span class="time-badge">&#9200; ' + esc(fmtDateTime(e.detectedAt)) + '</span>' +
