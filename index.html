@@ -193,6 +193,87 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
   .mini-grid{grid-template-columns:1fr}
   #courseGrid .mini-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
 }
+
+/* DYNAMIC NOTICE ACTION HUBS SYSTEM */
+.dynamic-panels-wrap{border:var(--border);box-shadow:var(--shadow);background:var(--paper);padding:20px;margin-bottom:24px}
+.dyn-section-header{display:flex;flex-direction:column;gap:4px;border-bottom:2px solid #111;padding-bottom:14px;margin-bottom:18px}
+.dyn-header-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.dyn-header-title h2{margin:0;font-size:22px;font-weight:1000;letter-spacing:-0.5px}
+.dyn-pulse{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--pink);box-shadow:0 0 0 0 rgba(255,107,157,0.7);animation:dynradar 2s infinite}
+@keyframes dynradar{0%{transform:scale(0.95);box-shadow:0 0 0 0 rgba(255,107,157,0.7)}70%{transform:scale(1);box-shadow:0 0 0 8px rgba(255,107,157,0)}100%{transform:scale(0.95);box-shadow:0 0 0 0 rgba(255,107,157,0)}}
+.dyn-count-tag{background:#111;color:#fff;font-size:11px;font-weight:900;padding:3px 8px;border:2px solid #111}
+.dyn-header-sub{font-size:13px;font-weight:700;color:#555}
+.dyn-panels-list{display:grid;gap:20px}
+.dyn-panel-card{border:3px solid #111;background:#fff;box-shadow:5px 5px 0 #111;padding:18px;display:grid;gap:14px;transition:transform 0.15s}
+.dyn-panel-card.datesheet-card{border-left:8px solid var(--blue)}
+.dyn-panel-card.practical-card{border-left:8px solid var(--green)}
+.dyn-panel-card.exam-card{border-left:8px solid var(--yellow)}
+.dyn-card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;border-bottom:2px solid #111;padding-bottom:12px}
+.dyn-card-title-group{flex:1;min-width:240px}
+.dyn-card-badges{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.dyn-badge-tag{font-size:10px;font-weight:1000;padding:3px 7px;border:2px solid #111;background:var(--yellow);letter-spacing:0.5px}
+.dyn-badge-source{font-size:11px;font-weight:800;color:#555}
+.dyn-badge-time{font-size:11px;font-weight:700;color:#777}
+.dyn-card-title{margin:0;font-size:18px;font-weight:1000;line-height:1.25}
+.dyn-card-desc{font-size:13px;font-weight:700;color:#444;margin:6px 0 0;line-height:1.4}
+.dyn-card-controls{display:flex;gap:6px;align-items:center}
+.dyn-btn-ctrl{border:2px solid #111;background:#fff;color:#111;font-weight:1000;font-size:12px;padding:4px 9px;cursor:pointer;transition:all 0.15s}
+.dyn-btn-ctrl:hover{background:#111;color:#fff}
+.dyn-panel-body{display:grid;gap:14px}
+.dyn-panel-card.collapsed .dyn-panel-body{display:none}
+
+/* Datesheet specific styling */
+.dyn-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.dyn-search-input{flex:1;min-width:220px;padding:8px 12px;border:2px solid #111;font:inherit;font-weight:800}
+.dyn-toolbar-actions{display:flex;gap:8px;flex-wrap:wrap}
+.dyn-btn-action{border:2px solid #111;background:var(--yellow);color:#111;padding:8px 12px;font-weight:1000;font-size:12px;box-shadow:3px 3px 0 #111;cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.dyn-btn-action:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 #111}
+.dyn-table-wrap{overflow-x:auto}
+.dyn-table{width:100%;border-collapse:collapse;border:2px solid #111;background:#fff;min-width:720px}
+.dyn-table th{background:var(--paper);border:2px solid #111;padding:9px 11px;font-size:12px;font-weight:1000;text-align:left}
+.dyn-table td{border:2px solid #111;padding:9px 11px;font-size:12px;font-weight:800;vertical-align:middle}
+.dyn-table tr:hover{background:rgba(255,212,59,0.15)}
+.dyn-course-code{font-family:monospace;font-size:13px;font-weight:1000;background:#111;color:#fff;padding:2px 6px;display:inline-block}
+.dyn-countdown{display:inline-block;padding:3px 8px;font-size:11px;font-weight:1000;border:2px solid #111;text-align:center;white-space:nowrap}
+.dyn-countdown.critical{background:var(--red);color:#fff}
+.dyn-countdown.soon{background:var(--yellow);color:#111}
+.dyn-countdown.scheduled{background:var(--green);color:#111}
+.dyn-countdown.post{background:#e8d7ff;color:#6c5ce7}
+.dyn-prep-select{border:2px solid #111;padding:6px;font:inherit;font-weight:900;background:#fff;cursor:pointer;width:100%}
+.dyn-rules-box{background:#fffbe6;border:2px solid #111;padding:12px;font-size:12px;font-weight:700;line-height:1.45}
+.dyn-rules-box b{font-weight:1000}
+.dyn-rules-list{margin:6px 0 0;padding-left:18px}
+.dyn-rules-list li{margin-bottom:4px}
+
+/* Practical Hub Styling */
+.dyn-progress-box{border:2px solid #111;background:#f9f9f9;padding:12px}
+.dyn-progress-meta{display:flex;justify-content:space-between;align-items:center;font-weight:1000;font-size:13px;margin-bottom:6px}
+.dyn-progress-bar-wrap{height:20px;border:2px solid #111;background:#fff;position:relative}
+.dyn-progress-bar{height:100%;background:var(--green);width:0;transition:width 0.3s}
+.dyn-progress-target{position:absolute;left:75%;top:0;bottom:0;width:3px;background:var(--red);z-index:2}
+.dyn-progress-target-label{position:absolute;left:75%;top:-18px;transform:translateX(-50%);font-size:10px;font-weight:1000;color:var(--red)}
+.dyn-compliance-alert{margin-top:10px;padding:8px 12px;border:2px solid #111;font-size:12px;font-weight:900;display:flex;align-items:center;gap:8px}
+.dyn-compliance-alert.ok{background:var(--green)}
+.dyn-compliance-alert.warn{background:var(--red);color:#fff}
+.dyn-sessions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;margin-top:8px}
+.dyn-session-item{border:2px solid #111;background:#fff;padding:10px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:background 0.15s}
+.dyn-session-item:hover{background:#fafafa}
+.dyn-session-item.done{background:#eaffea;border-color:#176b24}
+.dyn-session-item input[type="checkbox"]{width:20px;height:20px;margin:0;cursor:pointer;flex-shrink:0}
+.dyn-session-info{flex:1;min-width:0}
+.dyn-session-no{font-size:11px;font-weight:1000;color:#555}
+.dyn-session-topic{font-size:12px;font-weight:900;margin-top:2px}
+
+/* Exam Form Hub Styling */
+.dyn-fee-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;border:2px solid #111;background:var(--paper);padding:14px}
+.dyn-fee-stat{border:2px solid #111;background:#fff;padding:10px;text-align:center}
+.dyn-fee-label{font-size:11px;font-weight:1000;text-transform:uppercase;color:#555}
+.dyn-fee-val{font-size:22px;font-weight:1000;margin-top:4px}
+.dyn-form-status-box{border:2px solid #111;background:#fff;padding:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.dyn-form-toggle-btn{border:3px solid #111;padding:9px 14px;font-weight:1000;font-size:13px;cursor:pointer}
+.dyn-form-toggle-btn.pending{background:var(--yellow);color:#111}
+.dyn-form-toggle-btn.submitted{background:var(--green);color:#111}
+.dyn-form-ref-input{border:2px solid #111;padding:8px 10px;font:inherit;font-weight:800;font-size:13px;min-width:200px}
 </style>
 </head>
 <body>
@@ -203,7 +284,7 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
 <h1>IGNOU BCA<br>FULL CONTROL CENTRE</h1>
 <p>BCA_NEW · July 2026 · RC Guwahati · LSC 0400</p>
 <nav class="nav">
-<a href="#today">TODAY</a><a href="#notifications">NOTIFICATIONS</a><a href="#action-centre">ACTION CENTRE</a><a href="#deadlines">DEADLINES</a><a href="#details">MY DETAILS</a><a href="#academic">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">OFFICIAL LINKS</a>
+<a href="#today">TODAY</a><a href="#dynamic-panels" id="navDynamicPanels" style="display:none;background:var(--pink);color:#fff">⚡ DYNAMIC HUBS (<span id="dynNavCount">0</span>)</a><a href="#notifications">NOTIFICATIONS</a><a href="#action-centre">ACTION CENTRE</a><a href="#deadlines">DEADLINES</a><a href="#details">MY DETAILS</a><a href="#academic">SEMESTER 1</a><a href="#assignments">ASSIGNMENTS</a><a href="#tee">TEE</a><a href="#practical">PRACTICAL</a><a href="#sources">OFFICIAL LINKS</a>
 </nav>
 <div class="quick-access">
 <a class="quick-access-btn" target="_blank" rel="noopener" href="https://ignou.samarth.edu.in/index.php/dashboard">🎓 SAMARTH PORTAL ↗</a>
@@ -249,6 +330,21 @@ table{width:100%;border-collapse:collapse;background:#fff;border:2px solid #111}
   <div class="auto-foot" id="autoMonitorMeta">Live automated monitor with local verification.</div>
 </section>
 
+<!-- DYNAMIC NOTICE ACTION HUBS -->
+<section class="dynamic-panels-wrap" id="dynamic-panels" style="display:none">
+  <div class="dyn-section-header">
+    <div class="dyn-header-title">
+      <span class="dyn-pulse"></span>
+      <h2>⚡ DYNAMIC NOTICE ACTION HUBS</h2>
+      <span class="dyn-count-tag" id="dynamicPanelsCount">0 ACTIVE</span>
+    </div>
+    <div class="dyn-header-sub">Automated action consoles dynamically synthesized from verified IGNOU notice intelligence for BCA_NEW Semester 1</div>
+  </div>
+  <div id="dynamicPanelsContainer" class="dyn-panels-list"></div>
+  <div id="dynamicPanelsRestorer" style="display:none;margin-top:14px;text-align:right">
+    <button class="btn" id="btnRestoreHiddenPanels" style="background:#fff;font-size:12px;padding:6px 12px">↺ Show Hidden Panels (<span id="hiddenPanelsCount">0</span>)</button>
+  </div>
+</section>
 
 <section class="panel" id="action-centre"><div class="section-title">⚡ PERSONAL ACTION CENTRE</div><div id="actionGrid" class="action-grid"></div><div class="note info" id="actionNow"><b>NOW:</b> <span id="nextAction">Calculating your next action…</span></div></section>
 
@@ -551,13 +647,42 @@ const TODO_KEY="ignou_bca_todo_v1";
 let todoDone=JSON.parse(localStorage.getItem(TODO_KEY)||"{}");
 let monitorData=null;
 function dynamicMonitorTasks(){
-  if(!monitorData||!Array.isArray(monitorData.events))return [];
-  return monitorData.events
+  const items = [];
+  // Dynamic exam form task
+  const formStatus = localStorage.getItem("ignou_exam_form_status") || "pending";
+  if (formStatus !== "submitted" && !todoDone.dyn_exam_form) {
+    items.push({
+      id: "dyn_exam_form",
+      priority: 0,
+      title: "Submit December 2026 TEE Exam Form (₹1,100)",
+      meta: "FEE DEADLINE 31 OCT · NO LATE FEE",
+      url: "https://exam.ignou.ac.in/"
+    });
+  }
+
+  // Dynamic practical attendance compliance task
+  let attendedCount = 0;
+  for (let i = 1; i <= 10; i++) {
+    if (localStorage.getItem("ignou_session_bcsl13_s" + i) === "true") attendedCount++;
+  }
+  if (attendedCount < 8 && !todoDone.dyn_lab_attendance) {
+    items.push({
+      id: "dyn_lab_attendance",
+      priority: 1,
+      title: "Attend BCSL-013 Lab Sessions (" + attendedCount + "/8 for 75%)",
+      meta: "MANDATORY ATTENDANCE · SC 0400",
+      url: "#dynamic-panels"
+    });
+  }
+
+  if(!monitorData||!Array.isArray(monitorData.events))return items;
+  const eventItems = monitorData.events
     .filter(e=>e&&e.type!=="BASELINE"&&e.id&&!todoDone["event_"+e.id])
     .filter(e=>e.priority!=="INFO"||e.type==="NEW_ITEM")
     .slice(-8)
     .reverse()
     .map(e=>({id:"event_"+e.id,priority:e.priority==="HIGH"?0:e.priority==="MEDIUM"?1:2,title:"Review: "+(e.title||"official update"),meta:(e.source||"IGNOU")+" · NEW OFFICIAL UPDATE",url:e.url||"#today"}));
+  return [...items, ...eventItems];
 }
 function setTodoDone(id,done){
   todoDone[id]=!!done;
@@ -565,6 +690,12 @@ function setTodoDone(id,done){
     const code=id.replace("assignment_","");
     rows[code+"_submitted"]={checked:!!done,value:rows[code+"_submitted"]?.value||"",updated_at:new Date().toISOString()};
     localStorage.setItem(STORAGE_KEY,JSON.stringify(rows));
+  }
+  if(id==="dyn_exam_form"){
+    localStorage.setItem("ignou_exam_form_status", done ? "submitted" : "pending");
+    if(monitorData && Array.isArray(monitorData.dynamicPanels)) {
+      renderDynamicPanels(monitorData.dynamicPanels);
+    }
   }
   localStorage.setItem(TODO_KEY,JSON.stringify(todoDone));
   markSaved();
@@ -725,8 +856,472 @@ function getNoticeSummary(e){
   return "Official notice published on " + src + ". Click verify to review requirements.";
 }
 
+/* ==========================================================================
+   DYNAMIC PANELS SYSTEM (AUTO-DETECTED BCA_NEW ACTION HUBS)
+   ========================================================================== */
+
+function getExamCountdown(dateStr) {
+  if (!dateStr || isNaN(new Date(dateStr).getTime())) {
+    return { text: "POST-THEORY (JAN 2027)", cls: "post", days: 999 };
+  }
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const examDate = new Date(dateStr);
+  examDate.setHours(0, 0, 0, 0);
+  const diffTime = examDate - today;
+  const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  if (days < 0) return { text: "EXAM CONCLUDED", cls: "post", days };
+  if (days === 0) return { text: "TODAY!", cls: "critical", days };
+  if (days === 1) return { text: "TOMORROW!", cls: "critical", days };
+  if (days <= 7) return { text: days + " DAYS LEFT", cls: "critical", days };
+  if (days <= 25) return { text: days + " DAYS LEFT", cls: "soon", days };
+  return { text: days + " DAYS LEFT", cls: "scheduled", days };
+}
+
+function downloadDateSheetIcs(courses) {
+  const events = [];
+  (courses || []).forEach(c => {
+    if (!c.date || isNaN(new Date(c.date).getTime())) return;
+    const dStr = c.date.replace(/-/g, "");
+    const isMorning = (c.session || "").includes("Morning");
+    const dtStart = isMorning ? (dStr + "T100000") : (dStr + "T140000");
+    const dtEnd = isMorning ? (dStr + "T130000") : (dStr + "T170000");
+    const stamp = new Date().toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z";
+    
+    events.push([
+      "BEGIN:VEVENT",
+      "UID:" + c.code + "-tee-dec2026@ignou-control-centre",
+      "DTSTAMP:" + stamp,
+      "DTSTART;TZID=Asia/Kolkata:" + dtStart,
+      "DTEND;TZID=Asia/Kolkata:" + dtEnd,
+      "SUMMARY:IGNOU Exam: " + c.code + " (" + (c.name || "") + ")",
+      "DESCRIPTION:Course: " + c.code + " - " + (c.name || "") + "\\nSession: " + (c.session || "") + "\\nMode: " + (c.mode || "") + "\\nDuration: " + (c.duration || "") + "\\nCentre: " + (c.centre || "SC 0400"),
+      "LOCATION:IGNOU Study Centre 0400, Guwahati",
+      "STATUS:CONFIRMED",
+      "BEGIN:VALARM",
+      "TRIGGER:-PT24H",
+      "ACTION:DISPLAY",
+      "DESCRIPTION:Reminder: IGNOU " + c.code + " Exam tomorrow!",
+      "END:VALARM",
+      "END:VEVENT"
+    ].join("\r\n"));
+  });
+
+  const icsBody = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//IGNOU BCA Control Centre//DateSheet Dec 2026//EN",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    ...events,
+    "END:VCALENDAR"
+  ].join("\r\n");
+
+  const blob = new Blob([icsBody], { type: "text/calendar;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "IGNOU_BCA_Semester1_Dec2026_Datesheet.ics";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function renderDynamicPanels(panels) {
+  const container = document.getElementById("dynamicPanelsContainer");
+  const section = document.getElementById("dynamic-panels");
+  const navBtn = document.getElementById("navDynamicPanels");
+  const navCount = document.getElementById("dynNavCount");
+  const headerCount = document.getElementById("dynamicPanelsCount");
+  const restorer = document.getElementById("dynamicPanelsRestorer");
+  const hiddenCountEl = document.getElementById("hiddenPanelsCount");
+
+  if (!container || !section) return;
+
+  if (!panels || !panels.length) {
+    section.style.display = "none";
+    if (navBtn) navBtn.style.display = "none";
+    return;
+  }
+
+  const dismissedKey = "ignou_dyn_dismissed_v1";
+  let dismissed = [];
+  try { dismissed = JSON.parse(localStorage.getItem(dismissedKey) || "[]"); } catch (e) { dismissed = []; }
+
+  const visiblePanels = panels.filter(p => !dismissed.includes(p.id));
+  const hiddenCount = panels.length - visiblePanels.length;
+
+  if (navBtn) {
+    navBtn.style.display = visiblePanels.length ? "inline-flex" : "none";
+    if (navCount) navCount.textContent = visiblePanels.length;
+  }
+  if (headerCount) headerCount.textContent = visiblePanels.length + " ACTIVE";
+  if (restorer && hiddenCountEl) {
+    restorer.style.display = hiddenCount > 0 ? "block" : "none";
+    hiddenCountEl.textContent = hiddenCount;
+  }
+
+  if (visiblePanels.length === 0) {
+    section.style.display = hiddenCount > 0 ? "block" : "none";
+    container.innerHTML = '<div class="note info">All dynamic action hubs are currently hidden. Click "Show Hidden Panels" below to restore them.</div>';
+    return;
+  }
+
+  section.style.display = "block";
+
+  container.innerHTML = visiblePanels.map(p => {
+    const isCollapsed = localStorage.getItem("ignou_dyn_collapsed_" + p.id) === "true";
+    let bodyHtml = "";
+    let cardClass = "";
+
+    if (p.type === "datesheet") {
+      cardClass = "datesheet-card";
+      bodyHtml = renderDatesheetPanelBody(p);
+    } else if (p.type === "practical") {
+      cardClass = "practical-card";
+      bodyHtml = renderPracticalPanelBody(p);
+    } else if (p.type === "exam_form") {
+      cardClass = "exam-card";
+      bodyHtml = renderExamFormPanelBody(p);
+    } else {
+      cardClass = "info-card";
+      bodyHtml = renderGenericPanelBody(p);
+    }
+
+    return `
+      <article class="dyn-panel-card ${cardClass} ${isCollapsed ? 'collapsed' : ''}" id="${esc(p.id)}">
+        <div class="dyn-card-header">
+          <div class="dyn-card-title-group">
+            <div class="dyn-card-badges">
+              <span class="dyn-badge-tag">${esc(p.badge || p.tag || "AUTO-DETECTED")}</span>
+              <span class="dyn-badge-source">🏛️ ${esc(p.source || "Official IGNOU Portal")}</span>
+              ${p.detectedAt ? `<span class="dyn-badge-time">🕒 Synced: ${esc(fmtDateTime(p.detectedAt))}</span>` : ''}
+              ${p.verifiedUrl ? `<a class="dyn-badge-source" style="text-decoration:underline;color:#111;font-weight:900" target="_blank" rel="noopener" href="${esc(p.verifiedUrl)}">Verify Portal ↗</a>` : ''}
+            </div>
+            <h3 class="dyn-card-title">${esc(p.title)}</h3>
+            ${p.description ? `<p class="dyn-card-desc">${esc(p.description)}</p>` : ''}
+          </div>
+          <div class="dyn-card-controls">
+            <button class="dyn-btn-ctrl btn-collapse-dyn" data-panel-id="${esc(p.id)}" title="${isCollapsed ? 'Expand panel' : 'Collapse panel'}">${isCollapsed ? '＋ Expand' : '－ Minimize'}</button>
+            <button class="dyn-btn-ctrl btn-dismiss-dyn" data-panel-id="${esc(p.id)}" title="Hide panel from view">✕ Hide</button>
+          </div>
+        </div>
+        <div class="dyn-panel-body">
+          ${bodyHtml}
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  bindDynamicPanelsEvents(visiblePanels);
+}
+
+function renderDatesheetPanelBody(p) {
+  const courses = Array.isArray(p.courses) ? p.courses : [];
+  return `
+    <div class="dyn-toolbar">
+      <input type="text" class="dyn-search-input" id="datesheetSearchInput" placeholder="🔍 Search course code, subject name, exam slot or date...">
+      <div class="dyn-toolbar-actions">
+        <button class="dyn-btn-action" id="btnDownloadIcs">📅 ADD TO CALENDAR (.ICS)</button>
+        <button class="dyn-btn-action" id="btnPrintDatesheet">🖨️ PRINT TIMETABLE</button>
+      </div>
+    </div>
+
+    <div class="dyn-table-wrap">
+      <table class="dyn-table" id="datesheetTable">
+        <thead>
+          <tr>
+            <th>Course</th>
+            <th>Title & Max Marks</th>
+            <th>Exam Date</th>
+            <th>Timing Slot</th>
+            <th>Mode</th>
+            <th>Countdown</th>
+            <th>My Preparation</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${courses.map(c => {
+            const cd = getExamCountdown(c.date);
+            const prepStatus = localStorage.getItem("ignou_prep_" + c.code) || "NOT_STARTED";
+            return `
+              <tr class="datesheet-row" data-search="${esc((c.code + " " + c.name + " " + c.date + " " + c.session + " " + c.mode).toLowerCase())}">
+                <td><span class="dyn-course-code">${esc(c.code)}</span></td>
+                <td><b>${esc(c.name)}</b><br><small class="muted">Duration: ${esc(c.duration || "3 Hours")} · Max: ${esc(c.maxMarks || 100)} Marks</small></td>
+                <td><b style="font-size:13px">${esc(c.date || "TBA")}</b></td>
+                <td><span style="font-size:12px">${esc(c.session || "Slot TBA")}</span></td>
+                <td><span class="status ${c.mode && c.mode.includes('OMR') ? 'todo' : 'unknown'}" style="font-size:11px">${esc(c.mode || "Descriptive")}</span></td>
+                <td><span class="dyn-countdown ${cd.cls}">${esc(cd.text)}</span></td>
+                <td style="min-width:160px">
+                  <select class="dyn-prep-select" data-prep-code="${esc(c.code)}">
+                    <option value="NOT_STARTED" ${prepStatus === "NOT_STARTED" ? "selected" : ""}>⚪ Not Started</option>
+                    <option value="IN_PROGRESS" ${prepStatus === "IN_PROGRESS" ? "selected" : ""}>🟡 In Progress (Reading)</option>
+                    <option value="REVISION" ${prepStatus === "REVISION" ? "selected" : ""}>🔵 Revision & Solved QPs</option>
+                    <option value="READY" ${prepStatus === "READY" ? "selected" : ""}>🟢 100% Exam Ready!</option>
+                  </select>
+                </td>
+              </tr>
+            `;
+          }).join("")}
+        </tbody>
+      </table>
+    </div>
+
+    ${Array.isArray(p.rules) && p.rules.length ? `
+      <div class="dyn-rules-box">
+        <b>⚠️ OFFICIAL TEE EXAMINATION HALL DIRECTIVES:</b>
+        <ul class="dyn-rules-list">
+          ${p.rules.map(r => `<li>${esc(r)}</li>`).join("")}
+        </ul>
+      </div>
+    ` : ''}
+  `;
+}
+
+function renderPracticalPanelBody(p) {
+  const sessions = Array.isArray(p.sessions) ? p.sessions : [];
+  let attendedCount = 0;
+  sessions.forEach(s => {
+    if (localStorage.getItem("ignou_session_" + s.key) === "true") attendedCount++;
+  });
+
+  const totalSessions = sessions.length || 10;
+  const attendedHours = attendedCount * 3;
+  const totalHours = totalSessions * 3;
+  const pct = Math.round((attendedCount / totalSessions) * 100);
+  const minRequired = Math.ceil(totalSessions * (p.attendanceRequirement || 0.75));
+  const isCompliant = attendedCount >= minRequired;
+  const neededMore = Math.max(0, minRequired - attendedCount);
+
+  return `
+    <div class="dyn-progress-box">
+      <div class="dyn-progress-meta">
+        <span>LAB ATTENDANCE COMPLIANCE: ${attendedCount}/${totalSessions} Sessions (${attendedHours}/${totalHours} Hours)</span>
+        <span style="font-size:15px;color:${isCompliant ? '#176b24' : '#d63031'}">${pct}%</span>
+      </div>
+      <div class="dyn-progress-bar-wrap">
+        <div class="dyn-progress-bar" style="width:${pct}%;background:${isCompliant ? 'var(--green)' : pct >= 50 ? 'var(--yellow)' : 'var(--red)'}"></div>
+        <div class="dyn-progress-target"></div>
+        <div class="dyn-progress-target-label">75% MIN</div>
+      </div>
+      <div class="dyn-compliance-alert ${isCompliant ? 'ok' : 'warn'}">
+        ${isCompliant 
+          ? '✅ <b>ELIGIBLE FOR PRACTICAL EXAM & EXTERNAL VIVA:</b> You meet the mandatory 75% lab attendance threshold for Study Centre 0400.' 
+          : `⚠️ <b>ATTENDANCE DEFICIT:</b> You need at least <b>${neededMore} more session(s)</b> to achieve the mandatory 75% attendance required to sit for the BCSL-013 lab exam.`
+        }
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-top:6px">
+      <b style="font-size:14px">SCHEDULED PRACTICAL & LAB COUNSELING SESSIONS (SC 0400):</b>
+      <a class="item" target="_blank" rel="noopener" href="${esc(p.labManualUrl || 'https://www.ignou.ac.in/schools/programme/BCA_NEW')}" style="padding:4px 8px;font-size:12px;border:2px solid #111;background:var(--yellow);margin:0">📖 Download Lab Manual / Syllabus ↗</a>
+    </div>
+
+    <div class="dyn-sessions-grid">
+      ${sessions.map(s => {
+        const isDone = localStorage.getItem("ignou_session_" + s.key) === "true";
+        return `
+          <label class="dyn-session-item ${isDone ? 'done' : ''}">
+            <input type="checkbox" class="dyn-session-check" data-session-key="${esc(s.key)}" ${isDone ? 'checked' : ''}>
+            <div class="dyn-session-info">
+              <div class="dyn-session-no">SESSION ${s.sessionNo < 10 ? '0' + s.sessionNo : s.sessionNo} · ${s.hours || 3} HOURS</div>
+              <div class="dyn-session-topic">${esc(s.topic)}</div>
+            </div>
+          </label>
+        `;
+      }).join("")}
+    </div>
+
+    <div class="note info" style="margin-top:10px">
+      <b>💡 LAB RECORD NOTE:</b> Maintain a clean laboratory record journal for every practical topic. Have each experiment signed by your academic counselor at SC 0400. The signed lab journal carries 20% weightage during your external viva voce.
+    </div>
+  `;
+}
+
+function renderExamFormPanelBody(p) {
+  const formStatus = localStorage.getItem("ignou_exam_form_status") || "pending";
+  const refNo = localStorage.getItem("ignou_exam_form_ref") || "";
+  const isSubmitted = formStatus === "submitted";
+
+  const theoryCount = p.theoryCoursesCount || 4;
+  const theoryRate = p.theoryFeePerCourse || 200;
+  const practicalCount = p.practicalCoursesCount || 1;
+  const practicalRate = p.practicalFeePerCourse || 300;
+  const total = (theoryCount * theoryRate) + (practicalCount * practicalRate);
+
+  return `
+    <div class="dyn-fee-summary">
+      <div class="dyn-fee-stat">
+        <div class="dyn-fee-label">Theory Courses (4)</div>
+        <div class="dyn-fee-val">₹${theoryCount * theoryRate}</div>
+        <small class="muted">@ ₹${theoryRate}/course</small>
+      </div>
+      <div class="dyn-fee-stat">
+        <div class="dyn-fee-label">Practical Courses (1)</div>
+        <div class="dyn-fee-val">₹${practicalCount * practicalRate}</div>
+        <small class="muted">@ ₹${practicalRate}/course</small>
+      </div>
+      <div class="dyn-fee-stat" style="background:${isSubmitted ? 'var(--green)' : 'var(--yellow)'}">
+        <div class="dyn-fee-label">Total Payable Fee</div>
+        <div class="dyn-fee-val">₹${total}</div>
+        <small class="muted" style="font-weight:900">${isSubmitted ? 'PAID & RECORDED' : 'PAYABLE ONLINE'}</small>
+      </div>
+      <div class="dyn-fee-stat">
+        <div class="dyn-fee-label">Deadline (No Late Fee)</div>
+        <div class="dyn-fee-val" style="font-size:16px;padding-top:4px">${esc(p.deadlineNoLateFee || '31 OCT 2026')}</div>
+        <small class="muted">Exam Session: DEC 2026</small>
+      </div>
+    </div>
+
+    <div class="dyn-form-status-box">
+      <div style="flex:1;min-width:240px">
+        <b style="font-size:14px;display:block">YOUR SUBMISSION STATUS:</b>
+        <span style="font-size:13px;font-weight:800;color:${isSubmitted ? '#176b24' : '#b22222'}">
+          ${isSubmitted ? '✅ Payment Completed & Official Receipt Generated' : '⏳ Submission Pending in Official IGNOU Exam Portal'}
+        </span>
+        <div style="margin-top:8px">
+          <input type="text" class="dyn-form-ref-input" id="examFormRefInput" placeholder="Enter Form Control / Txn No." value="${esc(refNo)}">
+          <small class="muted" style="display:block;margin-top:4px">Save your IGNOU Control Number for quick hall ticket lookup.</small>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <button class="dyn-form-toggle-btn ${isSubmitted ? 'submitted' : 'pending'}" id="btnToggleExamFormStatus">
+          ${isSubmitted ? '✔ MARKED AS PAID (Click to Revert)' : 'MARK AS PAID & SUBMITTED'}
+        </button>
+        <a class="btn-open-notice" target="_blank" rel="noopener" href="${esc(p.verifiedUrl || 'https://exam.ignou.ac.in/')}">
+          OPEN EXAM PORTAL ↗
+        </a>
+      </div>
+    </div>
+  `;
+}
+
+function renderGenericPanelBody(p) {
+  return `
+    <div class="note">
+      <p>${esc(p.description || "Official update details verified from source.")}</p>
+      ${p.verifiedUrl ? `<a class="item" target="_blank" rel="noopener" href="${esc(p.verifiedUrl)}">Open Source Reference ↗</a>` : ''}
+    </div>
+  `;
+}
+
+function bindDynamicPanelsEvents(panels) {
+  // 1. Collapse / Expand
+  document.querySelectorAll(".btn-collapse-dyn").forEach(btn => {
+    btn.onclick = () => {
+      const pid = btn.dataset.panelId;
+      const card = document.getElementById(pid);
+      if (!card) return;
+      const willCollapse = !card.classList.contains("collapsed");
+      card.classList.toggle("collapsed", willCollapse);
+      btn.textContent = willCollapse ? "＋ Expand" : "－ Minimize";
+      btn.title = willCollapse ? "Expand panel" : "Collapse panel";
+      localStorage.setItem("ignou_dyn_collapsed_" + pid, willCollapse);
+    };
+  });
+
+  // 2. Dismiss / Hide
+  document.querySelectorAll(".btn-dismiss-dyn").forEach(btn => {
+    btn.onclick = () => {
+      const pid = btn.dataset.panelId;
+      const dismissedKey = "ignou_dyn_dismissed_v1";
+      let dismissed = [];
+      try { dismissed = JSON.parse(localStorage.getItem(dismissedKey) || "[]"); } catch (e) { dismissed = []; }
+      if (!dismissed.includes(pid)) dismissed.push(pid);
+      localStorage.setItem(dismissedKey, JSON.stringify(dismissed));
+      renderDynamicPanels(panels);
+    };
+  });
+
+  // 3. Restore Hidden Panels
+  const btnRestore = document.getElementById("btnRestoreHiddenPanels");
+  if (btnRestore) {
+    btnRestore.onclick = () => {
+      localStorage.removeItem("ignou_dyn_dismissed_v1");
+      renderDynamicPanels(panels);
+    };
+  }
+
+  // 4. Datesheet: Filter / Search
+  const searchInput = document.getElementById("datesheetSearchInput");
+  if (searchInput) {
+    searchInput.oninput = () => {
+      const q = searchInput.value.toLowerCase().trim();
+      document.querySelectorAll(".datesheet-row").forEach(row => {
+        const data = row.dataset.search || "";
+        row.style.display = !q || data.includes(q) ? "" : "none";
+      });
+    };
+  }
+
+  // 5. Datesheet: Download ICS Calendar
+  const btnIcs = document.getElementById("btnDownloadIcs");
+  if (btnIcs) {
+    btnIcs.onclick = () => {
+      const dateSheetPanel = panels.find(p => p.type === "datesheet");
+      if (dateSheetPanel && Array.isArray(dateSheetPanel.courses)) {
+        downloadDateSheetIcs(dateSheetPanel.courses);
+      }
+    };
+  }
+
+  // 6. Datesheet: Print Timetable
+  const btnPrint = document.getElementById("btnPrintDatesheet");
+  if (btnPrint) {
+    btnPrint.onclick = () => {
+      window.print();
+    };
+  }
+
+  // 7. Datesheet: Preparation status change
+  document.querySelectorAll(".dyn-prep-select").forEach(sel => {
+    sel.onchange = () => {
+      const code = sel.dataset.prepCode;
+      if (!code) return;
+      localStorage.setItem("ignou_prep_" + code, sel.value);
+      markSaved();
+    };
+  });
+
+  // 8. Practical: Checkbox toggles
+  document.querySelectorAll(".dyn-session-check").forEach(chk => {
+    chk.onchange = () => {
+      const key = chk.dataset.sessionKey;
+      if (!key) return;
+      localStorage.setItem("ignou_session_" + key, chk.checked);
+      markSaved();
+      renderDynamicPanels(panels);
+      renderTodo();
+    };
+  });
+
+  // 9. Exam Form: Status toggle
+  const btnToggleExamForm = document.getElementById("btnToggleExamFormStatus");
+  if (btnToggleExamForm) {
+    btnToggleExamForm.onclick = () => {
+      const current = localStorage.getItem("ignou_exam_form_status") || "pending";
+      const next = current === "submitted" ? "pending" : "submitted";
+      localStorage.setItem("ignou_exam_form_status", next);
+      markSaved();
+      renderDynamicPanels(panels);
+      renderTodo();
+    };
+  }
+
+  // 10. Exam Form: Reference / Control number input
+  const refInput = document.getElementById("examFormRefInput");
+  if (refInput) {
+    refInput.oninput = () => {
+      localStorage.setItem("ignou_exam_form_ref", refInput.value.trim());
+      markSaved();
+    };
+  }
+}
+
 function renderAutoMonitor(data){
   monitorData=data||null;
+  renderDynamicPanels(data && Array.isArray(data.dynamicPanels) ? data.dynamicPanels : []);
   renderTodo();
   renderDeadlines();
   const eventsEl=document.getElementById("autoEvents");
