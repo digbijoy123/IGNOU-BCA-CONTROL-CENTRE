@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "2026-10-20T00:17:12.056Z",
+  "generatedAt": "2026-10-20T05:58:05.840Z",
   "sources": {
     "hq": {
       "ok": true,
@@ -14,7 +14,7 @@
       "links": [],
       "excerpt": "IGNOU --> IGNOU's AWS A- A+ English Hindi Accessibility --> Indira Gandhi National Open University(IGNOU) इंदिरा गांधी राष्ट्रीय मुक्त विश्वविद्यालय (इग्नू) IGNOU's AWS --> Home News/Announcements # Issue by News/Announcements/Notification Date Employee Services Mail Service Regional Network RC Services SOUs/Other Institutions IGNOU Credit Society Empanelled Hospitals University House Allotment New Jobs at IGNOU Tenders of IGNOU Telephone Directory Committee Against Sexual Harassment SHe-BOX IGNOU-SAMARTH Portal Student Services Common Prospectus Podcast Link IGNOU UDYAMI IGNOU Online Programmes Student Grievances Study Material Status Study Material Catalogue Placement Assistance Alumni Int",
       "lastChangedAt": "2026-10-16T04:42:16.717Z",
-      "checkedAt": "2026-10-20T00:17:12.056Z"
+      "checkedAt": "2026-10-20T05:58:05.840Z"
     },
     "bca": {
       "ok": true,
@@ -34,7 +34,7 @@
       ],
       "excerpt": "IGNOU --> IGNOU's AWS A- A+ English Hindi Accessibility --> Indira Gandhi National Open University(IGNOU) इंदिरा गांधी राष्ट्रीय मुक्त विश्वविद्यालय (इग्नू) IGNOU's AWS --> Bachelor of Computer Applications (SOCIS) Sub Menu --> School of Computer and Information Sciences Home About us School of Studies School of Computer and Information Sciences Bachelor of Computer Applications BCA_NEW: Bachelor of Computer Applications(ODL) Apply Now Introduction The basic objective of the Programme is to open a channel of admission for computing courses for students, who have done the 10+2 and are interested in taking computing/IT as a career. After acquiring the Bachelor’s Degree (BCA) at IGNOU, there is",
       "lastChangedAt": "2026-10-16T04:42:16.717Z",
-      "checkedAt": "2026-10-20T00:17:12.056Z"
+      "checkedAt": "2026-10-20T05:58:05.840Z"
     },
     "assign": {
       "ok": true,
@@ -48,7 +48,7 @@
       "links": [],
       "excerpt": "IGNOU --> IGNOU's AWS A- A+ English Hindi Accessibility --> Indira Gandhi National Open University(IGNOU) इंदिरा गांधी राष्ट्रीय मुक्त विश्वविद्यालय (इग्नू) IGNOU's AWS --> School of Studies (School of Management Studies) Sub Menu --> School of Studies School of Agriculture School of Continuing Education School of Computer and Information Sciences School of Education School of Extension and Development Studies School of Engineering &amp; Technology School of Foreign Languages School of Gender and Development Studies School of Humanities School of Health Sciences School of Inter-Disciplinary and Trans-Disciplinary Studies School of Journalism and New Media Studies School of Law School of Mana",
       "lastChangedAt": "2026-10-16T04:42:16.717Z",
-      "checkedAt": "2026-10-20T00:17:12.056Z"
+      "checkedAt": "2026-10-20T05:58:05.840Z"
     },
     "rc": {
       "ok": true,
@@ -81,7 +81,7 @@
       ],
       "excerpt": "--> Welcome to IGNOU Guwahati Regional Centre 20 October, 2026 Font Size : A | A- | A+ Guwahati Regional Centre About Us --> Programmes --> Student Corner --> Study Centres --> News & Events --> Photo Gallery --> Contact Us --> www.ignou.ac.in --> AddThis Button END --> | Welcome to Guwahati Regional Centre --> About us The Guwahati Regional Centre was established in 1996 with a total of 6 study centres and 35 programmes with approximately about 1100 learners. As on date Regional centre Guwahati has 30 learner support centres, 525 academic counselors and 78 academic programmes on offer. Visitor | History | NAAC - Activities | Staff at LSC | Achievements | RC Staff | Academic Counsellors | Ab",
       "lastChangedAt": "2026-10-19T21:01:25.654Z",
-      "checkedAt": "2026-10-20T00:17:12.056Z"
+      "checkedAt": "2026-10-20T05:58:05.840Z"
     },
     "tee": {
       "ok": true,
@@ -93,7 +93,7 @@
       "links": [],
       "excerpt": "IGNOU:: Examination Form",
       "lastChangedAt": "2026-10-16T04:42:16.717Z",
-      "checkedAt": "2026-10-20T00:17:12.056Z"
+      "checkedAt": "2026-10-20T05:58:05.840Z"
     }
   },
   "events": [
@@ -288,7 +288,7 @@
       "tag": "BCA_NEW SEMESTER 1",
       "badge": "LIVE TIMETABLE",
       "source": "IGNOU Examination Portal",
-      "detectedAt": "2026-10-20T00:17:12.056Z",
+      "detectedAt": "2026-10-20T05:58:05.840Z",
       "verifiedUrl": "https://exam.ignou.ac.in/",
       "description": "Official examination schedule dynamically filtered for your enrolled BCA Semester 1 curriculum. Exam dates and morning/afternoon slots are verified from the official IGNOU TEE schedule.",
       "courses": [
@@ -357,7 +357,7 @@
       "tag": "RC GUWAHATI · SC 0400",
       "badge": "75% MANDATORY ATTENDANCE",
       "source": "RC Guwahati Portal",
-      "detectedAt": "2026-10-20T00:17:12.056Z",
+      "detectedAt": "2026-10-20T05:58:05.840Z",
       "verifiedUrl": "http://rcguwahati.ignou.ac.in/",
       "description": "Laboratory counseling session schedule and compliance tracker for BCA Semester 1 at Study Centre 0400.",
       "sessions": [
@@ -432,7 +432,7 @@
       "tag": "FEE CALCULATOR",
       "badge": "SUBMISSION TRACKER",
       "source": "TEE Exam Portal",
-      "detectedAt": "2026-10-20T00:17:12.056Z",
+      "detectedAt": "2026-10-20T05:58:05.840Z",
       "verifiedUrl": "https://exam.ignou.ac.in/",
       "description": "Official exam registration checklist and fee breakdown for your 5 BCA Semester 1 courses.",
       "theoryCoursesCount": 4,
